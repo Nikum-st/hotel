@@ -1,0 +1,22 @@
+{
+	"users": {
+		"id": "001",
+		"login": "ivan",
+		"password": "ivan",
+		"role_id": 1
+	},
+	"rooms": {
+		"id": "001",
+		"name": "lux",
+		"description": "gfhghjgfjhfjgfjgfjfhjgfhghhhghghfghfvdhdrrrrrrrrrrrrrrrrrh",
+		"price": 345,
+		"available_dates": []
+	},
+	"bookings": {
+		"id": "001",
+		"user_id": "001",
+		"room_id": "001",
+		"start_date": "01.01.2001",
+		"end_date": "01.01.2001"
+	}
+}
