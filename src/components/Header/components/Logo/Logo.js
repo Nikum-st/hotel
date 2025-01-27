@@ -7,6 +7,7 @@ export const Logo = () => {
 			<Link to="/">
 				<div className={styles.logo}>GL</div>
 			</Link>
+			<div className={styles.textHotel}>HOTEL</div>
 		</div>
 	);
 };

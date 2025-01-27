@@ -2,8 +2,9 @@
 	"users": {
 		"id": "001",
 		"login": "ivan",
-		"password": "ivan",
-		"role_id": 1
+		"email": "dsa@mail.com",
+		"password": "i1111asds",
+		"registred_at": "01.11.2011"
 	},
 	"rooms": {
 		"id": "001",

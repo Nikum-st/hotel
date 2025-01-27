@@ -26,3 +26,8 @@
 .logoContainer:hover .logo {
 	transform: translateY(-5px);
 }
+
+.textHotel {
+	font-weight: 600;
+	font-size: 21px;
+}
