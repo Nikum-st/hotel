@@ -5,6 +5,19 @@ export const appReducer = (state = initialStateApp, action) => {
 	const { type, payload } = action;
 
 	switch (type) {
+		case ACTION_TYPE.USER.LOG_USER:
+			return {
+				isAuthenticated: true,
+			};
+		case ACTION_TYPE.USER.LOG_OUT:
+			return {
+				isAuthenticated: false,
+			};
+		case ACTION_TYPE.APP.LOADING:
+			return {
+				...state,
+				loading: payload,
+			};
 		default:
 			return state;
 	}

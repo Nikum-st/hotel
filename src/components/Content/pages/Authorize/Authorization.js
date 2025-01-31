@@ -1,77 +1,59 @@
-import styles from './Autgorization.module.css';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
-import { Button, ErrorMessage, Input } from '../../../components/';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { yupSchema } from '../../../../yup/yup';
-import { server } from '../../../../BFF/server';
-import { setUser } from '../../../../store';
-import { useDispatch } from 'react-redux';
+import { loading, logUser, selectLoading } from '../../../../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRequestServer } from '../../../../hooks';
+import { AuthLayout } from './AuthLayout';
 
 export const Authorization = () => {
-	// const [errorServer, setErrorServer] = useState(null);
+	const [errorServer, setErrorServer] = useState(null);
 
-	// const dispatch = useDispatch();
-	// const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const isLoading = useSelector(selectLoading);
+	const navigate = useNavigate();
+	const requestAuthoraize = useRequestServer();
 
-	// const {
-	// 	register,
-	// 	reset,
-	// 	handleSubmit,
-	// 	formState: { errors },
-	// } = useForm({
-	// 	defaultValues: {
-	// 		login: '',
-	// 		password: '',
-	// 	},
-	// 	resolver: yupResolver(yupSchema.authorization),
-	// });
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({
+		defaultValues: {
+			login: '',
+			password: '',
+		},
+		resolver: yupResolver(yupSchema.authorization),
+	});
 
-	// useResetAuth(reset);
+	const onSubmit = ({ login, password }) => {
+		dispatch(loading(true));
+		requestAuthoraize('authorization', login, password)
+			.then(({ error, res }) => {
+				if (error) {
+					setErrorServer(error);
+					return;
+				}
+				dispatch(logUser(res));
+				navigate('/');
+			})
+			.finally(() => {
+				dispatch(loading(false));
+			});
+	};
 
-	// const onSubmit = ({ login, password }) => {
-	// 	server.authorization(login, password).then(({ error, res }) => {
-	// 		if (error) {
-	// 			// setErrorServer(error);
-	// 			return;
-	// 		}
-	// 		// dispatch(setUser(res));
-	// 		// navigate('/');
-	// 	});
-	// };
-	// const errorMessage = errors.login?.message || errors.password?.message || errorServer;
+	const errorMessage = errors.login?.message || errors.password?.message || errorServer;
 
 	return (
-		<div className={styles.autorization}>
-			<h2>Авторизация</h2>
-			<form className={styles.form}>
-				<Input
-					type="text"
-					placeholder="Логин..."
-					// {...register(`login`, {
-					// 	onChange: () => {
-					// 		setErrorServer(null);
-					// 	},
-					// })}
-				/>
-				<Input
-					type="text"
-					placeholder="Пароль..."
-					// {...register(`password`, {
-					// 	onChange: () => {
-					// 		setErrorServer(null);
-					// 	},
-					// })}
-				/>
-				<Button type="submit" width="100%">
-					Войти
-				</Button>
-			</form>
-			{/* {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>} */}
-			<Link className={styles.linkStyled} to="/register">
-				Регистрация
-			</Link>
-		</div>
+		<AuthLayout
+			isLoading={isLoading}
+			register={register}
+			handleSubmit={handleSubmit}
+			errorMessage={errorMessage}
+			onSubmit={onSubmit}
+			setErrorServer={setErrorServer}
+		/>
 	);
 };

@@ -1,1 +1,1 @@
-export const initialStateApp = {};
+export const initialStateApp = { isAuthenticated: false, loading: false };

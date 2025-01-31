@@ -9,5 +9,6 @@ export const addUserToServer = (login, password, email) =>
 			password,
 			email,
 			registred_at: generateDate,
+			role: 'user',
 		}),
 	}).then((createdUser) => createdUser.json());

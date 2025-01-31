@@ -1,5 +1,6 @@
 export const ACTION_TYPE = {
-	USERS: {},
+	APP: { LOADING: 'APP/LOADING' },
+	USER: { LOG_USER: 'USER/SET_USER', LOG_OUT: 'USER/LOG_OUT' },
 	ROOMS: {},
 	BOOKINGS: {},
 };

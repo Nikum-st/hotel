@@ -1,0 +1,10 @@
+.icon {
+	cursor: pointer;
+	margin-left: 10px;
+	font-size: inherit;
+	transition: color 0.3s ease;
+}
+
+.icon:hover {
+	color: #797979;
+}

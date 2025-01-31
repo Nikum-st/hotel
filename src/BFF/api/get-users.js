@@ -10,9 +10,9 @@ export const getUsers = async () => {
 			id: user.id,
 			login: user.login,
 			email: user.email,
-			roleId: user.role_id,
 			password: user.password,
 			registredAt: user.registred_at,
+			role: user.role,
 		}));
 	} catch {
 		return null;

@@ -1,11 +1,14 @@
 {
-	"users": {
-		"id": "001",
-		"login": "ivan",
-		"email": "dsa@mail.com",
-		"password": "i1111asds",
-		"registred_at": "01.11.2011"
-	},
+	"users": [
+		{
+			"id": "001",
+			"login": "ivan",
+			"email": "dsa@mail.com",
+			"password": "123",
+			"registred_at": "01.11.2011",
+			"role": "admin"
+		}
+	],
 	"rooms": {
 		"id": "001",
 		"name": "lux",
