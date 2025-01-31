@@ -1,92 +1,62 @@
-import styles from './Register.module.css';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
-import { Button, ErrorMessage, Input } from '../../../components/';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { yupSchema } from '../../../../yup/yup';
-import { server } from '../../../../BFF/server';
-import { setUser } from '../../../../store';
-import { useDispatch } from 'react-redux';
+import { loading, logUser, selectLoading } from '../../../../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRequestServer } from '../../../../hooks';
+import { RegLayout } from './RegLayout';
 
 export const Registration = () => {
-	// const [errorServer, setErrorServer] = useState(null);
+	const [errorServer, setErrorServer] = useState(null);
 
-	// const dispatch = useDispatch();
-	// const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const requestRegister = useRequestServer();
+	const isLoading = useSelector(selectLoading);
 
-	// const {
-	// 	register,
-	// 	reset,
-	// 	handleSubmit,
-	// 	formState: { errors },
-	// } = useForm({
-	// 	defaultValues: {
-	// 		login: '',
-	// 		password: '',
-	// 	},
-	// 	resolver: yupResolver(yupSchema.authorization),
-	// });
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({
+		defaultValues: {
+			login: '',
+			email: '',
+			password: '',
+		},
+		resolver: yupResolver(yupSchema.registration),
+	});
 
-	// useResetAuth(reset);
-
-	// const onSubmit = ({ login, password }) => {
-	// 	server.authorization(login, password).then(({ error, res }) => {
-	// 		if (error) {
-	// 			// setErrorServer(error);
-	// 			return;
-	// 		}
-	// 		// dispatch(setUser(res));
-	// 		// navigate('/');
-	// 	});
-	// };
-	// const errorMessage = errors.login?.message || errors.password?.message || errorServer;
+	const submitNewUser = ({ login, password, email }) => {
+		dispatch(loading(true));
+		requestRegister('registration', login, password, email)
+			.then(({ error, res }) => {
+				if (error) {
+					setErrorServer(error);
+					return;
+				}
+				dispatch(logUser(res));
+				navigate('/');
+			})
+			.finally(dispatch(loading(false)));
+	};
+	const errorMessage =
+		errors.login?.message ||
+		errors.email?.message ||
+		errors.password?.message ||
+		errors.passcheck?.message ||
+		errorServer;
 
 	return (
-		<div className={styles.registration}>
-			<h2>Регистрация</h2>
-			<form className={styles.form}>
-				<Input
-					type="text"
-					placeholder="Логин..."
-					// {...register(`login`, {
-					// 	onChange: () => {
-					// 		setErrorServer(null);
-					// 	},
-					// })}
-				/>
-				<Input
-					type="text"
-					placeholder="Email..."
-					// {...register(`password`, {
-					// 	onChange: () => {
-					// 		setErrorServer(null);
-					// 	},
-					// })}
-				/>
-				<Input
-					type="text"
-					placeholder="Пароль..."
-					// {...register(`password`, {
-					// 	onChange: () => {
-					// 		setErrorServer(null);
-					// 	},
-					// })}
-				/>
-				<Input
-					type="text"
-					placeholder="Повторите пароль..."
-					// {...register(`password`, {
-					// 	onChange: () => {
-					// 		setErrorServer(null);
-					// 	},
-					// })}
-				/>
-				<Button type="submit" width="100%">
-					Зарегестрироваться
-				</Button>
-			</form>
-			{/* {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>} */}
-		</div>
+		<RegLayout
+			isLoading={isLoading}
+			handleSubmit={handleSubmit}
+			submitNewUser={submitNewUser}
+			register={register}
+			setErrorServer={setErrorServer}
+			errorMessage={errorMessage}
+		/>
 	);
 };

@@ -28,7 +28,7 @@ export const Authorization = () => {
 		resolver: yupResolver(yupSchema.authorization),
 	});
 
-	const onSubmit = ({ login, password }) => {
+	const submitUserDates = ({ login, password }) => {
 		dispatch(loading(true));
 		requestAuthoraize('authorization', login, password)
 			.then(({ error, res }) => {
@@ -52,7 +52,7 @@ export const Authorization = () => {
 			register={register}
 			handleSubmit={handleSubmit}
 			errorMessage={errorMessage}
-			onSubmit={onSubmit}
+			onSubmit={submitUserDates}
 			setErrorServer={setErrorServer}
 		/>
 	);

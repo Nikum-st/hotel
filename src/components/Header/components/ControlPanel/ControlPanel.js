@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './ControlPanel.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -13,6 +13,7 @@ export const ControlPanel = () => {
 	const isAuthenticated = useSelector(selectIsAuthenticated);
 	const login = useSelector(selectLogin);
 	const role = useSelector(selectRole);
+	const navigate = useNavigate();
 
 	const dispatch = useDispatch();
 
@@ -31,7 +32,14 @@ export const ControlPanel = () => {
 				<Icon size={'30px'} id={'fa fa-bed'} title="Забронировать" />
 			</Link>
 			<div className={styles.containerIcon}>
-				<Icon size={'30px'} id={'fa-sign-out'} onClick={() => dispatch(logOut)} />
+				<Icon
+					size={'30px'}
+					id={'fa-sign-out'}
+					onClick={() => {
+						dispatch(logOut);
+						navigate('/');
+					}}
+				/>
 				<div className={styles.textDescription}>Выйти</div>
 			</div>
 		</div>

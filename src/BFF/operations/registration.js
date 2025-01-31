@@ -1,13 +1,18 @@
-import { addUserToServer } from '../api/add-user-to-server';
 import { sessions } from '../sessions';
-import { getUser } from '../api/get-user';
+import { getUser, getEmail, addUserToServer } from '../api';
 
 export const registration = async (login, password, email) => {
 	const extendedUser = await getUser(login);
+	const extendedEmail = await getEmail(email);
 
 	if (extendedUser) {
 		return {
-			error: 'Такой логин уже существует.Придумайте другой',
+			error: 'Такой логин уже существует',
+			res: null,
+		};
+	} else if (extendedEmail) {
+		return {
+			error: 'Такой email уже существует',
 			res: null,
 		};
 	}
