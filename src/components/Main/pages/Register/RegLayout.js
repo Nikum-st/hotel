@@ -1,4 +1,4 @@
-import { Button, ErrorMessage, Input, Loader } from '../../../components/';
+import { Button, ErrorMessage, Input, Loader } from '../../../components';
 import styles from './Register.module.css';
 
 export const RegLayout = ({

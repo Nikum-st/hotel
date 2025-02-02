@@ -1,7 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { MainPage } from '../../pages/MainPage/MainPage';
-import { Authorization } from '../../pages/Authorize/Authorization';
-import { Registration } from '../../pages/Register/Register';
+import { MainPage, Registration, Authorization, Error404 } from '../../pages';
 
 export const Routing = () => (
 	<Routes>
@@ -15,5 +13,6 @@ export const Routing = () => (
 			path="/bookings"
 			element={<div>Все забронированные номера пользователя</div>}
 		/>
+		<Route path="*" element={<Error404 />} />
 	</Routes>
 );

@@ -1,10 +1,10 @@
-import { Content, Header } from './components';
+import { Header, Main } from './components';
 
 function App() {
 	return (
 		<div>
 			<Header />
-			<Content />
+			<Main />
 		</div>
 	);
 }
