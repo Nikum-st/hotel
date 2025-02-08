@@ -1,23 +1,27 @@
 .content {
-	display: flex;
-	flex-direction: column;
+	font-family: Arial, sans-serif;
+	color: #333;
+	max-width: 1200px;
 }
-
-h1 {
-	margin: 40px 0px 20px 0px;
-	display: flex;
-	justify-content: space-evenly;
+.name {
+	text-align: center;
+	margin: 40px;
 }
 .containerDetails {
 	display: flex;
-	padding: 20px;
+	gap: 30px;
+	align-items: center;
+	justify-content: space-around;
 }
+
 .containerDetails img {
-	width: 43%;
+	max-width: 40%;
+	border-radius: 8px;
 	height: auto;
-	display: block;
-	border-radius: 10px;
 }
-.info {
-	display: flex;
+
+@media (max-width: 768px) {
+	.containerDetails {
+		flex-direction: column;
+	}
 }

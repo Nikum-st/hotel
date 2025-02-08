@@ -13,6 +13,7 @@ export const getRooms = async () => {
 			size: room.size,
 			beds: room.beds,
 			description: room.description,
+			shortDescription: room.short_description,
 			amenities: room.amenities,
 			price: room.price,
 			img: room.img,

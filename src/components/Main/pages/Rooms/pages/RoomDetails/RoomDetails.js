@@ -6,6 +6,7 @@ import { selectRooms } from '../../../../../../store';
 import { useEffect } from 'react';
 import { useFetchRooms } from '../../../../../../hooks';
 import styles from './RoomDetails.module.css';
+import { Info } from '../../components/Info';
 
 export const RoomDetails = () => {
 	const fetchRooms = useFetchRooms();
@@ -25,10 +26,10 @@ export const RoomDetails = () => {
 
 	return (
 		<div className={styles.content}>
-			<h1>{roomName(room)}</h1>
+			<h1 className={styles.name}>{roomName(room)}</h1>
 			<div className={styles.containerDetails}>
 				<img src={room.img} alt={room.name} />
-				<div className={styles.info}></div>
+				<Info room={room} />
 			</div>
 		</div>
 	);
