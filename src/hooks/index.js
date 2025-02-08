@@ -1,2 +1,2 @@
 export * from './useRequstServer';
-export * from './useRequestRooms';
+export * from './useFetchRooms';

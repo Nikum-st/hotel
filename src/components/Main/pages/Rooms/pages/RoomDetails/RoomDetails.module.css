@@ -1,0 +1,23 @@
+.content {
+	display: flex;
+	flex-direction: column;
+}
+
+h1 {
+	margin: 40px 0px 20px 0px;
+	display: flex;
+	justify-content: space-evenly;
+}
+.containerDetails {
+	display: flex;
+	padding: 20px;
+}
+.containerDetails img {
+	width: 43%;
+	height: auto;
+	display: block;
+	border-radius: 10px;
+}
+.info {
+	display: flex;
+}

@@ -24,7 +24,7 @@ export const Authenticated = () => {
 			<Link to="/rooms">
 				<Icon size={'30px'} id={'fa fa-bed'} title="Забронировать" />
 			</Link>
-			<div className={styles.containerIcon}>
+			<div className={styles.containerIconLogOut}>
 				<Icon
 					size={'30px'}
 					id={'fa-sign-out'}
