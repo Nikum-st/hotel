@@ -3,6 +3,7 @@
 	width: 100%;
 	height: 823px;
 	overflow: hidden;
+	z-index: 1;
 }
 
 .backgroundImage {
@@ -18,11 +19,12 @@
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.6);
+	z-index: 0;
 }
 
 .logoContainer {
 	position: absolute;
-	top: 45%;
+	top: 18%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	text-align: center;

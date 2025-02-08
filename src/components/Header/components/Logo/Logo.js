@@ -3,11 +3,12 @@ import styles from './Logo.module.css';
 
 export const Logo = () => {
 	return (
-		<div className={styles.logoContainer}>
-			<Link to="/">
+		<Link to="/">
+			<div className={styles.logoContainer}>
 				<div className={styles.logo}>GL</div>
-			</Link>
-			<div className={styles.textHotel}>HOTEL</div>
-		</div>
+
+				<div className={styles.textHotel}>HOTEL</div>
+			</div>
+		</Link>
 	);
 };

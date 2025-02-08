@@ -19,7 +19,7 @@
 .logo {
 	font-size: 71px;
 	font-weight: bold;
-	color: #333;
+	color: #d4d4d4;
 	transition: transform 0.3s ease;
 }
 
@@ -30,4 +30,5 @@
 .textHotel {
 	font-weight: 600;
 	font-size: 21px;
+	color: #d4d4d4;
 }
