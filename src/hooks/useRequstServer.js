@@ -9,7 +9,7 @@ export const useRequestServer = () => {
 		(operation, ...params) => {
 			const request = ['authorization', 'registration'].includes(operation)
 				? params
-				: [session, ...params];
+				: [...params, session];
 			return server[operation](...request);
 		},
 		[session],

@@ -6,6 +6,7 @@ import {
 	Error404,
 	Rooms,
 	RoomDetails,
+	Bookings,
 } from '../../pages';
 
 export const Routing = () => (
@@ -16,10 +17,7 @@ export const Routing = () => (
 		<Route path="/admin" element={<div>Панель администратора</div>} />
 		<Route path="/authorize" element={<Authorization />} />
 		<Route path="/register" element={<Registration />} />
-		<Route
-			path="/bookings"
-			element={<div>Все забронированные номера пользователя</div>}
-		/>
+		<Route path="/bookings" element={<Bookings />} />
 		<Route path="*" element={<Error404 />} />
 	</Routes>
 );

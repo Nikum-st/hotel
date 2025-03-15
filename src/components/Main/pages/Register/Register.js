@@ -38,6 +38,7 @@ export const Registration = () => {
 					return;
 				}
 				dispatch(logUser(res));
+				sessionStorage.setItem('userData', JSON.stringify(res));
 				navigate('/');
 			})
 			.finally(dispatch(loading(false)));

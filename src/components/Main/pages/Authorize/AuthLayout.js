@@ -14,11 +14,11 @@ export const AuthLayout = ({
 		<Loader />
 	) : (
 		<div className={styles.autorization}>
-			<h2>Авторизация</h2>
+			<h2>Authorization</h2>
 			<form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
 				<Input
 					type="login"
-					placeholder="Логин..."
+					placeholder="Login..."
 					{...register(`login`, {
 						onChange: () => {
 							setErrorServer(null);
@@ -27,7 +27,7 @@ export const AuthLayout = ({
 				/>
 				<Input
 					type="password"
-					placeholder="Пароль..."
+					placeholder="Password..."
 					{...register(`password`, {
 						onChange: () => {
 							setErrorServer(null);
@@ -35,12 +35,12 @@ export const AuthLayout = ({
 					})}
 				/>
 				<Button type="submit" width="100%">
-					Вход
+					Sign In
 				</Button>
 			</form>
 			{errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
 			<Link className={styles.linkStyled} to="/register">
-				Регистрация
+				Sign Up
 			</Link>
 		</div>
 	);

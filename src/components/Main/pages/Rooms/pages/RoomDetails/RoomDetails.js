@@ -1,35 +1,79 @@
-import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 import { roomName } from '../../../../../../constants';
 import { Loader } from '../../../../../components/Loader/Loader';
-import { selectRooms } from '../../../../../../store';
-import { useEffect } from 'react';
-import { useFetchRooms } from '../../../../../../hooks';
+import {
+	fetchBookingsAsync,
+	selectBookings,
+	selectLoading,
+	selectRooms,
+} from '../../../../../../store';
+import { useEffect, useState } from 'react';
+import { useFetchRooms, useRequestServer } from '../../../../../../hooks';
 import styles from './RoomDetails.module.css';
-import { Info } from '../../components/Info';
+import { Info } from './components/Info/Info';
+import { Button } from '../../../../../components/Button/Button';
+import { Booking } from './components/Booking/Booking';
+import { Icon } from '../../../../../components';
 
 export const RoomDetails = () => {
+	const [bookingMode, setBookingMode] = useState(false);
 	const fetchRooms = useFetchRooms();
+	const fetchBookings = useRequestServer();
+	const bookings = useSelector(selectBookings);
 	const rooms = useSelector(selectRooms);
+	const dispatch = useDispatch();
 	const { name } = useParams();
+	const navigate = useNavigate();
+	const isLoading = useSelector(selectLoading);
 
 	useEffect(() => {
-		if (!rooms.length) {
-			fetchRooms();
-		}
-	}, [rooms.length]);
+		const loadRoomsAndBookings = async () => {
+			if (!rooms.length) {
+				await fetchRooms();
+			}
+			if (!bookings.length) {
+				dispatch(fetchBookingsAsync(fetchBookings));
+			}
+		};
+		loadRoomsAndBookings();
+	}, []);
 
 	const room = rooms?.find((room) => room.name === name);
 	if (!room) {
 		return <Loader />;
 	}
 
-	return (
+	const onClickBookingMode = () => {
+		setBookingMode(!bookingMode);
+	};
+
+	return isLoading ? (
+		<Loader />
+	) : (
 		<div className={styles.content}>
-			<h1 className={styles.name}>{roomName(room)}</h1>
+			<div className={styles.highPanel}>
+				<div className={styles.icon}>
+					<Icon
+						onClick={() => navigate('/rooms')}
+						size={'20px'}
+						id={'fa-chevron-left'}
+						title="back"
+					/>
+				</div>
+				<h1 className={styles.name}>{roomName(room)}</h1>
+			</div>
 			<div className={styles.containerDetails}>
 				<img src={room.img} alt={room.name} />
-				<Info room={room} />
+				{!bookingMode ? (
+					<Info room={room}>
+						<Button onClick={onClickBookingMode} style={{ width: `40%` }}>
+							Book
+						</Button>
+					</Info>
+				) : (
+					<Booking room={room} onClickBookingMode={onClickBookingMode} />
+				)}
 			</div>
 		</div>
 	);

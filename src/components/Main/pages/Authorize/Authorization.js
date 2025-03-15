@@ -37,6 +37,7 @@ export const Authorization = () => {
 					return;
 				}
 				dispatch(logUser(res));
+				sessionStorage.setItem('userData', JSON.stringify(res));
 				navigate('/');
 			})
 			.finally(() => {

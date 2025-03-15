@@ -1,4 +1,4 @@
-import { getData } from './get-dates';
+import { getData } from './get-data';
 
 export const getEmail = async (emailToFind) => {
 	try {

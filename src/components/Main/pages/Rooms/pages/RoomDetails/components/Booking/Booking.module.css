@@ -1,0 +1,31 @@
+.content {
+	display: flex;
+	flex-direction: column;
+}
+.bookingContainer {
+	display: flex;
+	flex-direction: column;
+	margin: 22px;
+	gap: 41px;
+	padding: 82px;
+	background: #fff;
+	border-radius: 10px;
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.bookingSection {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 10px;
+}
+.reactDatepicker {
+	padding: 15px;
+	border-radius: 10px;
+	border: 1px solid #ddd;
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.reactDatepicker__day--selected {
+	background-color: #4caf50 !important;
+	color: white !important;
+}

@@ -25,7 +25,7 @@ export const MainPage = () => {
 							padding: '20px',
 						}}
 					>
-						Доступные номера
+						Available rooms
 					</Button>
 				</Link>
 			</div>

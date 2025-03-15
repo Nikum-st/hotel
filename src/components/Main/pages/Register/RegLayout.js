@@ -13,11 +13,11 @@ export const RegLayout = ({
 		<Loader />
 	) : (
 		<div className={styles.registration}>
-			<h2>Регистрация</h2>
+			<h2>Registration</h2>
 			<form onSubmit={handleSubmit(submitNewUser)} className={styles.form}>
 				<Input
 					type="login"
-					placeholder="Логин..."
+					placeholder="Login..."
 					{...register(`login`, {
 						onChange: () => {
 							setErrorServer(null);
@@ -35,7 +35,7 @@ export const RegLayout = ({
 				/>
 				<Input
 					type="password"
-					placeholder="Пароль..."
+					placeholder="Password..."
 					{...register(`password`, {
 						onChange: () => {
 							setErrorServer(null);
@@ -44,7 +44,8 @@ export const RegLayout = ({
 				/>
 				<Input
 					type="passcheck"
-					placeholder="Повторите пароль..."
+					placeholder="Repeat password
+..."
 					{...register(`passcheck`, {
 						onChange: () => {
 							setErrorServer(null);
@@ -52,7 +53,7 @@ export const RegLayout = ({
 					})}
 				/>
 				<Button type="submit" width="100%">
-					Зарегестрироваться
+					Sign Up
 				</Button>
 			</form>
 			{errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}

@@ -1,4 +1,4 @@
-import { getData } from './get-dates';
+import { getData } from './get-data';
 export const getRooms = async () => {
 	try {
 		const rooms = await getData('rooms');

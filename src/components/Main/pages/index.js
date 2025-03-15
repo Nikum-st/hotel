@@ -4,3 +4,4 @@ export * from './Register/Register';
 export * from './MainPage/MainPage';
 export * from './Rooms/Rooms';
 export * from './Rooms/pages/RoomDetails/RoomDetails';
+export * from './Bookings/Bookings';

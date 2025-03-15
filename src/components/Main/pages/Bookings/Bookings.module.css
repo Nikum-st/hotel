@@ -1,0 +1,32 @@
+.containerBookings {
+	padding-top: 36px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-height: 100vh;
+}
+.booking {
+	display: flex;
+	border: 1px solid;
+	padding: 43px;
+	border-radius: 57px;
+	box-shadow: 0px 8px 11px 0px;
+	margin: 14px;
+	width: 70%;
+}
+.booking img {
+	max-width: 15%;
+	border-radius: 52px;
+}
+.infoContainer {
+	display: flex;
+	margin-left: 76px;
+	font-size: 17px;
+	flex-direction: column;
+	justify-content: center;
+	font-family: math;
+}
+.noBooking {
+	margin: auto;
+	font-size: 30px;
+}

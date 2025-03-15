@@ -1,220 +1,310 @@
 {
-	"users": [
-		{
-			"id": "001",
-			"login": "ivan",
-			"email": "dsa@mail.com",
-			"password": "123",
-			"registred_at": "01.11.2011",
-			"role": "admin"
-		}
-	],
-	"rooms": [
-		{
-			"id": 1,
-			"category": "Стандарт",
-			"name": "Standard_Single",
-			"size": 18,
-			"beds": "Односпальная кровать",
-			"description": "Стильный и уютный одноместный номер Standard Single — идеальное место для комфортного отдыха. Пространство в 18 м² оформлено в минималистичном стиле, создавая атмосферу уюта и уединения. В номере есть удобная односпальная кровать, а также всё необходимое для вашего комфорта: Wi-Fi, телевизор, кондиционер, мини-бар и чайник. Отличный выбор для тех, кто ценит простоту, комфорт и доступную цену. ",
-			"short_description": "Уютный одноместный номер для одного гостя",
-			"amenities": ["Wi-Fi", "Телевизор", "Кондиционер", "Мини-бар", "Чайник"],
-			"price": 50,
-			"img": "/img/rooms/Стандарт4.jpg"
-		},
-		{
-			"id": 2,
-			"category": "Стандарт",
-			"name": "Standard_Double",
-			"size": 22,
-			"beds": "Двуспальная кровать",
-			"description": "Классический двухместный номер, идеально подходящий для комфортного отдыха или деловой поездки. В номере расположена удобная двуспальная кровать с качественным постельным бельём, стильная рабочая зона для продуктивной работы, а также современный интерьер в спокойных тонах. Гости могут воспользоваться бесплатным Wi-Fi, телевизором с кабельными каналами, мини-баром и сейфом для хранения ценных вещей. Просторные окна обеспечивают естественное освещение, создавая уютную атмосферу. Это отличный выбор для путешественников, которые ценят комфорт и функциональность по доступной цене.",
-			"short_description": "Классический двухместный номер с удобной кроватью",
-			"amenities": ["Wi-Fi", "Телевизор", "Мини-бар", "Сейф"],
-			"price": 65,
-			"img": "/img/rooms/Стандарт1.jpg"
-		},
-		{
-			"id": 3,
-			"category": "Стандарт",
-			"name": "Standard_Twin",
-			"size": 22,
-			"beds": "Две односпальные кровати",
-			"description": "Просторный и светлый номер с двумя отдельными кроватями, идеально подходящий для друзей, коллег или родственников. В номере есть всё необходимое для комфортного проживания: кондиционер, телевизор, бесплатный Wi-Fi и удобный чайник для приготовления горячих напитков. Дизайн интерьера выполнен в современных светлых тонах, создавая расслабляющую атмосферу. Благодаря удачному зонированию пространства, гости могут комфортно отдыхать или работать. Этот номер станет отличным вариантом для краткосрочного и длительного размещения.",
-			"short_description": "Просторный номер с двумя отдельными кроватями",
-			"amenities": ["Wi-Fi", "Телевизор", "Кондиционер", "Чайник"],
-			"price": 70,
-			"img": "/img/rooms/Стандарт3.jpg"
-		},
-		{
-			"id": 4,
-			"category": "Стандарт",
-			"name": "Standard_Family",
-			"size": 28,
-			"beds": "Двуспальная кровать + дополнительная",
-			"description": "Уютный семейный номер, созданный специально для комфортного размещения родителей с детьми. Основное спальное место – большая двуспальная кровать, а также предусмотрена дополнительная кровать для ребёнка. Для самых маленьких гостей доступна детская кроватка. В номере есть холодильник для хранения детского питания, телевизор, Wi-Fi и стильный интерьер с приятным освещением. Просторная планировка позволяет чувствовать себя как дома, а удобная мебель делает пребывание максимально комфортным. Отличный выбор для тех, кто путешествует всей семьёй!",
-			"short_description": "Просторный номер для семьи с дополнительной кроватью",
-			"amenities": ["Wi-Fi", "Телевизор", "Детская кроватка", "Холодильник"],
-			"price": 80,
-			"img": "/img/rooms/стандарт2.jpg"
-		},
-		{
-			"id": 5,
-			"category": "Комфорт",
-			"name": "Superior_Room",
-			"size": 30,
-			"beds": "Двуспальная кровать",
-			"description": "Номер повышенной комфортности с просторной двуспальной кроватью, стильным интерьером и панорамным видом на город. Гости могут насладиться свежим воздухом, выходя на собственный балкон. Для удобства предусмотрены Wi-Fi, сейф, кофемашина и рабочая зона. Дизайн выполнен в современном стиле с использованием качественных материалов. Отличный вариант для тех, кто ценит уют и удобство во время поездок.",
-			"short_description": "Комфортный номер с улучшенным интерьером, балконом и видом на город",
-			"amenities": ["Wi-Fi", "Балкон", "Кофемашина", "Сейф", "Письменный стол"],
-			"price": 90,
-			"img": "/img/rooms/Комфорт1.jpg"
-		},
-		{
-			"id": 6,
-			"category": "Комфорт",
-			"name": "Business_Room",
-			"size": 28,
-			"beds": "Двуспальная кровать",
-			"description": "Этот номер идеально подойдёт для деловых поездок. Пространство оформлено с учётом всех потребностей бизнес-гостей: удобное рабочее место с письменным столом, пресс для брюк, быстрый Wi-Fi и кофемашина для бодрящих напитков. Комфортная двуспальная кровать и стильный интерьер обеспечивают расслабляющую атмосферу после насыщенного дня. Идеальное сочетание удобства и функциональности!",
-			"short_description": "Идеальный номер для деловых поездок, с просторным рабочим местом и удобной зоной отдыха.",
-			"amenities": ["Wi-Fi", "Письменный стол", "Пресс для брюк", "Кофемашина"],
-			"price": 95,
-			"img": "/img/rooms/Комфорт2.jpg"
-		},
-		{
-			"id": 7,
-			"category": "Комфорт",
-			"name": "Studio_Suite",
-			"size": 40,
-			"beds": "Двуспальная кровать + диван",
-			"description": "Просторный номер-студия с мини-кухней и уютной гостиной зоной, идеально подходящий для длительного проживания. В номере есть двуспальная кровать, удобный диван, посуда для приготовления еды и сейф. Современный интерьер создаёт ощущение уюта, а продуманная планировка позволяет максимально эффективно использовать пространство. Идеальный выбор для тех, кто ценит комфорт и независимость.",
-			"short_description": "Просторный номер-студия с мини-кухней и уютной гостиной зоной.",
-			"amenities": ["Wi-Fi", "Мини-кухня", "Диван", "Посуда", "Сейф"],
-			"price": 110,
-			"img": "/img/rooms/комфорт3.jpg"
-		},
-		{
-			"id": 8,
-			"category": "Комфорт",
-			"name": "Eco_Room",
-			"size": 25,
-			"beds": "Двуспальная кровать",
-			"description": "Экологичный номер, созданный для гостей, заботящихся об окружающей среде. В отделке использованы натуральные биоматериалы, а фильтр для воды позволяет избежать использования пластика. Гостям доступен просторный балкон с панорамным видом, Wi-Fi, кондиционер и стильный интерьер в природных оттенках. Этот номер – гармония с природой без ущерба для комфорта.",
-			"short_description": "Экологичный номер с натуральными материалами и панорамным видом.",
-			"amenities": [
-				"Wi-Fi",
-				"Балкон",
-				"Фильтр для воды",
-				"Биоматериалы",
-				"Кондиционер"
-			],
-			"price": 120,
-			"img": "/img/rooms/Комфорт4.jpg"
-		},
-		{
-			"id": 9,
-			"category": "Комфорт",
-			"name": "Executive_Room",
-			"size": 35,
-			"beds": "Двуспальная кровать",
-			"description": "Современный номер с продуманным интерьером, созданный для гостей, ценящих комфорт и стиль. В нем установлены панорамные окна, позволяющие наслаждаться потрясающим видом на город. В номере имеется большая двуспальная кровать, просторный гардероб для удобного хранения вещей, сейф и кофемашина. Благодаря эргономичному рабочему месту этот номер подходит как для отдыха, так и для работы. Современный дизайн, уютная атмосфера и высокий уровень сервиса делают этот вариант отличным выбором для требовательных гостей.",
-			"short_description": "Современный номер с продуманным дизайном, улучшенным сервисом и панорамными окнами.",
-			"amenities": ["Wi-Fi", "Панорамные окна", "Кофемашина", "Сейф", "Гардероб"],
-			"price": 140,
-			"img": "/img/rooms/Комфорт5.jpg"
-		},
-		{
-			"id": 10,
-			"category": "Комфорт",
-			"name": "Family_Suite",
-			"size": 45,
-			"beds": "Двуспальная кровать + две односпальные",
-			"description": "Просторный семейный номер с двумя отдельными спальнями, которые обеспечивают комфортное размещение родителей и детей. В номере есть зона отдыха, детская кроватка и игровая зона. Также гости могут воспользоваться мини-баром и бесплатным Wi-Fi. Этот номер — идеальный вариант для семейного отдыха, так как предлагает максимум удобств и приватности.",
-			"short_description": "Просторный семейный номер с двумя комнатами и зоной отдыха.",
-			"amenities": ["Wi-Fi", "Детская кроватка", "Игровая зона", "Мини-бар"],
-			"price": 160,
-			"img": "/img/rooms/Комфорт6.jpg"
-		},
-		{
-			"id": 11,
-			"category": "Комфорт",
-			"name": "Romantic_Suite",
-			"size": 38,
-			"beds": "Двуспальная кровать",
-			"description": "Номер, созданный специально для романтического отдыха. В номере установлена большая двуспальная кровать, предусмотрена ванна с лепестками роз, а также гости получают комплимент в виде бутылки шампанского. Атмосферу уюта дополняет камин и просторный балкон, откуда открывается прекрасный вид. Этот номер идеально подойдет для молодоженов и тех, кто хочет провести незабываемый уикенд вдвоем.",
-			"short_description": "Идеальный номер для романтического отдыха",
-			"amenities": ["Wi-Fi", "Ванна", "Шампанское", "Камин", "Балкон"],
-			"price": 180,
-			"img": "/img/rooms/Комфорт7.jpg"
-		},
-		{
-			"id": 12,
-			"category": "Люкс",
-			"name": "Junior_Suite",
-			"size": 50,
-			"beds": "Двуспальная кровать",
-			"description": "Элегантный мини-люкс с просторной гостиной зоной и большим балконом. В номере есть гидромассажная ванна, мини-бар, комфортная двуспальная кровать и удобный диван. Этот номер подойдет для тех, кто ценит комфорт и простор, а также хочет насладиться утонченным дизайном и высококлассным обслуживанием.",
-			"short_description": "Мини-люкс с отдельной гостиной зоной",
-			"amenities": ["Wi-Fi", "Диван", "Балкон", "Гидромассажная ванна", "Мини-бар"],
-			"price": 250,
-			"img": "/img/rooms/люкс1.jpg"
-		},
-		{
-			"id": 13,
-			"category": "Люкс",
-			"name": "Major_Suite",
-			"size": 60,
-			"beds": "Двуспальная кровать",
-			"description": "Просторный люкс с отдельной гостиной зоной и великолепным панорамным видом. В номере есть гидромассажная ванна, балкон, мини-бар и комфортабельный диван. Удобства высшего уровня, стильный интерьер и простор делают этот вариант отличным выбором для ценителей роскоши.",
-			"short_description": "Мини-люкс с отдельной гостиной зоной и большим балконом.",
-			"amenities": ["Wi-Fi", "Диван", "Балкон", "Гидромассажная ванна", "Мини-бар"],
-			"price": 350,
-			"img": "/img/rooms/Люкс2.jpg"
-		},
-		{
-			"id": 14,
-			"category": "Премиум",
-			"name": "Executive_Suite",
-			"size": 115,
-			"beds": "Двуспальная кровать",
-			"description": "Роскошный люкс с отдельной спальней, просторной гостиной и панорамными окнами. В номере предусмотрено джакузи, VIP-сервис, личный бар и услуги персонального дворецкого. Этот номер — выбор тех, кто привык к высшему уровню комфорта и индивидуальному обслуживанию.",
-			"short_description": "Просторный люкс с отдельной спальней, гостиной и панорамными окнами.",
-			"amenities": [
-				"Wi-Fi",
-				"Джакузи",
-				"VIP-сервис",
-				"Личный бар",
-				"Персональный дворецкий"
-			],
-			"price": 560,
-			"img": "/img/rooms/premium.jpg"
-		},
-		{
-			"id": 15,
-			"category": "Премиум",
-			"name": "Presidential_Suite",
-			"size": 120,
-			"beds": "Королевская кровать",
-			"description": "Самый роскошный номер отеля, созданный для гостей, ценящих эксклюзивный отдых. В номере есть отдельная спальня с королевской кроватью, просторная гостиная, собственная терраса с потрясающим видом, личная сауна и бассейн. У гостей есть доступ к VIP-сервису и персональному дворецкому, который обеспечит идеальный отдых. Этот номер сочетает в себе абсолютный комфорт, изысканный стиль и высочайший уровень сервиса.",
-			"short_description": "Эксклюзивный номер для самых взыскательных гостей",
-			"amenities": [
-				"Wi-Fi",
-				"Терраса",
-				"Сауна",
-				"Бассейн",
-				"VIP-доступ",
-				"Персональный дворецкий"
-			],
-			"price": 600,
-			"img": "/img/rooms/premium2.jpg"
-		}
-	],
-	"bookings": {
-		"id": "001",
-		"user_id": "001",
-		"room_id": "001",
-		"start_date": "01.01.2001",
-		"end_date": "01.01.2001"
-	}
+  "users": [
+    {
+      "id": "001",
+      "login": "Nikita",
+      "email": "dsa@mail.com",
+      "password": "123",
+      "registred_at": "01.11.2011",
+      "role": "admin"
+    },
+    {
+      "id": "6d79",
+      "login": "Ivan",
+      "password": "1998Nikum",
+      "email": "1998@mail.ru",
+      "registred_at": "03/13/2025",
+      "role": "user"
+    }
+  ],
+  "rooms": [
+    {
+      "id": 1,
+      "category": "Standard",
+      "name": "Standard_Single",
+      "size": 18,
+      "beds": "Single Bed",
+      "description": "A stylish and cozy single room, the Standard Single is the perfect place for a comfortable stay. With a size of 18 m², it is decorated in a minimalist style, creating a cozy and private atmosphere. The room includes a comfortable single bed and everything you need for your comfort: Wi-Fi, TV, air conditioning, mini-bar, and a kettle. A great choice for those who value simplicity, comfort, and affordability.",
+      "short_description": "Cozy single room for one guest",
+      "amenities": [
+        "Wi-Fi",
+        "TV",
+        "Air Conditioning",
+        "Mini-bar",
+        "Kettle"
+      ],
+      "price": 50,
+      "img": "/img/rooms/Стандарт4.jpg"
+    },
+    {
+      "id": 2,
+      "category": "Standard",
+      "name": "Standard_Double",
+      "size": 22,
+      "beds": "Double Bed",
+      "description": "A classic double room, ideal for a comfortable stay or business trip. The room features a comfortable double bed with quality bedding, a stylish work area for productive work, and a modern interior in soothing tones. Guests can enjoy free Wi-Fi, a TV with cable channels, a mini-bar, and a safe for storing valuables. Spacious windows provide natural lighting, creating a cozy atmosphere. A great choice for travelers who value comfort and functionality at an affordable price.",
+      "short_description": "Classic double room with a comfortable bed",
+      "amenities": [
+        "Wi-Fi",
+        "TV",
+        "Mini-bar",
+        "Safe"
+      ],
+      "price": 65,
+      "img": "/img/rooms/Стандарт1.jpg"
+    },
+    {
+      "id": 3,
+      "category": "Standard",
+      "name": "Standard_Twin",
+      "size": 22,
+      "beds": "Two Single Beds",
+      "description": "A spacious and bright room with two separate beds, perfect for friends, colleagues, or relatives. The room includes all the essentials for a comfortable stay: air conditioning, TV, free Wi-Fi, and a kettle for making hot drinks. The interior design is in modern light tones, creating a relaxing atmosphere. The well-thought-out space zoning allows guests to relax or work comfortably. This room is an excellent option for both short and long-term stays.",
+      "short_description": "Spacious room with two separate beds",
+      "amenities": [
+        "Wi-Fi",
+        "TV",
+        "Air Conditioning",
+        "Kettle"
+      ],
+      "price": 70,
+      "img": "/img/rooms/Стандарт3.jpg"
+    },
+    {
+      "id": 4,
+      "category": "Standard",
+      "name": "Standard_Family",
+      "size": 28,
+      "beds": "Double Bed + Extra Bed",
+      "description": "A cozy family room designed for the comfortable accommodation of parents with children. The main sleeping area features a large double bed, and there is an additional bed for a child. A crib is available for the youngest guests. The room includes a refrigerator for storing baby food, a TV, Wi-Fi, and a stylish interior with pleasant lighting. The spacious layout allows you to feel at home, and the comfortable furniture ensures a relaxing stay. A great choice for those traveling with the whole family!",
+      "short_description": "Spacious family room with an extra bed",
+      "amenities": [
+        "Wi-Fi",
+        "TV",
+        "Baby Crib",
+        "Refrigerator"
+      ],
+      "price": 80,
+      "img": "/img/rooms/стандарт2.jpg"
+    },
+    {
+      "id": 5,
+      "category": "Comfort",
+      "name": "Superior_Room",
+      "size": 30,
+      "beds": "Double bed",
+      "description": "An upgraded comfort room with a spacious double bed, stylish interior, and panoramic view of the city. Guests can enjoy fresh air on their own balcony. For convenience, the room includes Wi-Fi, a safe, a coffee machine, and a work area. The design is done in a modern style with high-quality materials. An excellent option for those who value comfort and convenience during their trips.",
+      "short_description": "Comfortable room with upgraded interior, balcony, and city view",
+      "amenities": [
+        "Wi-Fi",
+        "Balcony",
+        "Coffee Machine",
+        "Safe",
+        "Desk"
+      ],
+      "price": 90,
+      "img": "/img/rooms/Комфорт1.jpg"
+    },
+    {
+      "id": 6,
+      "category": "Comfort",
+      "name": "Business_Room",
+      "size": 28,
+      "beds": "Double bed",
+      "description": "This room is ideal for business trips. The space is designed with the needs of business guests in mind: a comfortable work area with a desk, a trouser press, fast Wi-Fi, and a coffee machine for refreshing drinks. A comfortable double bed and a stylish interior provide a relaxing atmosphere after a busy day. A perfect combination of convenience and functionality!",
+      "short_description": "Perfect room for business trips with spacious work area and comfortable rest zone",
+      "amenities": [
+        "Wi-Fi",
+        "Desk",
+        "Trouser Press",
+        "Coffee Machine"
+      ],
+      "price": 95,
+      "img": "/img/rooms/Комфорт2.jpg"
+    },
+    {
+      "id": 7,
+      "category": "Comfort",
+      "name": "Studio_Suite",
+      "size": 40,
+      "beds": "Double bed + sofa",
+      "description": "A spacious studio suite with a mini-kitchen and a cozy living area, ideal for long stays. The room has a double bed, a comfortable sofa, cooking utensils, and a safe. The modern interior creates a cozy feeling, and the thoughtful layout allows the space to be used as efficiently as possible. A perfect choice for those who value comfort and independence.",
+      "short_description": "Spacious studio suite with a mini-kitchen and cozy living area",
+      "amenities": [
+        "Wi-Fi",
+        "Mini-Kitchen",
+        "Sofa",
+        "Cookware",
+        "Safe"
+      ],
+      "price": 110,
+      "img": "/img/rooms/комфорт3.jpg"
+    },
+    {
+      "id": 8,
+      "category": "Comfort",
+      "name": "Eco_Room",
+      "size": 25,
+      "beds": "Double bed",
+      "description": "An eco-friendly room designed for guests who care about the environment. Natural bi materials are used in the decor, and a water filter eliminates the need for plastic. Guests can enjoy a spacious balcony with a panoramic view, Wi-Fi, air conditioning, and a stylish interior in natural shades. This room offers harmony with nature without compromising comfort.",
+      "short_description": "Eco-friendly room with natural materials and panoramic view",
+      "amenities": [
+        "Wi-Fi",
+        "Balcony",
+        "Water Filter",
+        "Biomaterials",
+        "Air Conditioning"
+      ],
+      "price": 120,
+      "img": "/img/rooms/Комфорт4.jpg"
+    },
+    {
+      "id": 9,
+      "category": "Comfort",
+      "name": "Executive_Room",
+      "size": 35,
+      "beds": "Double bed",
+      "description": "A modern room with a thoughtful interior, created for guests who value comfort and style. It has panoramic windows, allowing guests to enjoy breathtaking views of the city. The room features a large double bed, a spacious wardrobe for convenient storage, a safe, and a coffee machine. With an ergonomic work space, this room is suitable for both rest and work. Modern design, cozy atmosphere, and high-quality service make this an excellent choice for demanding guests.",
+      "short_description": "Modern room with a thoughtful design, improved service, and panoramic windows",
+      "amenities": [
+        "Wi-Fi",
+        "Panoramic Windows",
+        "Coffee Machine",
+        "Safe",
+        "Wardrobe"
+      ],
+      "price": 140,
+      "img": "/img/rooms/Комфорт5.jpg"
+    },
+    {
+      "id": 10,
+      "category": "Comfort",
+      "name": "Family_Suite",
+      "size": 45,
+      "beds": "Double bed + two single beds",
+      "description": "A spacious family suite with two separate bedrooms, ensuring a comfortable stay for parents and children. The room features a relaxing area, a crib, and a play area. Guests can also use the minibar and enjoy free Wi-Fi. This room is ideal for family stays, offering maximum comfort and privacy.",
+      "short_description": "Spacious family suite with two rooms and a relaxation area",
+      "amenities": [
+        "Wi-Fi",
+        "Crib",
+        "Play Area",
+        "Minibar"
+      ],
+      "price": 160,
+      "img": "/img/rooms/Комфорт6.jpg"
+    },
+    {
+      "id": 11,
+      "category": "Comfort",
+      "name": "Romantic_Suite",
+      "size": 38,
+      "beds": "Double bed",
+      "description": "A room designed specifically for romantic getaways. It features a large double bed, a bathtub with rose petals, and a complimentary bottle of champagne. The atmosphere is completed by pleasant lighting, soft colors, and a cozy atmosphere. This is a perfect place for a relaxing and intimate stay.",
+      "short_description": "Romantic suite with a bathtub and rose petals",
+      "amenities": [
+        "Wi-Fi",
+        "Bathtub",
+        "Champagne",
+        "Rose Petals"
+      ],
+      "price": 180,
+      "img": "/img/rooms/Комфорт7.jpg"
+    },
+    {
+      "id": 12,
+      "category": "Luxury",
+      "name": "Junior_Suite",
+      "size": 50,
+      "beds": "Double bed",
+      "description": "An elegant mini-suite with a spacious living area and a large balcony. The room features a jacuzzi, minibar, comfortable double bed, and a cozy sofa. This room is perfect for those who value comfort and space, as well as those who want to enjoy sophisticated design and top-class service.",
+      "short_description": "Mini-suite with a separate living area",
+      "amenities": [
+        "Wi-Fi",
+        "Sofa",
+        "Balcony",
+        "Jacuzzi",
+        "Minibar"
+      ],
+      "price": 250,
+      "img": "/img/rooms/люкс1.jpg"
+    },
+    {
+      "id": 13,
+      "category": "Luxury",
+      "name": "Major_Suite",
+      "size": 60,
+      "beds": "Double bed",
+      "description": "A spacious suite with a separate living area and a magnificent panoramic view. The room includes a jacuzzi, balcony, minibar, and a comfortable sofa. Top-level amenities, stylish interior, and space make this option an excellent choice for luxury connoisseurs.",
+      "short_description": "Mini-suite with a separate living area and a large balcony.",
+      "amenities": [
+        "Wi-Fi",
+        "Sofa",
+        "Balcony",
+        "Jacuzzi",
+        "Minibar"
+      ],
+      "price": 350,
+      "img": "/img/rooms/Люкс2.jpg"
+    },
+    {
+      "id": 14,
+      "category": "Premium",
+      "name": "Executive_Suite",
+      "size": 115,
+      "beds": "Double bed",
+      "description": "A luxurious suite with a separate bedroom, spacious living room, and panoramic windows. The room features a jacuzzi, VIP service, personal bar, and butler services. This suite is for those who are accustomed to the highest level of comfort and personalized service.",
+      "short_description": "Spacious suite with a separate bedroom, living room, and panoramic windows.",
+      "amenities": [
+        "Wi-Fi",
+        "Jacuzzi",
+        "VIP service",
+        "Personal bar",
+        "Butler service"
+      ],
+      "price": 560,
+      "img": "/img/rooms/premium.jpg"
+    },
+    {
+      "id": 15,
+      "category": "Premium",
+      "name": "Presidential_Suite",
+      "size": 120,
+      "beds": "King-size bed",
+      "description": "The most luxurious room in the hotel, designed for guests who appreciate exclusive relaxation. The room includes a separate bedroom with a king-size bed, a spacious living room, a private terrace with an amazing view, personal sauna, and pool. Guests also have access to VIP services and a personal butler who will ensure the perfect stay. This room combines absolute comfort, exquisite style, and the highest level of service.",
+      "short_description": "Exclusive room for the most discerning guests",
+      "amenities": [
+        "Wi-Fi",
+        "Terrace",
+        "Sauna",
+        "Pool",
+        "VIP access",
+        "Personal butler"
+      ],
+      "price": 600,
+      "img": "/img/rooms/premium2.jpg"
+    }
+  ],
+  "bookings": [
+    {
+      "id": "43897",
+      "user_id": "6d79",
+      "room_name": "Junior_Suite",
+      "start_date": "2025-03-15",
+      "end_date": "2025-03-17"
+    },
+    {
+      "id": "43911",
+      "user_id": "6d79",
+      "room_name": "Junior_Suite",
+      "start_date": "2025-03-18",
+      "end_date": "2025-03-20"
+    },
+    {
+      "id": "43922",
+      "user_id": "6d79",
+      "room_name": "Junior_Suite",
+      "start_date": "2025-03-27",
+      "end_date": "2025-03-29"
+    }
+  ]
 }

@@ -12,10 +12,10 @@ export const ControlPanel = () => {
 	) : (
 		<div className={styles.controlPanel}>
 			<Link to="/authorize">
-				<button>Войти</button>
+				<button>Log In</button>
 			</Link>
 			<Link to="/register">
-				<button>Зарегестрироваться</button>
+				<button>Sign Up</button>
 			</Link>
 		</div>
 	);

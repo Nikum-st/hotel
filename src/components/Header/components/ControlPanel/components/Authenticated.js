@@ -15,14 +15,19 @@ export const Authenticated = () => {
 			<div className={styles.login}>{login}</div>
 			{role === 'admin' && (
 				<Link to="/admin">
-					<Icon size={'30px'} id={'fa-user-secret'} title="Админ страница" />
+					<Icon
+						size={'30px'}
+						id={'fa-user-secret'}
+						title="Admin page
+"
+					/>
 				</Link>
 			)}
 			<Link to="/bookings">
-				<Icon size={'30px'} id={'fa-calendar-check-o'} title="Мои номера" />
+				<Icon size={'30px'} id={'fa-calendar-check-o'} title="My rooms" />
 			</Link>
 			<Link to="/rooms">
-				<Icon size={'30px'} id={'fa fa-bed'} title="Забронировать" />
+				<Icon size={'30px'} id={'fa fa-bed'} title="Book" />
 			</Link>
 			<div className={styles.containerIconLogOut}>
 				<Icon
@@ -33,7 +38,7 @@ export const Authenticated = () => {
 						navigate('/');
 					}}
 				/>
-				<div className={styles.textDescription}>Выйти</div>
+				<div className={styles.textDescription}>Log out</div>
 			</div>
 		</div>
 	);
