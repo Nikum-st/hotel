@@ -7,10 +7,12 @@ export const appReducer = (state = initialStateApp, action) => {
 	switch (type) {
 		case ACTION_TYPE.USER.LOG_USER:
 			return {
+				...state,
 				isAuthenticated: true,
 			};
 		case ACTION_TYPE.USER.LOG_OUT:
 			return {
+				...state,
 				isAuthenticated: false,
 			};
 		case ACTION_TYPE.APP.LOADING:

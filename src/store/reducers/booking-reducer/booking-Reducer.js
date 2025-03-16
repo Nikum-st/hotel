@@ -9,6 +9,8 @@ export const bookingsReducer = (state = initialStateBookings, action) => {
 			return payload;
 		case ACTION_TYPE.BOOKINGS.SET_BOOKING:
 			return [...state, payload];
+		case ACTION_TYPE.USER.LOG_OUT:
+			return initialStateBookings;
 		default:
 			return state;
 	}

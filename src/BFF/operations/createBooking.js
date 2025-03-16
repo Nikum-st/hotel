@@ -1,21 +1,36 @@
 import { addBookingToServer } from '../api';
 
-export const createBooking = async (userId, roomName, startDate, endDate) => {
+export const createBooking = async (
+	userId,
+	firstName,
+	lastName,
+	phone,
+	roomName,
+	startDate,
+	endDate,
+) => {
 	if (!userId) {
-		return {
-			error: 'Пользователь не авторизован',
-			res: null,
-		};
-	} else if (!roomName) {
-		return {
-			error: 'Номер не выбран',
-			res: null,
-		};
-	} else if (!startDate || !endDate) {
-		return {
-			error: 'Некоректная дата',
-			res: null,
-		};
+		return { error: 'User is not authorized', res: null };
 	}
-	await addBookingToServer(userId, roomName, startDate, endDate);
+	if (!roomName) {
+		return { error: 'Number not selected', res: null };
+	}
+	if (!startDate || !endDate) {
+		return { error: 'Incorrect date', res: null };
+	}
+	if (!firstName || !lastName) {
+		return { error: 'First and last name not selected', res: null };
+	}
+
+	await addBookingToServer(
+		userId,
+		firstName,
+		lastName,
+		phone,
+		roomName,
+		startDate,
+		endDate,
+	);
+
+	return { error: null, res: 'Booking successful' };
 };

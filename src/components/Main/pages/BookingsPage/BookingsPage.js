@@ -12,10 +12,10 @@ import { useFetchRooms, useRequestServer } from '../../../../hooks';
 import { Loader } from '../../../components/Loader/Loader';
 import { roomName } from '../../../../constants';
 
-export const Bookings = () => {
+export const BookingsPage = () => {
 	const bookings = useSelector(selectBookings);
 	const rooms = useSelector(selectRooms);
-	const { id } = useSelector(selectUser);
+	const { id, role } = useSelector(selectUser);
 	const isLoading = useSelector(selectLoading);
 	const fetchBookings = useRequestServer();
 	const fetchRooms = useFetchRooms();
@@ -27,7 +27,7 @@ export const Bookings = () => {
 				await fetchRooms();
 			}
 			if (!bookings.length) {
-				dispatch(fetchBookingsAsync(fetchBookings));
+				dispatch(fetchBookingsAsync(fetchBookings, role));
 			}
 		};
 

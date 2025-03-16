@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { useFetchRooms } from '../../../../hooks';
 import { Loader } from '../../../components/Loader/Loader';
 
-export const Rooms = () => {
+export const RoomsPage = () => {
 	const rooms = useSelector(selectRooms);
 	const fetchRooms = useFetchRooms();
 	const isLoading = useSelector(selectLoading);

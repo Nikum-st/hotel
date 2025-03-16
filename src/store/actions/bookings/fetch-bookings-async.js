@@ -1,10 +1,10 @@
 import { loading } from '../app/loading';
 import { fetchBookings } from './fetch-bookings';
 
-export const fetchBookingsAsync = (useRequestServer) => async (dispatch) => {
+export const fetchBookingsAsync = (useRequestServer, roleUser) => async (dispatch) => {
 	try {
 		dispatch(loading(true));
-		await useRequestServer('fetchBookings').then((loadedBookings) => {
+		await useRequestServer('fetchBookings', roleUser).then((loadedBookings) => {
 			dispatch(fetchBookings(loadedBookings));
 		});
 	} catch (error) {

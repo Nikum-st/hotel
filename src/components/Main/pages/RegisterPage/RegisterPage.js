@@ -6,15 +6,15 @@ import { yupSchema } from '../../../../yup/yup';
 import { loading, logUser, selectLoading } from '../../../../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRequestServer } from '../../../../hooks';
-import { AuthLayout } from './AuthLayout';
+import { RegLayout } from './RegLayout';
 
-export const Authorization = () => {
+export const RegistrationPage = () => {
 	const [errorServer, setErrorServer] = useState(null);
 
 	const dispatch = useDispatch();
-	const isLoading = useSelector(selectLoading);
 	const navigate = useNavigate();
-	const requestAuthoraize = useRequestServer();
+	const requestRegister = useRequestServer();
+	const isLoading = useSelector(selectLoading);
 
 	const {
 		register,
@@ -23,14 +23,15 @@ export const Authorization = () => {
 	} = useForm({
 		defaultValues: {
 			login: '',
+			email: '',
 			password: '',
 		},
-		resolver: yupResolver(yupSchema.authorization),
+		resolver: yupResolver(yupSchema.registration),
 	});
 
-	const submitUserDates = ({ login, password }) => {
+	const submitNewUser = ({ login, password, email }) => {
 		dispatch(loading(true));
-		requestAuthoraize('authorization', login, password)
+		requestRegister('registration', login, password, email)
 			.then(({ error, res }) => {
 				if (error) {
 					setErrorServer(error);
@@ -40,21 +41,23 @@ export const Authorization = () => {
 				sessionStorage.setItem('userData', JSON.stringify(res));
 				navigate('/');
 			})
-			.finally(() => {
-				dispatch(loading(false));
-			});
+			.finally(dispatch(loading(false)));
 	};
-
-	const errorMessage = errors.login?.message || errors.password?.message || errorServer;
+	const errorMessage =
+		errors.login?.message ||
+		errors.email?.message ||
+		errors.password?.message ||
+		errors.passcheck?.message ||
+		errorServer;
 
 	return (
-		<AuthLayout
+		<RegLayout
 			isLoading={isLoading}
-			register={register}
 			handleSubmit={handleSubmit}
-			errorMessage={errorMessage}
-			onSubmit={submitUserDates}
+			submitNewUser={submitNewUser}
+			register={register}
 			setErrorServer={setErrorServer}
+			errorMessage={errorMessage}
 		/>
 	);
 };

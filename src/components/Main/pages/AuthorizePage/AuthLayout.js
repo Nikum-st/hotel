@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Button, ErrorMessage, Input, Loader } from '../../../components/';
+import { Button, ErrorMessage, Input, Loader } from '../../../components';
 import styles from './Autgorization.module.css';
 
 export const AuthLayout = ({

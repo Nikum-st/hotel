@@ -286,25 +286,34 @@
   ],
   "bookings": [
     {
-      "id": "43897",
-      "user_id": "6d79",
-      "room_name": "Junior_Suite",
+      "id": "68269",
+      "user_id": "001",
+      "first_name": "Nikita",
+      "last_name": "Umanskii",
+      "phone": "89147443083",
+      "room_name": "Standard_Twin",
+      "start_date": "2025-04-01",
+      "end_date": "2025-04-02"
+    },
+    {
+      "id": "68332",
+      "user_id": "001",
+      "first_name": "Nikita",
+      "last_name": "Umanskii",
+      "phone": "89147443083",
+      "room_name": "Standard_Twin",
       "start_date": "2025-03-15",
-      "end_date": "2025-03-17"
+      "end_date": "2025-03-21"
     },
     {
-      "id": "43911",
-      "user_id": "6d79",
-      "room_name": "Junior_Suite",
-      "start_date": "2025-03-18",
-      "end_date": "2025-03-20"
-    },
-    {
-      "id": "43922",
-      "user_id": "6d79",
-      "room_name": "Junior_Suite",
-      "start_date": "2025-03-27",
-      "end_date": "2025-03-29"
+      "id": "68359",
+      "user_id": "001",
+      "first_name": "Nikita",
+      "last_name": "Umanskii",
+      "phone": "89147443083",
+      "room_name": "Standard_Twin",
+      "start_date": "2025-03-22",
+      "end_date": "2025-03-26"
     }
   ]
 }

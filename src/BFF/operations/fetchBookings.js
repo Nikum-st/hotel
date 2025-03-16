@@ -1,10 +1,23 @@
 import { getBookings } from '../api';
 
-export const fetchBookings = async () => {
+export const fetchBookings = async (role) => {
 	try {
 		const bookings = await getBookings();
-		return bookings;
-	} catch (e) {
-		throw e;
+		return role === 'admin'
+			? bookings
+			: role === 'user'
+				? bookings.map(({ id, userId, roomName, startDate, endDate }) => ({
+						id,
+						userId,
+						roomName,
+						startDate,
+						endDate,
+					}))
+				: bookings.map(({ startDate, endDate }) => ({
+						startDate,
+						endDate,
+					}));
+	} catch (error) {
+		throw error;
 	}
 };

@@ -6,7 +6,6 @@ export const getData = async (endpoint) => {
 		}
 		return await response.json();
 	} catch (error) {
-		console.error(`Невозможно получить данные с сервера: ${error}`);
-		throw error;
+		throw new Error(`Невозможно получить данные с сервера: ${error}`);
 	}
 };

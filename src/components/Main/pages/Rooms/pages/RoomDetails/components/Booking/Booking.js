@@ -1,7 +1,11 @@
-import { Button, ErrorMessage } from '../../../../../../../components';
+import { Button, ErrorMessage, Input } from '../../../../../../../components';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useState } from 'react';
-import { selectBookings, selectUserId } from '../../../../../../../../store';
+import {
+	selectBookings,
+	selectIsAuthenticated,
+	selectUser,
+} from '../../../../../../../../store';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import DatePicker from 'react-datepicker';
@@ -10,26 +14,37 @@ import styles from './Booking.module.css';
 import { setBookingAsync } from '../../../../../../../../store';
 
 export const Booking = ({ onClickBookingMode, room }) => {
-	const [startDate, setStartDate] = useState(null);
-	const [endDate, setEndDate] = useState(null);
+	const [state, setState] = useState({
+		firstName: null,
+		lastName: null,
+		phone: null,
+		startDate: null,
+		endDate: null,
+		errorDate: false,
+		errorOverlap: false,
+	});
+
 	const bookings = useSelector(selectBookings);
+	const { id: userId, role } = useSelector(selectUser);
+	const isAuthenticated = useSelector(selectIsAuthenticated);
 	const fetchRequestServer = useRequestServer();
-	const userId = useSelector(selectUserId);
-	const [errorDate, setErrorDate] = useState(false);
-	const [errorOverlap, setErrorOverlap] = useState(false);
 	const dispatch = useDispatch();
 
 	const handleBooking = () => {
-		setErrorDate(false);
-		setErrorOverlap(false);
-
-		if (!startDate || !endDate) {
-			setErrorDate(true);
-			return;
+		if (!isAuthenticated) {
 		}
 
-		if (moment(endDate).isBefore(startDate)) {
-			setErrorDate(true);
+		setState((prevState) => ({
+			...prevState,
+			errorDate: false,
+			errorOverlap: false,
+		}));
+
+		if (!state.startDate || !state.endDate) {
+			setState((prevState) => ({
+				...prevState,
+				errorDate: true,
+			}));
 			return;
 		}
 
@@ -39,23 +54,43 @@ export const Booking = ({ onClickBookingMode, room }) => {
 				const start = moment(existingStart).startOf('day');
 				const end = moment(existingEnd).endOf('day');
 				return (
-					moment(startDate).isBetween(start, end, null, '[]') ||
-					moment(endDate).isBetween(start, end, null, '[]') ||
-					(moment(startDate).isBefore(start) && moment(endDate).isAfter(end))
+					moment(state.startDate).isBetween(start, end, null, '[]') ||
+					moment(state.endDate).isBetween(start, end, null, '[]') ||
+					(moment(state.startDate).isBefore(start) &&
+						moment(state.endDate).isAfter(end))
 				);
 			});
 
 		if (hasOverlap) {
-			setErrorOverlap(true);
+			setState((prevState) => ({
+				...prevState,
+				errorOverlap: true,
+			}));
 			return;
 		}
 
 		dispatch(
-			setBookingAsync(fetchRequestServer, userId, room.name, startDate, endDate),
+			setBookingAsync(
+				fetchRequestServer,
+				userId,
+				state.firstName,
+				state.lastName,
+				state.phone,
+				room.name,
+				state.startDate,
+				state.endDate,
+				role,
+			),
 		);
 
 		onClickBookingMode();
 	};
+
+	const handleOnChange = (field) => (value) =>
+		setState((prevState) => ({
+			...prevState,
+			[field]: value,
+		}));
 
 	const isDateDisabled = (date) => {
 		return bookings
@@ -72,27 +107,44 @@ export const Booking = ({ onClickBookingMode, room }) => {
 	return (
 		<div className={styles.content}>
 			<div className={styles.bookingContainer}>
+				<div>
+					<Input
+						type="text"
+						name="firstName"
+						onChange={(e) => handleOnChange('firstName')(e.target.value)}
+					/>
+					<Input
+						type="text"
+						name="lastName"
+						onChange={(e) => handleOnChange('lastName')(e.target.value)}
+					/>
+					<Input
+						type="tel"
+						name="phone"
+						onChange={(e) => handleOnChange('phone')(e.target.value)}
+					/>
+				</div>
 				<DatePicker
 					className={styles.reactDatepicker}
-					selected={startDate}
-					onChange={(date) => setStartDate(date)}
+					selected={state.startDate}
+					onChange={handleOnChange('startDate')}
 					minDate={new Date()}
 					filterDate={(date) => !isDateDisabled(date)}
 					selectsStart
-					startDate={startDate}
-					endDate={endDate}
+					startDate={state.startDate}
+					endDate={state.endDate}
 					dateFormat="dd.MM.yyyy"
 					placeholderText="Select your check-in date"
 				/>
 				<DatePicker
 					className={styles.reactDatepicker}
-					selected={endDate}
-					onChange={(date) => setEndDate(date)}
-					minDate={startDate || new Date()}
+					selected={state.endDate}
+					onChange={handleOnChange('endDate')}
+					minDate={state.startDate || new Date()}
 					filterDate={(date) => !isDateDisabled(date)}
 					selectsEnd
-					startDate={startDate}
-					endDate={endDate}
+					startDate={state.startDate}
+					endDate={state.endDate}
 					dateFormat="dd.MM.yyyy"
 					placeholderText="Select departure date"
 				/>
@@ -101,12 +153,14 @@ export const Booking = ({ onClickBookingMode, room }) => {
 					<Button onClick={handleBooking}>Save</Button>
 				</div>
 			</div>
-			{errorDate && (
+			{state.errorDate && (
 				<ErrorMessage>
-					The end date cannot be earlier than the start date
+					{state.startDate && state.endDate
+						? 'The end date cannot be earlier than the start date'
+						: 'Please fill in both the start and end dates'}
 				</ErrorMessage>
 			)}
-			{errorOverlap && (
+			{state.errorOverlap && (
 				<ErrorMessage>
 					Selected dates overlap with an existing booking.
 				</ErrorMessage>

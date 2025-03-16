@@ -6,15 +6,15 @@ import { yupSchema } from '../../../../yup/yup';
 import { loading, logUser, selectLoading } from '../../../../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRequestServer } from '../../../../hooks';
-import { RegLayout } from './RegLayout';
+import { AuthLayout } from './AuthLayout';
 
-export const Registration = () => {
+export const AuthorizationPage = () => {
 	const [errorServer, setErrorServer] = useState(null);
 
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
-	const requestRegister = useRequestServer();
 	const isLoading = useSelector(selectLoading);
+	const navigate = useNavigate();
+	const requestAuthoraize = useRequestServer();
 
 	const {
 		register,
@@ -23,15 +23,14 @@ export const Registration = () => {
 	} = useForm({
 		defaultValues: {
 			login: '',
-			email: '',
 			password: '',
 		},
-		resolver: yupResolver(yupSchema.registration),
+		resolver: yupResolver(yupSchema.authorization),
 	});
 
-	const submitNewUser = ({ login, password, email }) => {
+	const submitUserDates = ({ login, password }) => {
 		dispatch(loading(true));
-		requestRegister('registration', login, password, email)
+		requestAuthoraize('authorization', login, password)
 			.then(({ error, res }) => {
 				if (error) {
 					setErrorServer(error);
@@ -41,23 +40,21 @@ export const Registration = () => {
 				sessionStorage.setItem('userData', JSON.stringify(res));
 				navigate('/');
 			})
-			.finally(dispatch(loading(false)));
+			.finally(() => {
+				dispatch(loading(false));
+			});
 	};
-	const errorMessage =
-		errors.login?.message ||
-		errors.email?.message ||
-		errors.password?.message ||
-		errors.passcheck?.message ||
-		errorServer;
+
+	const errorMessage = errors.login?.message || errors.password?.message || errorServer;
 
 	return (
-		<RegLayout
+		<AuthLayout
 			isLoading={isLoading}
-			handleSubmit={handleSubmit}
-			submitNewUser={submitNewUser}
 			register={register}
-			setErrorServer={setErrorServer}
+			handleSubmit={handleSubmit}
 			errorMessage={errorMessage}
+			onSubmit={submitUserDates}
+			setErrorServer={setErrorServer}
 		/>
 	);
 };

@@ -1,18 +1,34 @@
 import { fetchBookings } from './fetch-bookings';
 
 export const setBookingAsync =
-	(useRequestServer, userId, roomName, startDate, endDate) => async (dispatch) => {
-		console.log('Отправка бронирования:', {
+	(
+		useRequestServer,
+		userId,
+		firstName,
+		lastName,
+		phone,
+		roomName,
+		startDate,
+		endDate,
+		roleUser,
+	) =>
+	async (dispatch) => {
+		const result = await useRequestServer(
+			'createBooking',
 			userId,
+			firstName,
+			lastName,
+			phone,
 			roomName,
 			startDate,
 			endDate,
-		});
-		try {
-			await useRequestServer('createBooking', userId, roomName, startDate, endDate);
-			const updatedBookings = await useRequestServer('fetchBookings');
-			dispatch(fetchBookings(updatedBookings));
-		} catch (error) {
-			console.error('Ошибка бронирования:', error);
+		);
+
+		if (result.error) {
+			console.error('Ошибка бронирования:', result.error);
+			return;
 		}
+
+		const updatedBookings = await useRequestServer('fetchBookings', roleUser);
+		dispatch(fetchBookings(updatedBookings));
 	};

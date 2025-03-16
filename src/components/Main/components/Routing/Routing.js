@@ -1,23 +1,24 @@
 import { Routes, Route } from 'react-router-dom';
 import {
 	MainPage,
-	Registration,
-	Authorization,
-	Error404,
-	Rooms,
+	RegistrationPage,
+	AuthorizationPage,
+	Error404Page,
+	RoomsPage,
 	RoomDetails,
-	Bookings,
+	BookingsPage,
+	AdminPage,
 } from '../../pages';
 
 export const Routing = () => (
 	<Routes>
 		<Route path="/" element={<MainPage />} />
-		<Route path="/rooms" element={<Rooms />} />
+		<Route path="/rooms" element={<RoomsPage />} />
 		<Route path="/rooms/:name" element={<RoomDetails />} />
-		<Route path="/admin" element={<div>Панель администратора</div>} />
-		<Route path="/authorize" element={<Authorization />} />
-		<Route path="/register" element={<Registration />} />
-		<Route path="/bookings" element={<Bookings />} />
-		<Route path="*" element={<Error404 />} />
+		<Route path="/admin" element={<AdminPage />} />
+		<Route path="/authorize" element={<AuthorizationPage />} />
+		<Route path="/register" element={<RegistrationPage />} />
+		<Route path="/bookings" element={<BookingsPage />} />
+		<Route path="*" element={<Error404Page />} />
 	</Routes>
 );
