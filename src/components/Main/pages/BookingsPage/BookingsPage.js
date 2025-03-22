@@ -7,6 +7,7 @@ import {
 	selectUserId,
 	selectLoading,
 	selectRole,
+	deleteBookingAsync,
 } from '../../../../store';
 import { fetchBookingsAsync } from '../../../../store';
 import { useFetchRooms, useRequestServer } from '../../../../hooks';
@@ -38,6 +39,10 @@ export const BookingsPage = () => {
 		}
 	}, []);
 
+	const deleteBooking = (id) => {
+		dispatch(deleteBookingAsync(fetchBookings, id, role));
+	};
+
 	const booksUser = bookings.filter(({ userId }) => id === userId);
 
 	const bookRooms = rooms.filter(({ name }) =>
@@ -63,6 +68,12 @@ export const BookingsPage = () => {
 						endDate={booking.endDate}
 						price={booking.room.price}
 					/>
+					<Button
+						onClick={() => deleteBooking(booking.id)}
+						style={{ background: '#af0303', height: '50px' }}
+					>
+						Delete
+					</Button>
 				</div>
 			))}
 		</div>

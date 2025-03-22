@@ -5,3 +5,4 @@ export * from './fetchRooms';
 export * from './accessAdmin';
 export * from './fetchBookings';
 export * from './createBooking';
+export * from './deleteBooking';

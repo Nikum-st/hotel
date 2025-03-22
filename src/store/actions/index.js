@@ -5,3 +5,4 @@ export * from './rooms/fetch-rooms';
 export * from './bookings/fetch-bookings';
 export * from './bookings/fetch-bookings-async';
 export * from './bookings/set-booking-async';
+export * from './bookings/delete-booking-async';

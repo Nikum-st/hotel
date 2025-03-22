@@ -8,8 +8,9 @@ export const createBooking = async (
 	roomName,
 	startDate,
 	endDate,
+	session,
 ) => {
-	if (!userId) {
+	if (!userId || !session) {
 		return { error: 'User is not authorized', res: null };
 	}
 	if (!roomName) {

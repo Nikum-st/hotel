@@ -6,3 +6,4 @@ export * from './get-email';
 export * from './get-rooms';
 export * from './get-bookings';
 export * from './add-booking-to-server';
+export * from './delete-booking-from-server';
