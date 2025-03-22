@@ -1,5 +1,6 @@
 import { ACTION_TYPE } from '../../../constants';
-const initialStateUsers = {};
+const sessionStorageJSON = sessionStorage.getItem('userData');
+const initialStateUsers = JSON.parse(sessionStorageJSON) || {};
 
 export const userReducer = (state = initialStateUsers, action) => {
 	const { type, payload } = action;
@@ -10,7 +11,8 @@ export const userReducer = (state = initialStateUsers, action) => {
 				...payload,
 			};
 		case ACTION_TYPE.USER.LOG_OUT:
-			return initialStateUsers;
+			sessionStorage.removeItem('userData');
+			return {};
 		default:
 			return state;
 	}

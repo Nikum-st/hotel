@@ -13,9 +13,10 @@ export const fetchBookings = async (role) => {
 						startDate,
 						endDate,
 					}))
-				: bookings.map(({ startDate, endDate }) => ({
+				: bookings.map(({ startDate, endDate, roomName }) => ({
 						startDate,
 						endDate,
+						roomName,
 					}));
 	} catch (error) {
 		throw error;

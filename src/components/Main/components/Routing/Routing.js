@@ -8,6 +8,7 @@ import {
 	RoomDetails,
 	BookingsPage,
 	AdminPage,
+	BookingPage,
 } from '../../pages';
 
 export const Routing = () => (
@@ -15,6 +16,7 @@ export const Routing = () => (
 		<Route path="/" element={<MainPage />} />
 		<Route path="/rooms" element={<RoomsPage />} />
 		<Route path="/rooms/:name" element={<RoomDetails />} />
+		<Route path="/rooms/:name/booking" element={<BookingPage />} />
 		<Route path="/admin" element={<AdminPage />} />
 		<Route path="/authorize" element={<AuthorizationPage />} />
 		<Route path="/register" element={<RegistrationPage />} />

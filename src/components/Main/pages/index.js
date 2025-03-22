@@ -6,3 +6,4 @@ export * from './Rooms/RoomsPage';
 export * from './Rooms/pages/RoomDetails/RoomDetails';
 export * from './BookingsPage/BookingsPage';
 export * from './AdminPage/AdminPage';
+export * from './Rooms/pages/BookingPage/BookingPage';

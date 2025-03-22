@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { yupSchema } from '../../../../yup/yup';
+import { yupSchemaLogin } from '../../../../yup/yupSchemaLogin';
 import { loading, logUser, selectLoading } from '../../../../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRequestServer } from '../../../../hooks';
@@ -26,7 +26,7 @@ export const RegistrationPage = () => {
 			email: '',
 			password: '',
 		},
-		resolver: yupResolver(yupSchema.registration),
+		resolver: yupResolver(yupSchemaLogin.registration),
 	});
 
 	const submitNewUser = ({ login, password, email }) => {

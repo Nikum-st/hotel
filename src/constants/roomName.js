@@ -1,1 +1,1 @@
-export const roomName = (room) => room.name.replace('_', ' ');
+export const roomName = (name) => name.replace('_', ' ');

@@ -16,7 +16,7 @@ export const RoomsPage = () => {
 		if (!rooms.length) {
 			fetchRooms();
 		}
-	}, [rooms.length]);
+	}, [rooms.length, fetchRooms]);
 
 	return isLoading ? (
 		<Loader />

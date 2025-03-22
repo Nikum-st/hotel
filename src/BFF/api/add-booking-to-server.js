@@ -22,6 +22,11 @@ export const addBookingToServer = (
 			start_date: moment(startDate).format('YYYY-MM-DD'),
 			end_date: moment(endDate).format('YYYY-MM-DD'),
 		}),
-	}).catch(() => {
-		throw new Error(`Problems with the database`);
-	});
+	})
+		.then((response) => response.json())
+		.then((createdBooking) => {
+			return createdBooking;
+		})
+		.catch((error) => {
+			throw new Error(`Problems with the database:${error}`);
+		});

@@ -19,7 +19,7 @@
   ],
   "rooms": [
     {
-      "id": 1,
+      "id": "1",
       "category": "Standard",
       "name": "Standard_Single",
       "size": 18,
@@ -37,7 +37,7 @@
       "img": "/img/rooms/Стандарт4.jpg"
     },
     {
-      "id": 2,
+      "id": "2",
       "category": "Standard",
       "name": "Standard_Double",
       "size": 22,
@@ -54,7 +54,7 @@
       "img": "/img/rooms/Стандарт1.jpg"
     },
     {
-      "id": 3,
+      "id": "3",
       "category": "Standard",
       "name": "Standard_Twin",
       "size": 22,
@@ -71,7 +71,7 @@
       "img": "/img/rooms/Стандарт3.jpg"
     },
     {
-      "id": 4,
+      "id": "4",
       "category": "Standard",
       "name": "Standard_Family",
       "size": 28,
@@ -88,7 +88,7 @@
       "img": "/img/rooms/стандарт2.jpg"
     },
     {
-      "id": 5,
+      "id": "5",
       "category": "Comfort",
       "name": "Superior_Room",
       "size": 30,
@@ -106,7 +106,7 @@
       "img": "/img/rooms/Комфорт1.jpg"
     },
     {
-      "id": 6,
+      "id": "6",
       "category": "Comfort",
       "name": "Business_Room",
       "size": 28,
@@ -123,7 +123,7 @@
       "img": "/img/rooms/Комфорт2.jpg"
     },
     {
-      "id": 7,
+      "id": "7",
       "category": "Comfort",
       "name": "Studio_Suite",
       "size": 40,
@@ -141,7 +141,7 @@
       "img": "/img/rooms/комфорт3.jpg"
     },
     {
-      "id": 8,
+      "id": "8",
       "category": "Comfort",
       "name": "Eco_Room",
       "size": 25,
@@ -159,7 +159,7 @@
       "img": "/img/rooms/Комфорт4.jpg"
     },
     {
-      "id": 9,
+      "id": "9",
       "category": "Comfort",
       "name": "Executive_Room",
       "size": 35,
@@ -177,7 +177,7 @@
       "img": "/img/rooms/Комфорт5.jpg"
     },
     {
-      "id": 10,
+      "id": "10",
       "category": "Comfort",
       "name": "Family_Suite",
       "size": 45,
@@ -194,7 +194,7 @@
       "img": "/img/rooms/Комфорт6.jpg"
     },
     {
-      "id": 11,
+      "id": "11",
       "category": "Comfort",
       "name": "Romantic_Suite",
       "size": 38,
@@ -211,7 +211,7 @@
       "img": "/img/rooms/Комфорт7.jpg"
     },
     {
-      "id": 12,
+      "id": "12",
       "category": "Luxury",
       "name": "Junior_Suite",
       "size": 50,
@@ -229,7 +229,7 @@
       "img": "/img/rooms/люкс1.jpg"
     },
     {
-      "id": 13,
+      "id": "13",
       "category": "Luxury",
       "name": "Major_Suite",
       "size": 60,
@@ -247,7 +247,7 @@
       "img": "/img/rooms/Люкс2.jpg"
     },
     {
-      "id": 14,
+      "id": "14",
       "category": "Premium",
       "name": "Executive_Suite",
       "size": 115,
@@ -265,7 +265,7 @@
       "img": "/img/rooms/premium.jpg"
     },
     {
-      "id": 15,
+      "id": "15",
       "category": "Premium",
       "name": "Presidential_Suite",
       "size": 120,
@@ -286,34 +286,34 @@
   ],
   "bookings": [
     {
-      "id": "68269",
+      "id": "54103",
       "user_id": "001",
       "first_name": "Nikita",
       "last_name": "Umanskii",
       "phone": "89147443083",
-      "room_name": "Standard_Twin",
-      "start_date": "2025-04-01",
-      "end_date": "2025-04-02"
-    },
-    {
-      "id": "68332",
-      "user_id": "001",
-      "first_name": "Nikita",
-      "last_name": "Umanskii",
-      "phone": "89147443083",
-      "room_name": "Standard_Twin",
-      "start_date": "2025-03-15",
-      "end_date": "2025-03-21"
-    },
-    {
-      "id": "68359",
-      "user_id": "001",
-      "first_name": "Nikita",
-      "last_name": "Umanskii",
-      "phone": "89147443083",
-      "room_name": "Standard_Twin",
+      "room_name": "Standard_Double",
       "start_date": "2025-03-22",
-      "end_date": "2025-03-26"
+      "end_date": "2025-03-24"
+    },
+    {
+      "id": "54398",
+      "user_id": "001",
+      "first_name": "Nikita",
+      "last_name": "Umanskii",
+      "phone": "89147443083",
+      "room_name": "Standard_Double",
+      "start_date": "2025-03-22",
+      "end_date": "2025-03-25"
+    },
+    {
+      "id": "55190",
+      "user_id": "001",
+      "first_name": "Nikita",
+      "last_name": "Umanskii",
+      "phone": "89147443083",
+      "room_name": "Standard_Double",
+      "start_date": "2025-03-26",
+      "end_date": "2025-03-28"
     }
   ]
 }

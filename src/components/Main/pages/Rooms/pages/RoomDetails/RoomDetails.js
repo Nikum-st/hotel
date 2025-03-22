@@ -1,25 +1,22 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { roomName } from '../../../../../../constants';
 import { Loader } from '../../../../../components/Loader/Loader';
 import {
 	fetchBookingsAsync,
 	selectBookings,
-	selectIsAuthenticated,
 	selectLoading,
 	selectRole,
 	selectRooms,
 } from '../../../../../../store';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useFetchRooms, useRequestServer } from '../../../../../../hooks';
 import styles from './RoomDetails.module.css';
 import { Info } from './components/Info/Info';
 import { Button } from '../../../../../components/Button/Button';
-import { Booking } from './components/Booking/Booking';
 import { Icon } from '../../../../../components';
 
 export const RoomDetails = () => {
-	const [bookingMode, setBookingMode] = useState(false);
 	const fetchRooms = useFetchRooms();
 	const fetchBookings = useRequestServer();
 	const role = useSelector(selectRole);
@@ -29,7 +26,6 @@ export const RoomDetails = () => {
 	const { name } = useParams();
 	const navigate = useNavigate();
 	const isLoading = useSelector(selectLoading);
-	const isAuthenticated = useSelector(selectIsAuthenticated);
 
 	useEffect(() => {
 		const loadRoomsAndBookings = async () => {
@@ -37,6 +33,7 @@ export const RoomDetails = () => {
 				await fetchRooms();
 			}
 			if (!bookings.length) {
+				console.log(role);
 				dispatch(fetchBookingsAsync(fetchBookings, role));
 			}
 		};
@@ -47,10 +44,6 @@ export const RoomDetails = () => {
 	if (!room) {
 		return <Loader />;
 	}
-
-	const onClickBookingMode = () => {
-		setBookingMode(!bookingMode);
-	};
 
 	return isLoading ? (
 		<Loader />
@@ -65,21 +58,17 @@ export const RoomDetails = () => {
 						title="back"
 					/>
 				</div>
-				<h1 className={styles.name}>{roomName(room)}</h1>
+				<h1 className={styles.name}>{roomName(room.name)}</h1>
 			</div>
 			<div>
-				{!bookingMode ? (
-					<div className={styles.containerDetails}>
-						<img src={room.img} alt={room.name} />
-						<Info room={room}>
-							<Button onClick={onClickBookingMode} style={{ width: `40%` }}>
-								Book
-							</Button>
-						</Info>
-					</div>
-				) : (
-					<Booking room={room} onClickBookingMode={onClickBookingMode} />
-				)}
+				<div className={styles.containerDetails}>
+					<img src={room.img} alt={room.name} />
+					<Info room={room}>
+						<Link to={`/rooms/${name}/booking`}>
+							<Button style={{ width: `40%` }}>Book</Button>
+						</Link>
+					</Info>
+				</div>
 			</div>
 		</div>
 	);

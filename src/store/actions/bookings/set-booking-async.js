@@ -1,3 +1,4 @@
+import { loading } from '../app/loading';
 import { fetchBookings } from './fetch-bookings';
 
 export const setBookingAsync =
@@ -13,6 +14,7 @@ export const setBookingAsync =
 		roleUser,
 	) =>
 	async (dispatch) => {
+		dispatch(loading(true));
 		const result = await useRequestServer(
 			'createBooking',
 			userId,
@@ -24,11 +26,13 @@ export const setBookingAsync =
 			endDate,
 		);
 
-		if (result.error) {
-			console.error('Ошибка бронирования:', result.error);
-			return;
+		if (result.res) {
+			const updatedBookings = await useRequestServer('fetchBookings', roleUser);
+			dispatch(fetchBookings(updatedBookings));
+			dispatch(loading(false));
+			return result;
+		} else {
+			dispatch(loading(false));
+			return result;
 		}
-
-		const updatedBookings = await useRequestServer('fetchBookings', roleUser);
-		dispatch(fetchBookings(updatedBookings));
 	};

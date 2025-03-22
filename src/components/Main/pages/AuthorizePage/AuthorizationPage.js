@@ -2,8 +2,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { yupSchema } from '../../../../yup/yup';
-import { loading, logUser, selectLoading } from '../../../../store';
+import { yupSchemaLogin } from '../../../../yup/yupSchemaLogin';
+import { fetchBookingsAsync, loading, logUser, selectLoading } from '../../../../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRequestServer } from '../../../../hooks';
 import { AuthLayout } from './AuthLayout';
@@ -25,7 +25,7 @@ export const AuthorizationPage = () => {
 			login: '',
 			password: '',
 		},
-		resolver: yupResolver(yupSchema.authorization),
+		resolver: yupResolver(yupSchemaLogin.authorization),
 	});
 
 	const submitUserDates = ({ login, password }) => {
@@ -38,6 +38,7 @@ export const AuthorizationPage = () => {
 				}
 				dispatch(logUser(res));
 				sessionStorage.setItem('userData', JSON.stringify(res));
+				dispatch(fetchBookingsAsync(requestAuthoraize, res.role));
 				navigate('/');
 			})
 			.finally(() => {
