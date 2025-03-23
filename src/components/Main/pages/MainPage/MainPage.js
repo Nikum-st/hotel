@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 export const MainPage = () => {
 	return (
 		<>
-			{' '}
 			<div className={styles.imageContainer}>
 				<img
 					src="/img/post_3998.jpg"

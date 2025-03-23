@@ -23,13 +23,21 @@ export const RoomsPage = () => {
 	) : (
 		<div className={styles.content}>
 			<div className={styles.containerRooms}>
-				{rooms.map(({ id, img, name }) => (
-					<div className={styles.room} key={id}>
-						<Link to={`/rooms/${name}`}>
-							<img src={img} alt={name} />
-						</Link>
-					</div>
-				))}
+				{rooms.map(
+					({ id, img, name, price, shortDescription, category, beds }) => (
+						<div className={styles.room} key={id}>
+							<Link to={`/rooms/${name}`}>
+								<img src={img} alt={name} />
+								<div className={styles.infoRoom}>
+									<div className={styles.price}>${price}</div>
+									<div>Description: {shortDescription}</div>
+									<div>Category: {category}</div>
+									<div>Beds: {beds}</div>
+								</div>
+							</Link>
+						</div>
+					),
+				)}
 			</div>
 		</div>
 	);
