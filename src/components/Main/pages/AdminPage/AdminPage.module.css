@@ -1,0 +1,64 @@
+.adminContent {
+	margin-top: 45px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+.tableAdmin {
+	width: 100%;
+	min-width: 600px;
+	border-collapse: collapse;
+	margin-top: 20px;
+	font-size: 16px;
+	background: #fff;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.tableAdmin tbody {
+	display: table-row-group;
+}
+
+.tableAdmin th,
+.tableAdmin td {
+	padding: 12px 15px;
+	text-align: center;
+	border-bottom: 1px solid #ddd;
+	white-space: nowrap;
+}
+
+.tableAdmin thead {
+	background: #f4f4f4;
+	font-weight: bold;
+}
+
+.tableAdmin tbody tr:hover {
+	background: #f9f9f9;
+}
+
+.tableAdmin tbody tr:last-child td {
+	border-bottom: none;
+}
+
+@media (max-width: 768px) {
+	.tableAdmin {
+		font-size: 14px;
+	}
+
+	.tableAdmin th,
+	.tableAdmin td {
+		padding: 8px 10px;
+	}
+}
+
+@media (max-width: 480px) {
+	.tableAdmin {
+		font-size: 12px;
+	}
+
+	.tableAdmin th,
+	.tableAdmin td {
+		padding: 6px 8px;
+	}
+}

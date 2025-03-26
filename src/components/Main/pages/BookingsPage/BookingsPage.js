@@ -13,7 +13,7 @@ import { fetchBookingsAsync } from '../../../../store';
 import { useFetchRooms, useRequestServer } from '../../../../hooks';
 import { Loader } from '../../../components/Loader/Loader';
 import styles from './Bookings.module.css';
-import { BookingInfo, Button } from '../../../components';
+import { BookingInfo, Button, NoBookingInfo } from '../../../components';
 
 export const BookingsPage = () => {
 	const dispatch = useDispatch();
@@ -28,9 +28,6 @@ export const BookingsPage = () => {
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-		if (!role) {
-			navigate('*');
-		}
 		if (!rooms.length) {
 			fetchRooms();
 		}
@@ -56,6 +53,8 @@ export const BookingsPage = () => {
 
 	return isLoading ? (
 		<Loader />
+	) : !role ? (
+		navigate('*')
 	) : bookingsOfUser.length ? (
 		<div className={styles.containerBookings}>
 			{bookingsOfUser.map((booking) => (
@@ -78,6 +77,6 @@ export const BookingsPage = () => {
 			))}
 		</div>
 	) : (
-		<div className={styles.noBooking}>You don't have a booking</div>
+		<NoBookingInfo>You don't have a booking</NoBookingInfo>
 	);
 };

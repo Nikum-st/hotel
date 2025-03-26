@@ -1,83 +1,107 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { selectBookings, selectLoading } from '../../../../store';
-import { Loader } from '../../../components';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	deleteBookingAsync,
+	fetchBookingsAsync,
+	selectBookings,
+	selectLoading,
+	selectRole,
+} from '../../../../store';
+import { Button, Input, Loader, NoBookingInfo } from '../../../components';
 import { useRequestServer } from '../../../../hooks';
+import { useNavigate } from 'react-router-dom';
+import styles from './AdminPage.module.css';
+import { roomName } from '../../../../constants';
 
 export const AdminPage = () => {
 	const [search, setSearch] = useState('');
 	const bookings = useSelector(selectBookings);
+	const role = useSelector(selectRole);
 	const isLoading = useSelector(selectLoading);
 	const fetchBookings = useRequestServer();
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	useEffect(() => {
+		window.scrollTo(0, 0);
 		if (!bookings.length) {
+			dispatch(fetchBookingsAsync(fetchBookings, role));
 		}
-	}, []);
+	}, [role, bookings.length, fetchBookings, dispatch, navigate]);
 
-	const filteredBookings = bookings.filter((b) =>
-		b.user.toLowerCase().includes(search.toLowerCase()),
-	);
+	const filteredBookings =
+		bookings.filter(
+			(b) =>
+				b.firstName?.toLowerCase().includes(search.toLowerCase()) ||
+				b.id?.toLowerCase().includes(search.toLowerCase()),
+		) || [];
+
+	const deleteBooking = (id) => {
+		dispatch(deleteBookingAsync(fetchBookings, id, role));
+	};
 
 	return isLoading ? (
 		<Loader />
+	) : !role || role === 'user' ? (
+		navigate('*')
 	) : (
-		<div className="p-6 max-w-5xl mx-auto">
-			<h1 className="text-2xl font-bold mb-4">Администраторская панель</h1>
-
-			<div className="bg-white p-4 rounded-lg shadow-md">
-				<input
-					type="text"
-					placeholder="Поиск по пользователю..."
-					value={search}
-					onChange={(e) => setSearch(e.target.value)}
-					className="mb-4 p-2 border border-gray-300 rounded-md w-full"
-				/>
-
-				<table className="min-w-full table-auto">
-					<thead>
+		<div className={styles.adminContent}>
+			<h1>Admin panel</h1>
+			<Input
+				type="text"
+				placeholder="Search by name or booking..."
+				value={search}
+				style={{ margin: '20px', width: '300px' }}
+				onChange={(e) => setSearch(e.target.value)}
+			/>
+			<table className={styles.tableAdmin}>
+				<thead>
+					<tr>
+						<th>Booking</th>
+						<th>User id</th>
+						<th>First name</th>
+						<th>Last name</th>
+						<th>Phone</th>
+						<th>Room</th>
+						<th>Check in</th>
+						<th>Check out</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					{filteredBookings.length === 0 ? (
 						<tr>
-							<th className="px-4 py-2 border-b">ID</th>
-							<th className="px-4 py-2 border-b">Пользователь</th>
-							<th className="px-4 py-2 border-b">Комната</th>
-							<th className="px-4 py-2 border-b">Дата</th>
-							<th className="px-4 py-2 border-b">Статус</th>
-							<th className="px-4 py-2 border-b">Действия</th>
+							<td
+								colSpan="9"
+								style={{ textAlign: 'center', padding: '20px' }}
+							>
+								<NoBookingInfo>No reservations</NoBookingInfo>
+							</td>
 						</tr>
-					</thead>
-					<tbody>
-						{filteredBookings.map((b) => (
+					) : (
+						filteredBookings.map((b) => (
 							<tr key={b.id}>
-								<td className="px-4 py-2 border-b">{b.id}</td>
-								<td className="px-4 py-2 border-b">{b.user}</td>
-								<td className="px-4 py-2 border-b">{b.room}</td>
-								<td className="px-4 py-2 border-b">{b.date}</td>
-								<td className="px-4 py-2 border-b">
-									<span
-										className={
-											b.status === 'Активно'
-												? 'text-green-600'
-												: 'text-gray-500'
-										}
-									>
-										{b.status}
-									</span>
-								</td>
-								<td className="px-4 py-2 border-b">
-									<button
-										onClick={() =>
-											alert(`Удалить бронирование ${b.id}`)
-										}
-										className="text-red-500 hover:text-red-700"
+								<td>{b.id}</td>
+								<td>{b.userId}</td>
+								<td>{b.firstName}</td>
+								<td>{b.lastName}</td>
+								<td>{b.phone}</td>
+								<td>{roomName(b.roomName)}</td>
+								<td>{b.startDate}</td>
+								<td>{b.endDate}</td>
+								<td>
+									<Button
+										onClick={() => deleteBooking(b.id)}
+										style={{ background: '#af0303', height: '30px' }}
 									>
 										Удалить
-									</button>
+									</Button>
 								</td>
 							</tr>
-						))}
-					</tbody>
-				</table>
-			</div>
+						))
+					)}
+				</tbody>
+			</table>
 		</div>
 	);
 };

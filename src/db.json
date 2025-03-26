@@ -284,5 +284,16 @@
       "img": "/img/rooms/premium2.jpg"
     }
   ],
-  "bookings": []
+  "bookings": [
+    {
+      "id": "18225",
+      "user_id": "001",
+      "first_name": "Nikita",
+      "last_name": "Umanskii",
+      "phone": "89147443083",
+      "room_name": "Standard_Double",
+      "start_date": "2025-03-26",
+      "end_date": "2025-03-29"
+    }
+  ]
 }
