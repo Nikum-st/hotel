@@ -1,8 +1,8 @@
 import styles from './Icon.module.css';
 
-export const Icon = ({ id, onClick, margin, size, title }) => (
+export const Icon = ({ id, onClick, margin, size, title, color }) => (
 	<div
-		style={{ margin: margin, fontSize: size }}
+		style={{ margin: margin, fontSize: size, color: color }}
 		className={styles.icon}
 		onClick={onClick}
 	>

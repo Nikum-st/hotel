@@ -1,20 +1,22 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-	deleteBookingAsync,
 	fetchBookingsAsync,
 	selectBookings,
 	selectLoading,
 	selectRole,
 } from '../../../../store';
-import { Button, Input, Loader, NoBookingInfo } from '../../../components';
+import { Icon, Loader } from '../../../components';
 import { useRequestServer } from '../../../../hooks';
 import { useNavigate } from 'react-router-dom';
 import styles from './AdminPage.module.css';
-import { roomName } from '../../../../constants';
+import { Bookings } from './components/Bookings';
 
 export const AdminPage = () => {
-	const [search, setSearch] = useState('');
+	const [searchArchive, setSearchArchive] = useState('');
+	const [searchActive, setSearchActive] = useState('');
+	const [archiveList, setArchiveList] = useState(false);
+
 	const bookings = useSelector(selectBookings);
 	const role = useSelector(selectRole);
 	const isLoading = useSelector(selectLoading);
@@ -29,15 +31,9 @@ export const AdminPage = () => {
 		}
 	}, [role, bookings.length, fetchBookings, dispatch, navigate]);
 
-	const filteredBookings =
-		bookings.filter(
-			(b) =>
-				b.firstName?.toLowerCase().includes(search.toLowerCase()) ||
-				b.id?.toLowerCase().includes(search.toLowerCase()),
-		) || [];
-
-	const deleteBooking = (id) => {
-		dispatch(deleteBookingAsync(fetchBookings, id, role));
+	const handleArchiveList = () => {
+		setArchiveList(!archiveList);
+		dispatch(fetchArchiveAsync(fetchBookings,role))
 	};
 
 	return isLoading ? (
@@ -47,61 +43,25 @@ export const AdminPage = () => {
 	) : (
 		<div className={styles.adminContent}>
 			<h1>Admin panel</h1>
-			<Input
-				type="text"
-				placeholder="Search by name or booking..."
-				value={search}
-				style={{ margin: '20px', width: '300px' }}
-				onChange={(e) => setSearch(e.target.value)}
+			<Bookings
+				bookings={bookings}
+				Icon={Icon}
+				search={searchArchive}
+				setSearch={setSearchArchive}
 			/>
-			<table className={styles.tableAdmin}>
-				<thead>
-					<tr>
-						<th>Booking</th>
-						<th>User id</th>
-						<th>First name</th>
-						<th>Last name</th>
-						<th>Phone</th>
-						<th>Room</th>
-						<th>Check in</th>
-						<th>Check out</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					{filteredBookings.length === 0 ? (
-						<tr>
-							<td
-								colSpan="9"
-								style={{ textAlign: 'center', padding: '20px' }}
-							>
-								<NoBookingInfo>No reservations</NoBookingInfo>
-							</td>
-						</tr>
-					) : (
-						filteredBookings.map((b) => (
-							<tr key={b.id}>
-								<td>{b.id}</td>
-								<td>{b.userId}</td>
-								<td>{b.firstName}</td>
-								<td>{b.lastName}</td>
-								<td>{b.phone}</td>
-								<td>{roomName(b.roomName)}</td>
-								<td>{b.startDate}</td>
-								<td>{b.endDate}</td>
-								<td>
-									<Button
-										onClick={() => deleteBooking(b.id)}
-										style={{ background: '#af0303', height: '30px' }}
-									>
-										Удалить
-									</Button>
-								</td>
-							</tr>
-						))
-					)}
-				</tbody>
-			</table>
+			<div className={styles.archiveList} onClick={handleArchiveList}>
+				Archive bookings
+			</div>
+			{archiveList && (
+				<Bookings
+					bookings={bookings}
+					styleHeader={{ background: '#3d3d3d', color: '#fff' }}
+					styleBody={{ background: '#969696' }}
+					search={searchArchive}
+					setSearch={setSearchArchive}
+					type="archive"
+				/>
+			)}
 		</div>
 	);
 };

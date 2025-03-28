@@ -286,14 +286,24 @@
   ],
   "bookings": [
     {
-      "id": "18225",
+      "id": "96617",
       "user_id": "001",
       "first_name": "Nikita",
       "last_name": "Umanskii",
       "phone": "89147443083",
       "room_name": "Standard_Double",
-      "start_date": "2025-03-26",
+      "start_date": "2025-03-27",
       "end_date": "2025-03-29"
+    },
+    {
+      "id": "01018",
+      "user_id": "001",
+      "first_name": "Nikita",
+      "last_name": "Umanskii",
+      "phone": "89147443083",
+      "room_name": "Standard_Double",
+      "start_date": "2025-03-30",
+      "end_date": "2025-04-03"
     }
   ]
 }
