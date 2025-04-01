@@ -18,8 +18,12 @@ module.exports = async (login, password, email, role) => {
 		const hashPassword = await bcrypt.hash(password, 10);
 
 		const newUser = await User.create({ password: hashPassword, login, email, role });
-		console.log(newUser);
-		const newToken = token.create({ id: user._id });
+
+		const newToken = token.create({
+			id: newUser._id,
+			login: newUser.login,
+			role: newUser.role,
+		});
 
 		return { user: newUser, token: newToken };
 	} catch (e) {

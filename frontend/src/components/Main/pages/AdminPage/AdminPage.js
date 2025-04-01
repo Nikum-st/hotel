@@ -33,7 +33,7 @@ export const AdminPage = () => {
 
 	const handleArchiveList = () => {
 		setArchiveList(!archiveList);
-		dispatch(fetchArchiveAsync(fetchBookings,role))
+		// dispatch(fetchArchiveAsync(fetchBookings,role))
 	};
 
 	return isLoading ? (

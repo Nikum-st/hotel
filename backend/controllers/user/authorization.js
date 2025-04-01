@@ -24,7 +24,11 @@ module.exports = async (login, password) => {
 			throw new Error('Password is wrong');
 		}
 
-		const newToken = token.create({ id: user._id });
+		const newToken = token.create({
+			id: user._id,
+			login: user.login,
+			role: user.role,
+		});
 
 		return { user, token: newToken };
 	} catch (e) {
