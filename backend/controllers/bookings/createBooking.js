@@ -28,6 +28,7 @@ module.exports = async function (
 				bookings: {
 					checkIn: newBooking.checkIn,
 					checkOut: newBooking.checkOut,
+					_id: newBooking._id,
 				},
 			},
 		});

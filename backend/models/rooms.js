@@ -6,6 +6,7 @@ const roomSchema = new mongoose.Schema(
 			{
 				checkIn: String,
 				checkOut: String,
+				_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Booking' },
 			},
 		],
 	},
