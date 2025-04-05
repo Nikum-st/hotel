@@ -1,0 +1,18 @@
+.Button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border: 2px solid #d0c2b4;
+	background: #0b0e14;
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: bold;
+	color: #d4d4d4;
+	border-radius: 8px;
+}
+
+.Button:hover {
+	background: #d8d8d8b7;
+	color: #000000;
+	transform: translateY(-2px);
+}

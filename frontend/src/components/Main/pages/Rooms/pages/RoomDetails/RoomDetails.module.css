@@ -1,0 +1,36 @@
+.content {
+	font-family: Arial, sans-serif;
+	color: #333;
+	max-width: 1200px;
+	width: 100%;
+}
+.name {
+	text-align: center;
+	margin: 40px;
+}
+.containerDetails {
+	display: flex;
+	gap: 30px;
+	align-items: center;
+}
+
+.highPanel {
+	display: flex;
+	justify-content: center;
+}
+.icon {
+	display: flex;
+	align-items: center;
+}
+
+.containerDetails img {
+	max-width: 40%;
+	border-radius: 8px;
+	height: auto;
+}
+
+@media (max-width: 768px) {
+	.containerDetails {
+		flex-direction: column;
+	}
+}
