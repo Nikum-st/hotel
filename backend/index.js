@@ -5,6 +5,12 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const routes = require('./routes');
 
+const uri = process.env.MONGODB_URI; // Получаем строку подключения из переменной окружения
+
+if (!uri) {
+	console.error('MONGODB_URI is not defined in .env');
+	process.exit(1); // Останавливаем выполнение, если переменная не определена
+}
 const app = express();
 
 app.use(express.json());
@@ -26,12 +32,8 @@ app.use((req, res, next) => {
 
 app.use('/api', routes);
 
-mongoose
-	.connect(
-		`mongodb+srv://nikitaumanskiy1998:1998Nikum@cluster0.mj3bt.mongodb.net/HOTEL?retryWrites=true&w=majority&appName=Cluster0`,
-	)
-	.then(() => {
-		app.listen(port, () => {
-			console.log(`Server was started on port:${port}`);
-		});
+mongoose.connect(process.env.MONGODB_URI).then(() => {
+	app.listen(port, () => {
+		console.log(`Server was started on port:${port}`);
 	});
+});
