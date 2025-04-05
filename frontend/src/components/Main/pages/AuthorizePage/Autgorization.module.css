@@ -1,0 +1,32 @@
+.autorization {
+	margin: auto;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	width: 400px;
+	background: #ffffff;
+	box-shadow: 0 4px 12px rgba(0, 0, 0);
+	padding: 20px;
+	border-radius: 12px;
+}
+
+.form {
+	width: 100%;
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.linkStyled {
+	margin: 10px 0;
+	color: #0073e6;
+	text-decoration: none;
+	font-size: 14px;
+	font-weight: bold;
+	transition: color 0.3s ease;
+}
+.linkStyled:hover {
+	color: #004a99;
+	text-decoration: underline;
+}
