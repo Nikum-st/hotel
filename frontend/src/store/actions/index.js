@@ -2,8 +2,3 @@ export * from './users/logUser';
 export * from './users/logOut';
 export * from './app/loading';
 export * from './rooms/fetch-rooms';
-export * from './bookings/fetch-bookings-of-user';
-export * from './bookings/fetch-bookings-async-of-user';
-export * from './bookings/set-booking-async';
-export * from './bookings/delete-booking-async';
-export * from './bookings/delete-booking-of-user';

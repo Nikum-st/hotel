@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectBookings, selectLoading, selectRole } from '../../../../store';
+import { selectLoading, selectRole } from '../../../../store';
 import { Icon, Loader } from '../../../components';
-import { useRequestServer } from '../../../../hooks';
 import { useNavigate } from 'react-router-dom';
 import styles from './AdminPage.module.css';
 import { Bookings } from './components/Bookings';
@@ -11,30 +10,29 @@ export const AdminPage = () => {
 	const [searchArchive, setSearchArchive] = useState('');
 	const [searchActive, setSearchActive] = useState('');
 	const [archiveList, setArchiveList] = useState(false);
+	const [bookings, setBookings] = useState(false);
 
-	const bookings = useSelector(selectBookings);
 	const role = useSelector(selectRole);
 	const isLoading = useSelector(selectLoading);
-	const fetchBookings = useRequestServer();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
+		if (!role || role === 'user') {
+			navigate('*');
+		}
 		// if (!bookings.length) {
-		// 	dispatch(fetchBookingsAsyncOfAdmin(fetchBookings, role));
+
 		// }
-	}, [role, bookings.length, fetchBookings, dispatch, navigate]);
+	}, [role, dispatch, navigate]);
 
 	const handleArchiveList = () => {
 		setArchiveList(!archiveList);
-		// dispatch(fetchArchiveAsync(fetchBookings,role))
 	};
 
 	return isLoading ? (
 		<Loader />
-	) : !role || role === 'user' ? (
-		navigate('*')
 	) : (
 		<div className={styles.adminContent}>
 			<h1>Admin panel</h1>

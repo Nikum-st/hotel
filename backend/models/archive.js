@@ -34,12 +34,10 @@ const schemaArchive = mongoose.Schema({
 	checkIn: {
 		type: String,
 		required: true,
-		unique: true,
 	},
 	checkOut: {
 		type: String,
 		required: true,
-		unique: true,
 	},
 	numOfDays: {
 		type: Number,

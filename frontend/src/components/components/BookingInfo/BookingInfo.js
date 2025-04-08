@@ -58,11 +58,6 @@ export const BookingInfo = ({
 					Phone: <b>{phone}</b>
 				</div>
 			)}
-			{name && (
-				<div>
-					Room name: <b>{roomName(name)}</b>
-				</div>
-			)}
 		</div>
 	);
 };

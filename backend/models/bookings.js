@@ -34,12 +34,10 @@ const schemaBooking = mongoose.Schema({
 	checkIn: {
 		type: String,
 		required: true,
-		unique: true,
 	},
 	checkOut: {
 		type: String,
 		required: true,
-		unique: true,
 	},
 	numOfDays: {
 		type: Number,
@@ -48,5 +46,6 @@ const schemaBooking = mongoose.Schema({
 		type: Number,
 	},
 });
+schemaBooking.index({ room: 1, checkIn: 1, checkOut: 1 }, { unique: true });
 
 module.exports = mongoose.model('Booking', schemaBooking);

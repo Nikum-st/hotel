@@ -30,6 +30,12 @@ router.post('/:id/booking', isAuthorizated, async (req, res) => {
 
 		return res.status(200).send({ error: null, data: booking });
 	} catch (e) {
+		if (e.code === 11000) {
+			return res.send({
+				error: 'Check in or Check out already exists in the bookings',
+				data: null,
+			});
+		}
 		return res.send({ error: e.message, data: null });
 	}
 });

@@ -1,9 +1,6 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { roomName } from '../../../../../constants';
-import { deleteBookingAsync, selectRole } from '../../../../../store';
 import { Input, Info } from '../../../../components';
 import styles from './Bookings.module.css';
-import { useRequestServer } from '../../../../../hooks';
 
 export const Bookings = ({
 	bookings,
@@ -14,20 +11,14 @@ export const Bookings = ({
 	setSearch,
 	type,
 }) => {
-	const dispatch = useDispatch();
-	const role = useSelector(selectRole);
-	const fetchBookings = useRequestServer();
-
 	const filteredBookings =
-		bookings.filter(
+		bookings?.filter(
 			(b) =>
 				b.firstName?.toLowerCase().includes(search.toLowerCase()) ||
 				b.id?.toLowerCase().includes(search.toLowerCase()),
 		) || [];
 
-	const deleteBooking = (id) => {
-		dispatch(deleteBookingAsync(fetchBookings, id, role));
-	};
+	const deleteBooking = (id) => {};
 
 	return (
 		<>

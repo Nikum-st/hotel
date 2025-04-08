@@ -3,12 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { yupSchemaLogin } from '../../../../yup/yupSchemaLogin';
-import {
-	fetchBookingsAsyncOfUser,
-	loading,
-	logUser,
-	selectLoading,
-} from '../../../../store';
+import { loading, logUser, selectLoading } from '../../../../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthLayout } from './AuthLayout';
 import { request } from '../../../../utils/request';
@@ -43,7 +38,6 @@ export const AuthorizationPage = () => {
 				}
 				dispatch(logUser(data));
 				sessionStorage.setItem('userData', JSON.stringify(data));
-				dispatch(fetchBookingsAsyncOfUser());
 				navigate('/');
 			})
 			.catch(() => setErrorServer('Error from server.  Please try again later'))

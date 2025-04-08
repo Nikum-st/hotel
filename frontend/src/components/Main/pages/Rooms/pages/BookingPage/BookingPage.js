@@ -9,7 +9,6 @@ import {
 	selectIsAuthenticated,
 	selectLoading,
 	selectRooms,
-	setBookingAsync,
 	setRooms,
 } from '../../../../../../store';
 import { yupSchemaAppoint } from '../../../../../../yup/yupSchemaAppoint';
@@ -21,12 +20,12 @@ import { Info } from '../../../../../components';
 export const BookingPage = () => {
 	const [errorsGeneral, setErrorsGeneral] = useState(null);
 	const [booking, setBooking] = useState(null);
+	const [errorFromServer, setErrorFromServer] = useState(null);
 	const { name } = useParams();
 	const isAuthenticated = useSelector(selectIsAuthenticated);
 	const isLoading = useSelector(selectLoading);
 	const rooms = useSelector(selectRooms);
 	const dispatch = useDispatch();
-	const [errorFromServer, setErrorFromServer] = useState(null);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -107,25 +106,27 @@ export const BookingPage = () => {
 		}
 
 		try {
-			const { error, data } = await dispatch(
-				setBookingAsync(
-					{
-						firstName,
-						lastName,
-						phone,
-						startDate,
-						endDate,
-					},
-					roomCurrent.id,
-				),
+			dispatch(loading(true));
+			const { error, data } = await request(
+				`/rooms/${roomCurrent.id}/booking`,
+				'POST',
+				{
+					firstName,
+					lastName,
+					phone,
+					startDate,
+					endDate,
+				},
 			);
 			if (data) {
-				dispatch(setBooking(data));
+				setBooking(data);
 			} else {
 				setErrorFromServer(error);
 			}
 		} catch {
 			setErrorsGeneral('Booking failed. Please try again later.');
+		} finally {
+			dispatch(loading(false));
 		}
 	};
 
