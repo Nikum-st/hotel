@@ -1,7 +1,6 @@
 const User = require('../../models/user');
 const bcrypt = require('bcrypt');
 const token = require('../../helpers/token');
-const HASH_SALT = process.env.HASH_SALT;
 
 module.exports = async (login, password, email, role) => {
 	try {
@@ -15,7 +14,7 @@ module.exports = async (login, password, email, role) => {
 			throw new Error('Email is required');
 		}
 
-		const hashPassword = await bcrypt.hash(password, HASH_SALT);
+		const hashPassword = await bcrypt.hash(password, 10);
 
 		const newUser = await User.create({ password: hashPassword, login, email, role });
 

@@ -5,15 +5,15 @@ import { useNavigate } from 'react-router-dom';
 import { yupSchemaLogin } from '../../../../yup/yupSchemaLogin';
 import { loading, logUser, selectLoading } from '../../../../store';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRequestServer } from '../../../../hooks';
 import { RegLayout } from './RegLayout';
+import { request } from '../../../../utils/request';
+import { Loader } from '../../../components';
 
 export const RegistrationPage = () => {
 	const [errorServer, setErrorServer] = useState(null);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const requestRegister = useRequestServer();
 	const isLoading = useSelector(selectLoading);
 
 	const {
@@ -29,20 +29,29 @@ export const RegistrationPage = () => {
 		resolver: yupResolver(yupSchemaLogin.registration),
 	});
 
-	const submitNewUser = ({ login, password, email }) => {
+	const submitNewUser = async ({ login, password, email }) => {
 		dispatch(loading(true));
-		requestRegister('registration', login, password, email)
-			.then(({ error, res }) => {
-				if (error) {
-					setErrorServer(error);
-					return;
-				}
-				dispatch(logUser(res));
-				sessionStorage.setItem('userData', JSON.stringify(res));
-				navigate('/');
-			})
-			.finally(dispatch(loading(false)));
+		try {
+			const { error, data } = await request('/register', 'POST', {
+				login,
+				password,
+				email,
+			});
+
+			if (error) {
+				setErrorServer(error);
+				return;
+			}
+			dispatch(logUser(data));
+			sessionStorage.setItem('userData', JSON.stringify(data));
+			navigate('/');
+		} catch {
+			setErrorServer('Registration failed. Please try again later.');
+		} finally {
+			dispatch(loading(false));
+		}
 	};
+
 	const errorMessage =
 		errors.login?.message ||
 		errors.email?.message ||
@@ -50,7 +59,9 @@ export const RegistrationPage = () => {
 		errors.passcheck?.message ||
 		errorServer;
 
-	return (
+	return isLoading ? (
+		<Loader />
+	) : (
 		<RegLayout
 			isLoading={isLoading}
 			handleSubmit={handleSubmit}

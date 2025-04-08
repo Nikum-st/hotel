@@ -1,11 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-	fetchBookingsAsync,
-	selectBookings,
-	selectLoading,
-	selectRole,
-} from '../../../../store';
+import { selectBookings, selectLoading, selectRole } from '../../../../store';
 import { Icon, Loader } from '../../../components';
 import { useRequestServer } from '../../../../hooks';
 import { useNavigate } from 'react-router-dom';
@@ -26,9 +21,9 @@ export const AdminPage = () => {
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
-		if (!bookings.length) {
-			dispatch(fetchBookingsAsync(fetchBookings, role));
-		}
+		// if (!bookings.length) {
+		// 	dispatch(fetchBookingsAsyncOfAdmin(fetchBookings, role));
+		// }
 	}, [role, bookings.length, fetchBookings, dispatch, navigate]);
 
 	const handleArchiveList = () => {

@@ -2,13 +2,22 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from './Authenticated.module.css';
 import { Icon } from '../../../../components/Icon/Icon';
 import { useDispatch, useSelector } from 'react-redux';
-import { logOut, selectLogin, selectRole } from '../../../../../store';
+import { loading, logOut, selectLogin, selectRole } from '../../../../../store';
 
 export const Authenticated = () => {
 	const login = useSelector(selectLogin);
 	const role = useSelector(selectRole);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+
+	const handleLogOut = async () => {
+		dispatch(loading(true));
+		await fetch('/logout', { method: 'POST' }).finally(() => {
+			dispatch(loading(false));
+		});
+		dispatch(logOut);
+		navigate('/');
+	};
 
 	return (
 		<div className={styles.controlPanel}>
@@ -33,10 +42,7 @@ export const Authenticated = () => {
 				<Icon
 					size={'30px'}
 					id={'fa-sign-out'}
-					onClick={() => {
-						dispatch(logOut);
-						navigate('/');
-					}}
+					onClick={() => handleLogOut(logOut)}
 				/>
 				<div className={styles.textDescription}>Log out</div>
 			</div>

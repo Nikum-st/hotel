@@ -2,15 +2,27 @@ const Booking = require('../../models/bookings');
 const Rooms = require('../../models/rooms');
 const moment = require('moment');
 
+const sumOfDays = (checkIn, checkOut) => {
+	const start = new Date(checkIn).getTime();
+	const end = new Date(checkOut).getTime();
+	return (end - start) / (1000 * 3600 * 24);
+};
+
+const totalPrice = (price, sumOfDays) => {
+	return price * sumOfDays;
+};
+
 module.exports = async function (
 	{ startDate, endDate, firstName, lastName, phone },
 	roomId,
 	userId,
 ) {
 	try {
+		const numOfDays = sumOfDays(startDate, endDate);
 		const id = new Date().getTime().toString().slice(5, 10);
 		const checkIn = moment(startDate).format('YYYY-MM-DD');
 		const checkOut = moment(endDate).format('YYYY-MM-DD');
+		const priceRoom = (await Rooms.findById(roomId)).price;
 
 		const newBooking = await Booking.create({
 			firstName,
@@ -21,6 +33,8 @@ module.exports = async function (
 			checkIn,
 			checkOut,
 			id,
+			numOfDays,
+			totalPrice: totalPrice(priceRoom, numOfDays),
 		});
 
 		const roomOfBooking = await Rooms.findByIdAndUpdate(roomId, {
@@ -37,7 +51,9 @@ module.exports = async function (
 			id: newBooking.id,
 			checkIn: newBooking.checkIn,
 			checkOut: newBooking.checkOut,
+			numOfDays: newBooking.numOfDays,
 			roomName: roomOfBooking.name,
+			totalPrice: newBooking.totalPrice,
 		};
 	} catch (e) {
 		throw e;

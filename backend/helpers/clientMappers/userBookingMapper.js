@@ -15,6 +15,8 @@ module.exports = async function (booking) {
 			room: roomMapper(roomOfBooking),
 			checkIn: booking.checkIn,
 			checkOut: booking.checkOut,
+			totalPrice: booking.totalPrice,
+			numOfDays: booking.numOfDays,
 		};
 	} catch (e) {
 		throw new Error(e.message);

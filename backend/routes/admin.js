@@ -17,9 +17,9 @@ router.get('/bookings', isAuthorizated, isAdmin, async (req, res) => {
 		const bookings = await getAllBookings();
 		const mappedBookings = await Promise.all(bookings.map((b) => bookingMapper(b)));
 
-		res.status(200).send({ error: null, data: mappedBookings });
+		return res.status(200).send({ error: null, data: mappedBookings });
 	} catch (e) {
-		res.status(500).send({ error: e.message, data: null });
+		return res.status(500).send({ error: e.message, data: null });
 	}
 });
 
@@ -30,9 +30,9 @@ router.get('/users', isAuthorizated, isAdmin, async (req, res) => {
 			.filter((b) => b.role !== 'admin')
 			.map((b) => userMapper(b));
 
-		res.status(200).send({ error: null, data: mappedBookings });
+		return res.status(200).send({ error: null, data: mappedBookings });
 	} catch (e) {
-		res.status(500).send({ error: e.message, data: null });
+		return res.status(500).send({ error: e.message, data: null });
 	}
 });
 
@@ -40,9 +40,9 @@ router.delete('/users/:id', isAuthorizated, isAdmin, async (req, res) => {
 	try {
 		await deleteUser(req.params.id);
 
-		res.status(200).send({ error: null, data: true });
+		return res.status(200).send({ error: null, data: true });
 	} catch (e) {
-		res.status(500).send({ error: e.message, data: null });
+		return res.status(500).send({ error: e.message, data: null });
 	}
 });
 
@@ -50,9 +50,9 @@ router.get('/archive', isAuthorizated, isAdmin, async (req, res) => {
 	try {
 		const archive = await getArchive();
 
-		res.status(200).send({ error: null, data: archive });
+		return res.status(200).send({ error: null, data: archive });
 	} catch (e) {
-		res.status(500).send({ error: e.message, data: null });
+		return res.status(500).send({ error: e.message, data: null });
 	}
 });
 
@@ -62,18 +62,18 @@ router.delete('/archive/:id', isAuthorizated, isAdmin, async (req, res) => {
 
 		await archiveBookingDelete(bookingId);
 
-		res.status(200).send({ error: null, data: true });
+		return res.status(200).send({ error: null, data: true });
 	} catch (e) {
-		res.status(500).send({ error: e.message, data: null });
+		return res.status(500).send({ error: e.message, data: null });
 	}
 });
 router.delete('/archive', isAuthorizated, isAdmin, async (req, res) => {
 	try {
 		await archiveDelete();
 
-		res.status(200).send({ error: null, data: true });
+		return res.status(200).send({ error: null, data: true });
 	} catch (e) {
-		res.status(500).send({ error: e.message, data: null });
+		return res.status(500).send({ error: e.message, data: null });
 	}
 });
 

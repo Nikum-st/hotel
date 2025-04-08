@@ -41,6 +41,12 @@ const schemaBooking = mongoose.Schema({
 		required: true,
 		unique: true,
 	},
+	numOfDays: {
+		type: Number,
+	},
+	totalPrice: {
+		type: Number,
+	},
 });
 
 module.exports = mongoose.model('Booking', schemaBooking);

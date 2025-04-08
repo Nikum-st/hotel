@@ -2,44 +2,45 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { roomName } from '../../../../../../constants';
 import { Loader } from '../../../../../components/Loader/Loader';
-import {
-	fetchBookingsAsync,
-	selectBookings,
-	selectLoading,
-	selectRole,
-	selectRooms,
-} from '../../../../../../store';
-import { useEffect } from 'react';
-import { useFetchRooms, useRequestServer } from '../../../../../../hooks';
+import { loading, selectLoading, selectRooms, setRooms } from '../../../../../../store';
+import { useEffect, useState } from 'react';
 import styles from './RoomDetails.module.css';
 import { Info } from './components/Info/Info';
 import { Button } from '../../../../../components/Button/Button';
 import { Icon } from '../../../../../components';
+import { request } from '../../../../../../utils/request';
 
 export const RoomDetails = () => {
-	const fetchRooms = useFetchRooms();
-	const fetchBookings = useRequestServer();
-	const role = useSelector(selectRole);
-	const bookings = useSelector(selectBookings);
 	const rooms = useSelector(selectRooms);
 	const dispatch = useDispatch();
 	const { name } = useParams();
 	const navigate = useNavigate();
 	const isLoading = useSelector(selectLoading);
+	const [errorFromServer, setErrorFromServer] = useState(null);
 
 	useEffect(() => {
-		const loadRoomsAndBookings = async () => {
-			if (!rooms.length) {
-				await fetchRooms();
-			}
-			if (!bookings.length) {
-				console.log(role);
-				dispatch(fetchBookingsAsync(fetchBookings, role));
+		const fetchData = async () => {
+			try {
+				window.scrollTo(0, 0);
+				dispatch(loading(true));
+
+				if (!rooms.length) {
+					const { error, data } = await request('/rooms');
+					if (error) {
+						setErrorFromServer('Error from server. Please try again later');
+					} else {
+						dispatch(setRooms(data));
+					}
+				}
+			} catch (e) {
+				setErrorFromServer('Unexpected error. Please try again later');
+			} finally {
+				dispatch(loading(false));
 			}
 		};
-		loadRoomsAndBookings();
-	}, []);
 
+		fetchData();
+	}, [rooms.length, dispatch]);
 	const room = rooms?.find((room) => room.name === name);
 	if (!room) {
 		return <Loader />;
@@ -47,6 +48,8 @@ export const RoomDetails = () => {
 
 	return isLoading ? (
 		<Loader />
+	) : errorFromServer ? (
+		<Info>{errorFromServer}</Info>
 	) : (
 		<div className={styles.content}>
 			<div className={styles.highPanel}>

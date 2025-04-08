@@ -41,6 +41,12 @@ const schemaArchive = mongoose.Schema({
 		required: true,
 		unique: true,
 	},
+	numOfDays: {
+		type: Number,
+	},
+	totalPrice: {
+		type: Number,
+	},
 	deleteAt: {
 		type: Date,
 		default: new Date(),

@@ -6,7 +6,7 @@ import {
 	Error404Page,
 	RoomsPage,
 	RoomDetails,
-	BookingsPage,
+	BookingsOfUserPage,
 	AdminPage,
 	BookingPage,
 } from '../../pages';
@@ -20,7 +20,7 @@ export const Routing = () => (
 		<Route path="/admin" element={<AdminPage />} />
 		<Route path="/authorize" element={<AuthorizationPage />} />
 		<Route path="/register" element={<RegistrationPage />} />
-		<Route path="/bookings" element={<BookingsPage />} />
+		<Route path="/bookings" element={<BookingsOfUserPage />} />
 		<Route path="*" element={<Error404Page />} />
 	</Routes>
 );

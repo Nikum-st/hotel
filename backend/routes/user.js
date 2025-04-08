@@ -16,9 +16,12 @@ router.post('/register', async (req, res) => {
 		const { user, token } = await registration(login, password, email, role);
 
 		res.cookie('token', token, { httpOnly: true });
-		res.status(200).send({ error: null, data: userMapper(user) });
+		return res.status(200).send({ error: null, data: userMapper(user) });
 	} catch (error) {
-		res.status(500).send({ error: error.message });
+		if (error.code === 11000) {
+			return res.send({ error: 'This user or email already exists' });
+		}
+		return res.send({ error: error.message });
 	}
 });
 
@@ -28,9 +31,9 @@ router.post('/authorize', async (req, res) => {
 		const { user, token } = await authorization(login, password);
 
 		res.cookie('token', token, { httpOnly: true });
-		res.status(200).send({ error: null, data: userMapper(user) });
+		return res.status(200).send({ error: null, data: userMapper(user) });
 	} catch (error) {
-		res.status(500).send({ error: error.message, data: null });
+		return res.send({ error: error.message, data: null });
 	}
 });
 

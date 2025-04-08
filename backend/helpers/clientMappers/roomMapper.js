@@ -1,11 +1,12 @@
 module.exports = function (room) {
 	return {
 		id: room.id,
+		name: room.name,
 		category: room.category,
 		size: room.size,
 		beds: room.beds,
 		description: room.description,
-		shortDescription: room.shortDescription,
+		shortDescription: room.short_description,
 		amenities: room.amenities,
 		price: room.price,
 		img: room.img,

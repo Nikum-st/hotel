@@ -1,30 +1,18 @@
 import { roomName } from '../../../constants';
 import styles from './BookingInfo.module.css';
 
-const sumOfDays = (checkIn, checkOut) => {
-	const start = new Date(checkIn).getTime();
-	const end = new Date(checkOut).getTime();
-	return (end - start) / (1000 * 3600 * 24);
-};
-
-const totalPrice = (price, sumOfDays) => {
-	return price * sumOfDays;
-};
-
 export const BookingInfo = ({
 	room,
 	id,
-	startDate,
-	endDate,
+	checkIn,
+	checkOut,
 	firstName,
 	lastName,
 	phone,
 	roomName: name,
-	price,
+	numOfDays,
+	totalPrice,
 }) => {
-	const numOfDays = sumOfDays(startDate, endDate);
-	const total = totalPrice(price, numOfDays);
-
 	return (
 		<div className={styles.infoBooking}>
 			{room && (
@@ -37,24 +25,24 @@ export const BookingInfo = ({
 					Number of booking: <b>{id}</b>
 				</div>
 			)}
-			{startDate && (
+			{checkIn && (
 				<div>
-					Check-in: <b>{startDate}</b>
+					Check-in: <b>{checkIn}</b>
 				</div>
 			)}
-			{endDate && (
+			{checkOut && (
 				<div>
-					Check-out: <b>{endDate}</b>
+					Check-out: <b>{checkOut}</b>
 				</div>
 			)}
-			{startDate && endDate && (
+			{numOfDays && (
 				<div>
 					Number of days: <b>{numOfDays}</b>
 				</div>
 			)}
-			{price && startDate && endDate && (
+			{totalPrice && (
 				<div>
-					Total price: $<b>{total}</b>
+					Total price: $<b>{totalPrice}</b>
 				</div>
 			)}
 			{firstName && lastName && (

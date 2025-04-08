@@ -1,13 +1,21 @@
+import { request } from '../../../utils/request';
 import { loading } from '../app/loading';
-import { fetchBookings } from './fetch-bookings';
+import { setRooms } from '../rooms/fetch-rooms';
+import { deleteBookingOfUser } from './delete-booking-of-user';
 
-export const deleteBookingAsync = (useRequestServer, id, role) => async (dispatch) => {
-	dispatch(loading(true));
-	const result = await useRequestServer('deleteBooking', id);
-
-	if (result.res) {
-		const updatedBookings = await useRequestServer('fetchBookings', role);
-		dispatch(fetchBookings(updatedBookings));
+export const deleteBookingAsync = (id) => async (dispatch) => {
+	try {
+		dispatch(loading(true));
+		const result = await request(`/bookings/${id}`, 'DELETE');
+		if (result.data) {
+			const updatedRooms = await request('/rooms');
+			dispatch(deleteBookingOfUser(id));
+			dispatch(setRooms(updatedRooms.data));
+			dispatch(loading(false));
+		} else if (result.error) {
+			console.log(`Error from server`, result.error);
+		}
+	} finally {
 		dispatch(loading(false));
 	}
 };

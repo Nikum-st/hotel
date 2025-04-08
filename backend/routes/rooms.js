@@ -11,9 +11,9 @@ router.get('/', async (req, res) => {
 	try {
 		const rooms = (await getRooms()).map((r) => roomMapper(r));
 
-		res.status(200).send({ error: null, data: rooms });
+		return res.status(200).send({ error: null, data: rooms });
 	} catch (e) {
-		res.status(500).send({ error: e.message, data: null });
+		return res.send({ error: e.message, data: null });
 	}
 });
 
@@ -28,9 +28,9 @@ router.post('/:id/booking', isAuthorizated, async (req, res) => {
 
 		const booking = await createBooking(req.body, roomId, userId);
 
-		res.status(200).send({ error: null, data: booking });
+		return res.status(200).send({ error: null, data: booking });
 	} catch (e) {
-		res.status(500).send({ error: e.message, data: null });
+		return res.send({ error: e.message, data: null });
 	}
 });
 

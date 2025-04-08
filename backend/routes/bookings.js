@@ -10,25 +10,33 @@ router.get('/user', isAuthorizated, async (req, res) => {
 	try {
 		const userId = req.user.id;
 		const bookings = await getUserBookings(userId);
+
 		const mappedBookings = await Promise.all(
 			bookings.map((b) => userBookingMapper(b)),
 		);
 
-		res.status(200).send({ error: null, data: mappedBookings });
+		return res.status(200).send({ error: null, data: mappedBookings });
 	} catch (e) {
-		res.status(500).send({ error: e.message, data: null });
+		return res.status(500).send({ error: e.message, data: null });
 	}
 });
 
 router.delete('/:id', isAuthorizated, async (req, res) => {
 	try {
+		const roleUser = req.user.role;
 		const bookingId = req.params.id;
 
-		await deleteBooking(bookingId);
+		await deleteBooking(bookingId, roleUser);
 
-		res.status(200).send({ error: null, data: true });
+		return res.status(200).send({ error: null, data: true });
 	} catch (e) {
-		res.status(500).send({ error: e.message, data: null });
+		if (e.code === 11000) {
+			return res.send({
+				error: 'Check In or Check Out already exists in the archive and cannot be deleted',
+				data: null,
+			});
+		}
+		return res.status(500).send({ error: e.message, data: null });
 	}
 });
 

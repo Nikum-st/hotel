@@ -4,6 +4,6 @@ export * from './RegisterPage/RegisterPage';
 export * from './MainPage/MainPage';
 export * from './Rooms/RoomsPage';
 export * from './Rooms/pages/RoomDetails/RoomDetails';
-export * from './BookingsPage/BookingsPage';
+export * from './BookingsOfUserPage/BookingsOfUserPage';
 export * from './AdminPage/AdminPage';
 export * from './Rooms/pages/BookingPage/BookingPage';

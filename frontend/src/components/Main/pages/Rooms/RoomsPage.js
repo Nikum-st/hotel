@@ -1,25 +1,45 @@
-import { selectLoading, selectRooms } from '../../../../store';
+import { loading, selectLoading, selectRooms, setRooms } from '../../../../store';
 import styles from './Rooms.module.css';
-import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useFetchRooms } from '../../../../hooks';
-import { Loader } from '../../../components/Loader/Loader';
+import { Loader, Info } from '../../../components';
+import { request } from '../../../../utils/request';
 
 export const RoomsPage = () => {
 	const rooms = useSelector(selectRooms);
-	const fetchRooms = useFetchRooms();
 	const isLoading = useSelector(selectLoading);
+	const dispatch = useDispatch();
+	const [errorFromServer, setErrorFromServer] = useState(null);
 
 	useEffect(() => {
-		window.scrollTo(0, 0);
-		if (!rooms.length) {
-			fetchRooms();
-		}
-	}, [rooms.length, fetchRooms]);
+		const fetchData = async () => {
+			try {
+				window.scrollTo(0, 0);
+				dispatch(loading(true));
+
+				if (!rooms.length) {
+					const { error, data } = await request('/rooms');
+					if (error) {
+						setErrorFromServer('Error from server. Please try again later');
+					} else {
+						dispatch(setRooms(data));
+					}
+				}
+			} catch (e) {
+				setErrorFromServer('Unexpected error. Please try again later');
+			} finally {
+				dispatch(loading(false));
+			}
+		};
+
+		fetchData();
+	}, [dispatch, rooms.length]);
 
 	return isLoading ? (
 		<Loader />
+	) : errorFromServer ? (
+		<Info>{errorFromServer}</Info>
 	) : (
 		<div className={styles.content}>
 			<div className={styles.containerRooms}>

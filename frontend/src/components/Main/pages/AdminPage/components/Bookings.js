@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { roomName } from '../../../../../constants';
 import { deleteBookingAsync, selectRole } from '../../../../../store';
-import { Input, NoBookingInfo } from '../../../../components';
+import { Input, Info } from '../../../../components';
 import styles from './Bookings.module.css';
 import { useRequestServer } from '../../../../../hooks';
 
@@ -39,7 +39,7 @@ export const Bookings = ({
 				onChange={(e) => setSearch(e.target.value)}
 			/>
 			{filteredBookings.length === 0 ? (
-				<NoBookingInfo>No reservations</NoBookingInfo>
+				<Info>No reservations</Info>
 			) : (
 				<div className={type === 'archive' && styles.archive}>
 					<table className={styles.tableAdmin}>
@@ -63,7 +63,7 @@ export const Bookings = ({
 										colSpan="9"
 										style={{ textAlign: 'center', padding: '20px' }}
 									>
-										<NoBookingInfo>No reservations</NoBookingInfo>
+										<Info>No reservations</Info>
 									</td>
 								</tr>
 							) : (
