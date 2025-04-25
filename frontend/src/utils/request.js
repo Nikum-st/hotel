@@ -14,6 +14,6 @@ export const request = async (url, method, data) => {
 
 		return result;
 	} catch (e) {
-		throw new Error(e);
+		throw new Error('Error from server.  Please try again later');
 	}
 };

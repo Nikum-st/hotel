@@ -2,6 +2,7 @@
 	max-height: 600px;
 	overflow-y: auto;
 	width: 100%;
+	margin-bottom: 45px;
 }
 .tableAdmin {
 	width: 100%;

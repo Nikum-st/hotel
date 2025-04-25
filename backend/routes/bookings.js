@@ -11,11 +11,7 @@ router.get('/user', isAuthorizated, async (req, res) => {
 		const userId = req.user.id;
 		const bookings = await getUserBookings(userId);
 
-		const mappedBookings = await Promise.all(
-			bookings.map((b) => userBookingMapper(b)),
-		);
-
-		return res.status(200).send({ error: null, data: mappedBookings });
+		return res.status(200).send({ error: null, data: bookings.map(mappedBookings) });
 	} catch (e) {
 		return res.status(500).send({ error: e.message, data: null });
 	}

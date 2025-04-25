@@ -9,7 +9,6 @@ export const BookingInfo = ({
 	firstName,
 	lastName,
 	phone,
-	roomName: name,
 	numOfDays,
 	totalPrice,
 }) => {
@@ -17,7 +16,7 @@ export const BookingInfo = ({
 		<div className={styles.infoBooking}>
 			{room && (
 				<div>
-					Name of room: <b>{roomName(room.name)}</b>
+					Name of room: <b>{room.name}</b>
 				</div>
 			)}
 			{id && (

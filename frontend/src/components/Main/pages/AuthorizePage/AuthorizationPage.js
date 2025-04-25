@@ -40,7 +40,7 @@ export const AuthorizationPage = () => {
 				sessionStorage.setItem('userData', JSON.stringify(data));
 				navigate('/');
 			})
-			.catch(() => setErrorServer('Error from server.  Please try again later'))
+			.catch((e) => setErrorServer(e.message))
 			.finally(() => {
 				dispatch(loading(false));
 			});

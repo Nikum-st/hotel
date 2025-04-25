@@ -5,7 +5,10 @@ const mongoose = require('mongoose');
 
 module.exports = async (bookingId, roleUser) => {
 	try {
-		const booking = await Booking.findOne({ id: bookingId });
+		const booking = await Booking.findOne({ id: bookingId }).populate([
+			'user',
+			'room',
+		]);
 		if (!booking) {
 			throw new Error('Booking is not found');
 		}

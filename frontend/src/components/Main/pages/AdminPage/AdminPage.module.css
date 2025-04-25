@@ -7,7 +7,7 @@
 .archiveList {
 	cursor: pointer;
 	padding: 12px 20px;
-	background: #466786;
+	background: #0b0e14;
 	color: #fff;
 	font-size: 16px;
 	font-weight: bold;
@@ -17,12 +17,12 @@
 		background 0.3s,
 		transform 0.2s;
 	display: inline-block;
-	margin: auto;
+	margin-top: 77px;
 	user-select: none;
 }
 
 .archiveList:hover {
-	background: #2c4053;
+	background: rgb(25, 37, 48);
 	transform: scale(1.05);
 }
 

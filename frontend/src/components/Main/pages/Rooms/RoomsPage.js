@@ -27,7 +27,7 @@ export const RoomsPage = () => {
 					}
 				}
 			} catch (e) {
-				setErrorFromServer('Unexpected error. Please try again later');
+				setErrorFromServer(e.message);
 			} finally {
 				dispatch(loading(false));
 			}

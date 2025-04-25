@@ -24,8 +24,8 @@ export const BookingsOfUserPage = () => {
 
 				const { data } = await request('/bookings/user');
 				setBookingsOfUser(data);
-			} catch (err) {
-				setErrorServer('Unexpected error. Please try again later');
+			} catch (e) {
+				setErrorServer(e.message);
 			} finally {
 				dispatch(loading(false));
 			}
