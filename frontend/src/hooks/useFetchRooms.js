@@ -12,7 +12,7 @@ export const useFetchRooms = () => {
 			const loadedRooms = await fetchRequesRooms('fetchRooms');
 			dispatch(setRooms(loadedRooms));
 		} catch (error) {
-			console.log('Ошибка при получении данных:', error);
+			console.error('Ошибка при получении данных:', error);
 		} finally {
 			dispatch(loading(false));
 		}

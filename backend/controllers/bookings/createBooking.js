@@ -35,11 +35,9 @@ module.exports = async function (
 			id,
 			numOfDays,
 			totalPrice: totalPrice(priceRoom, numOfDays),
-		}).populate(['user', 'room']);
+		});
 
-		console.log(newBooking);
-
-		await Rooms.findByIdAndUpdate(roomId, {
+		const room = await Rooms.findByIdAndUpdate(roomId, {
 			$push: {
 				bookings: {
 					checkIn: newBooking.checkIn,
@@ -51,13 +49,15 @@ module.exports = async function (
 
 		return {
 			id: newBooking.id,
-			user: newBooking.user,
+			user: newBooking.user.email,
 			firstName: newBooking.firstName,
 			lastName: newBooking.lastName,
 			phone: newBooking.phone,
-			room: newBooking.room,
+			roomName: room.name,
 			checkIn: newBooking.checkIn,
 			checkOut: newBooking.checkOut,
+			numOfDays: newBooking.numOfDays,
+			totalPrice: newBooking.totalPrice,
 		};
 	} catch (e) {
 		throw e;

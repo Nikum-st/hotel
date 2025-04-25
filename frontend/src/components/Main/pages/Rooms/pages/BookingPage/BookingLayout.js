@@ -23,8 +23,8 @@ export const BookingLayout = ({
 	name,
 	booking,
 	isLoading,
-}) =>
-	isLoading ? (
+}) => {
+	return isLoading ? (
 		<Loader />
 	) : (
 		<div className={styles.content}>
@@ -35,8 +35,12 @@ export const BookingLayout = ({
 					</Link>
 					<BookingInfo
 						id={booking.id}
-						startDate={booking.checkIn}
-						endDate={booking.checkOut}
+						user={booking.user}
+						firstName={booking.firstName}
+						lastName={booking.lastName}
+						phone={booking.phone}
+						checkIn={booking.checkIn}
+						checkOut={booking.checkOut}
 						totalPrice={booking.totalPrice}
 						numOfDays={booking.numOfDays}
 						roomName={booking.roomName}
@@ -125,3 +129,4 @@ export const BookingLayout = ({
 			)}
 		</div>
 	);
+};

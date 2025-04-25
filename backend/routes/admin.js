@@ -49,7 +49,6 @@ router.delete('/users/:id', isAuthorizated, isAdmin, async (req, res) => {
 router.get('/archive', isAuthorizated, isAdmin, async (req, res) => {
 	try {
 		const archive = await getArchive();
-		console.log(archive);
 
 		return res.status(200).send({ error: null, data: archive.map(archiveMapper) });
 	} catch (e) {

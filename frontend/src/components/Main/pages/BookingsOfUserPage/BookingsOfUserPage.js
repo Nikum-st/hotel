@@ -45,7 +45,7 @@ export const BookingsOfUserPage = () => {
 				dispatch(setRooms(updatedRooms.data));
 				dispatch(loading(false));
 			} else if (result.error) {
-				console.log(`Error from server`, result.error);
+				console.error(`Error from server`, result.error);
 				setErrorServer(`Error from server`, result.error);
 			}
 		} finally {

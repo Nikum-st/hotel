@@ -48,6 +48,6 @@ export const createBooking = async (
 			},
 		};
 	} catch (e) {
-		console.log(`Error from server: ${e}`);
+		console.error(`Error from server: ${e}`);
 	}
 };

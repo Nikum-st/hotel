@@ -13,7 +13,7 @@ export const deleteBooking = async (id, session) => {
 			res: true,
 		};
 	} catch (e) {
-		console.log(`Error from server: ${e}`);
+		console.error(`Error from server: ${e}`);
 		return { error: e, res: true };
 	}
 };

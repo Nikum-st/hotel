@@ -3,7 +3,7 @@ export const getRooms = async () => {
 	try {
 		const rooms = await getData('rooms');
 		if (!rooms) {
-			console.log('Не удалось загрузить данные');
+			console.error('Не удалось загрузить данные');
 			return [];
 		}
 		return rooms.map((room) => ({

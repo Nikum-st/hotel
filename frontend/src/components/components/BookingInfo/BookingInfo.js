@@ -1,9 +1,9 @@
-import { roomName } from '../../../constants';
 import styles from './BookingInfo.module.css';
 
 export const BookingInfo = ({
-	room,
+	roomName,
 	id,
+	user,
 	checkIn,
 	checkOut,
 	firstName,
@@ -14,9 +14,9 @@ export const BookingInfo = ({
 }) => {
 	return (
 		<div className={styles.infoBooking}>
-			{room && (
+			{roomName && (
 				<div>
-					Name of room: <b>{room.name}</b>
+					Name of room: <b>{roomName}</b>
 				</div>
 			)}
 			{id && (
@@ -55,6 +55,11 @@ export const BookingInfo = ({
 			{phone && (
 				<div>
 					Phone: <b>{phone}</b>
+				</div>
+			)}
+			{user && (
+				<div>
+					Email: <b>{user}</b>
 				</div>
 			)}
 		</div>
