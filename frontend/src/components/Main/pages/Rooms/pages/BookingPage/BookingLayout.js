@@ -24,10 +24,9 @@ export const BookingLayout = ({
 	errorsGeneral,
 	name,
 	booking,
-	room,
 }) => {
 	return (
-		<Wrapper room={room} error={errorFromServer}>
+		<Wrapper error={errorFromServer}>
 			<div className={styles.content}>
 				{booking ? (
 					<div className={styles.bookInfo}>

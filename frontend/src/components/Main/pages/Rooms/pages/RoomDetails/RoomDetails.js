@@ -40,6 +40,9 @@ export const RoomDetails = () => {
 	if (rooms.length === 0) {
 		return <Loader />;
 	}
+	if (!room) {
+		return <Info>The selected room does not exist</Info>;
+	}
 
 	return (
 		<RoomDetailsLayout
