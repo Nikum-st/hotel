@@ -9,7 +9,7 @@ module.exports = function (room) {
 		shortDescription: room.short_description,
 		amenities: room.amenities,
 		price: room.price,
-		img: room.img,
+		img: `${process.env.BASE_URL}/uploads/${room.img}`,
 		bookings:
 			room.bookings.length > 0
 				? room.bookings.map((b) => ({ checkIn: b.checkIn, checkOut: b.checkOut }))

@@ -14,6 +14,7 @@ app.use(
 	}),
 );
 app.use(cookieParser());
+app.use('/uploads', express.static('uploads'));
 
 const port = 2000;
 
