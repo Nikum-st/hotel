@@ -4,7 +4,7 @@ import { Loader } from '../Loader/Loader';
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
 import { Info } from '../Info/Info';
 
-export const Wrapper = ({ children, error, adminPage = false }) => {
+export const Wrapper = ({ children, error, adminPage = false, room }) => {
 	const role = useSelector(selectRole);
 	const isLoading = useSelector(selectLoading);
 
@@ -18,6 +18,8 @@ export const Wrapper = ({ children, error, adminPage = false }) => {
 
 	return isLoading ? (
 		<Loader />
+	) : !room ? (
+		<Info>The selected room does not exist</Info>
 	) : accessError ? (
 		<Info style={{ fontSize: '25px', margin: 'auto' }}>{accessError}</Info>
 	) : error ? (

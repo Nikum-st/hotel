@@ -5,6 +5,7 @@ import { loading, selectRooms, setRooms } from '../../../../../../store';
 import { useEffect, useState } from 'react';
 import { request } from '../../../../../../utils/request';
 import { RoomDetailsLayout } from './RoomDetailsLayout';
+import { Info } from '../../../../../components/Info/Info';
 
 export const RoomDetails = () => {
 	const rooms = useSelector(selectRooms);
@@ -34,8 +35,9 @@ export const RoomDetails = () => {
 
 		fetchData();
 	}, [rooms.length, dispatch]);
+
 	const room = rooms?.find((room) => room.name === name);
-	if (!room) {
+	if (rooms.length === 0) {
 		return <Loader />;
 	}
 

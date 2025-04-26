@@ -1,6 +1,6 @@
 import styles from './Info.module.css';
 
-export const Info = ({ room, children }) => {
+export const Info = ({ room = {}, children }) => {
 	return (
 		<div className={styles.infoContainer}>
 			<div className={styles.shortDescription}>{room.shortDescription}</div>
@@ -9,7 +9,7 @@ export const Info = ({ room, children }) => {
 			<div className={styles.beds}>Beds: {room.beds}</div>
 			<div className={styles.description}>{room.description}</div>
 			<ul className={styles.amenities}>
-				{room.amenities.map((amenity, index) => (
+				{room.amenities?.map((amenity, index) => (
 					<li key={index}>{amenity}</li>
 				))}
 			</ul>

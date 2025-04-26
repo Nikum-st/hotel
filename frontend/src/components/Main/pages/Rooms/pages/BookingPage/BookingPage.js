@@ -16,7 +16,6 @@ import { yupSchemaAppoint } from '../../../../../../yup/yupSchemaAppoint';
 import { BookingLayout } from './BookingLayout';
 import { useParams } from 'react-router-dom';
 import { request } from '../../../../../../utils/request';
-import { Info } from '../../../../../components';
 
 export const BookingPage = () => {
 	const [errorsGeneral, setErrorsGeneral] = useState(null);
@@ -139,10 +138,10 @@ export const BookingPage = () => {
 		});
 	};
 
-	return errorFromServer ? (
-		<Info>{errorFromServer}</Info>
-	) : (
+	return (
 		<BookingLayout
+			room={roomCurrent}
+			errorFromServer={errorFromServer}
 			isLoading={isLoading}
 			handleSubmit={handleSubmit}
 			handleBookingSubmit={handleBookingSubmit}
