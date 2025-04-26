@@ -10,9 +10,13 @@ export const request = async (url, method, data) => {
 			throw new Error(`HTTP error! Status: ${response.status}`);
 		}
 
-		const result = response.json();
+		const result = await response.json();
 
-		return result;
+		if (result.error) {
+			console.error(result.error);
+		}
+
+		return result.data;
 	} catch (e) {
 		throw new Error('Error from server.  Please try again later');
 	}

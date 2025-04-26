@@ -1,13 +1,21 @@
 import { forwardRef } from 'react';
 import { Input, Info } from '../../../../../components';
 import styles from './Bookings.module.css';
-import { request } from '../../../../../../utils/request';
 import { Thead } from './components/thead';
 import { Tbody } from './components/tbody';
 
 export const Bookings = forwardRef(
 	(
-		{ bookings, Icon, styleHeader, styleBody, search, setSearch, type, setBookings },
+		{
+			bookings,
+			Icon,
+			styleHeader,
+			styleBody,
+			search,
+			setSearch,
+			type,
+			deleteBooking,
+		},
 		ref,
 	) => {
 		const filteredBookings =
@@ -16,18 +24,6 @@ export const Bookings = forwardRef(
 					b.firstName?.toLowerCase().includes(search?.toLowerCase()) ||
 					b.id?.toLowerCase().includes(search?.toLowerCase()),
 			) || [];
-
-		const deleteBooking = async (id) => {
-			try {
-				const isDeleted = await request(`/bookings/${id}`, 'DELETE');
-
-				if (isDeleted.data) {
-					setBookings(bookings.filter((b) => b.id !== id));
-				}
-			} catch (e) {
-				console.error(e.message);
-			}
-		};
 
 		return (
 			<>
@@ -40,7 +36,9 @@ export const Bookings = forwardRef(
 				/>
 				<h2>{type === 'archive' ? undefined : 'Active bookings'}</h2>
 				{filteredBookings.length === 0 ? (
-					<Info>No reservations</Info>
+					<Info>
+						{type === 'archive' ? 'Archive is empty' : 'No reservations'}
+					</Info>
 				) : (
 					<div
 						ref={ref}

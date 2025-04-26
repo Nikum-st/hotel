@@ -31,14 +31,10 @@ export const AuthorizationPage = () => {
 		dispatch(loading(true));
 		login = login.trim();
 		await request('/authorize', 'POST', { login, password })
-			.then(({ error, data }) => {
-				if (error) {
-					setErrorServer(error);
-					return;
-				}
-				dispatch(logUser(data));
-				sessionStorage.setItem('userData', JSON.stringify(data));
-				navigate('/');
+			.then((user) => {
+				dispatch(logUser(user));
+				sessionStorage.setItem('userData', JSON.stringify(user));
+				navigate(-1);
 			})
 			.catch((e) => setErrorServer(e.message))
 			.finally(() => {

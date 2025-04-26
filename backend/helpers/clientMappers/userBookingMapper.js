@@ -4,7 +4,7 @@ module.exports = (booking) => {
 		firstName: booking.firstName,
 		lastName: booking.lastName,
 		phone: booking.phone,
-		room: booking.room,
+		room: booking.room.name,
 		checkIn: booking.checkIn,
 		checkOut: booking.checkOut,
 		totalPrice: booking.totalPrice,

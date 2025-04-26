@@ -19,15 +19,13 @@ export const RoomsPage = () => {
 				dispatch(loading(true));
 
 				if (!rooms.length) {
-					const { error, data } = await request('/rooms');
-					if (error) {
-						setErrorFromServer('Error from server. Please try again later');
-					} else {
-						dispatch(setRooms(data));
+					const roomsServer = await request('/rooms');
+					if (roomsServer) {
+						dispatch(setRooms(roomsServer));
 					}
 				}
-			} catch (e) {
-				setErrorFromServer(e.message);
+			} catch ({ message }) {
+				setErrorFromServer(message);
 			} finally {
 				dispatch(loading(false));
 			}

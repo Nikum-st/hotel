@@ -1,29 +1,29 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { selectLoading, selectRole, loading, setRooms } from '../../../../store';
+import {
+	selectRole,
+	loading,
+	deleteBooking as deleteBookingFromStore,
+} from '../../../../store';
 import { BookingsPageLayout } from './BookingsPageLayout';
 import { request } from '../../../../utils/request';
 
 export const BookingsOfUserPage = () => {
 	const [errorServer, setErrorServer] = useState(null);
+	const [bookingsOfUser, setBookingsOfUser] = useState([]);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const [bookingsOfUser, setBookingsOfUser] = useState([]);
 	const role = useSelector(selectRole);
-	const isLoading = useSelector(selectLoading);
 
 	useEffect(() => {
-		if (!role) {
-			navigate('/authorize');
-		}
 		const fetchData = async () => {
 			try {
 				window.scrollTo(0, 0);
 				dispatch(loading(true));
 
-				const { data } = await request('/bookings/user');
-				setBookingsOfUser(data);
+				const bookings = await request('/bookings/user');
+				setBookingsOfUser(bookings);
 			} catch (e) {
 				setErrorServer(e.message);
 			} finally {
@@ -34,20 +34,17 @@ export const BookingsOfUserPage = () => {
 		fetchData();
 	}, [bookingsOfUser.length, dispatch, navigate, role]);
 
-	const deleteBooking = async (id) => {
+	const deleteBooking = async (id, roomName, checkIn) => {
 		try {
 			dispatch(loading(true));
-			const result = await request(`/bookings/${id}`, 'DELETE');
-			if (result.data) {
-				const { data } = await request('/bookings/user');
-				setBookingsOfUser(data);
-				const updatedRooms = await request('/rooms');
-				dispatch(setRooms(updatedRooms.data));
-				dispatch(loading(false));
-			} else if (result.error) {
-				console.error(`Error from server`, result.error);
-				setErrorServer(`Error from server`, result.error);
+			const isDeleted = await request(`/bookings/${id}`, 'DELETE');
+			if (isDeleted) {
+				setBookingsOfUser(bookingsOfUser.filter((b) => b.id !== id));
+				dispatch(deleteBookingFromStore(roomName, checkIn));
 			}
+		} catch ({ message }) {
+			console.error(message);
+			setErrorServer(message);
 		} finally {
 			dispatch(loading(false));
 		}
@@ -57,7 +54,6 @@ export const BookingsOfUserPage = () => {
 			errorServer={errorServer}
 			deleteBooking={deleteBooking}
 			bookingsOfUser={bookingsOfUser}
-			isLoading={isLoading}
 		/>
 	);
 };

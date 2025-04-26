@@ -1,15 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { loading } from '../../../../store';
-import { ErrorMessage, Icon, Loader, Wrapper } from '../../../components';
+import { Icon } from '../../../components';
 import { useNavigate } from 'react-router-dom';
-import styles from './AdminPage.module.css';
-import { Bookings } from './components/Bookings/Bookings';
 import { request } from '../../../../utils/request';
+import { AdminPageLayout } from './AdminPageLayout';
 
 export const AdminPage = () => {
 	const [errorFromServer, setErrorFromServer] = useState(null);
-	const [error, setError] = useState(null);
 	const [searchActive, setSearchActive] = useState('');
 	const [searchArchive, setSearchArchive] = useState('');
 	const [archiveListIsOpen, setArchiveListIsOpen] = useState(false);
@@ -28,12 +26,9 @@ export const AdminPage = () => {
 
 		const fetchBookings = async () => {
 			try {
-				const { error, data } = await request('/admin/bookings');
-				if (error) {
-					setError(error);
-				} else {
-					setBookings(data);
-				}
+				const bookings = await request('/admin/bookings');
+
+				setBookings(bookings);
 			} catch (e) {
 				setErrorFromServer(e);
 			} finally {
@@ -52,15 +47,12 @@ export const AdminPage = () => {
 
 		try {
 			setLoadingArchive(true);
-			const { error, data } = await request('/admin/archive');
+			const archive = await request('/admin/archive');
 
-			if (error) {
-				setError(error);
-			} else {
-				setArchive(data);
-			}
-		} catch (e) {
-			setError(e.message);
+			setArchive(archive);
+		} catch ({ message }) {
+			console.error(message);
+			setErrorFromServer(message);
 		} finally {
 			setLoadingArchive(false);
 			setTimeout(() => {
@@ -69,36 +61,63 @@ export const AdminPage = () => {
 		}
 	};
 
+	const deleteBooking = async (id) => {
+		try {
+			const isDeleted = await request(`/bookings/${id}`, 'DELETE');
+
+			if (isDeleted) {
+				setBookings(bookings.filter((b) => b.id !== id));
+			}
+		} catch ({ message }) {
+			console.error(message);
+			setErrorFromServer(message);
+		}
+	};
+
+	const clearArchive = async () => {
+		if (!archive) {
+			return;
+		}
+		try {
+			const isClear = await request(`/admin/archive`, 'DELETE');
+
+			if (isClear) {
+				setArchive([]);
+			}
+		} catch ({ message }) {
+			console.error(message);
+			setErrorFromServer(message);
+		}
+	};
+
+	const bookingsProps = {
+		bookings,
+		deleteBooking,
+		Icon,
+		search: searchActive,
+		setSearch: setSearchActive,
+		setBookings,
+	};
+
+	const archiveProps = {
+		bookings: archive,
+		search: searchArchive,
+		setSearch: setSearchArchive,
+		clearArchive: clearArchive,
+		ref: archiveRef,
+		styleHeader: { background: '#3d3d3d', color: '#fff' },
+		styleBody: { background: '#969696' },
+		type: 'archive',
+	};
+
 	return (
-		<Wrapper error={errorFromServer} adminPage={true}>
-			<div className={styles.adminContent}>
-				<h1>Admin panel</h1>
-				<Bookings
-					bookings={bookings}
-					Icon={Icon}
-					search={searchActive}
-					setSearch={setSearchActive}
-					setBookings={setBookings}
-				/>
-				{error && <ErrorMessage>{error}</ErrorMessage>}
-				<div className={styles.archiveList} onClick={handleArchiveList}>
-					Archive bookings
-				</div>
-				{archiveListIsOpen &&
-					(loadingArchive ? (
-						<Loader />
-					) : (
-						<Bookings
-							ref={archiveRef}
-							bookings={archive}
-							styleHeader={{ background: '#3d3d3d', color: '#fff' }}
-							styleBody={{ background: '#969696' }}
-							search={searchArchive}
-							setSearch={setSearchArchive}
-							type="archive"
-						/>
-					))}
-			</div>
-		</Wrapper>
+		<AdminPageLayout
+			errorFromServer={errorFromServer}
+			bookingsProps={bookingsProps}
+			archiveProps={archiveProps}
+			handleArchiveList={handleArchiveList}
+			archiveListIsOpen={archiveListIsOpen}
+			loadingArchive={loadingArchive}
+		/>
 	);
 };

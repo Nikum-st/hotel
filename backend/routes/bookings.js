@@ -9,9 +9,12 @@ const router = express.Router({ mergeParams: true });
 router.get('/user', isAuthorizated, async (req, res) => {
 	try {
 		const userId = req.user.id;
+
 		const bookings = await getUserBookings(userId);
 
-		return res.status(200).send({ error: null, data: bookings.map(mappedBookings) });
+		return res
+			.status(200)
+			.send({ error: null, data: bookings.map(userBookingMapper) });
 	} catch (e) {
 		return res.status(500).send({ error: e.message, data: null });
 	}

@@ -10,6 +10,7 @@ import {
 	selectLoading,
 	selectRooms,
 	setRooms,
+	updateRoomBookings,
 } from '../../../../../../store';
 import { yupSchemaAppoint } from '../../../../../../yup/yupSchemaAppoint';
 import { BookingLayout } from './BookingLayout';
@@ -34,15 +35,13 @@ export const BookingPage = () => {
 				dispatch(loading(true));
 
 				if (!rooms.length) {
-					const { error, data } = await request('/rooms');
-					if (error) {
-						setErrorFromServer('Error from server. Please try again later');
-					} else {
-						dispatch(setRooms(data));
+					const roomsServer = await request('/rooms');
+					if (roomsServer) {
+						dispatch(setRooms(roomsServer));
 					}
 				}
-			} catch (e) {
-				setErrorFromServer('Unexpected error. Please try again later');
+			} catch ({ message }) {
+				setErrorFromServer(message);
 			} finally {
 				dispatch(loading(false));
 			}
@@ -107,24 +106,25 @@ export const BookingPage = () => {
 
 		try {
 			dispatch(loading(true));
-			const { error, data } = await request(
-				`/rooms/${roomCurrent.id}/booking`,
-				'POST',
-				{
-					firstName,
-					lastName,
-					phone,
-					startDate,
-					endDate,
-				},
-			);
-			if (data) {
-				setBooking(data);
-			} else {
-				setErrorFromServer(error);
+			const newBooking = await request(`/rooms/${roomCurrent.id}/booking`, 'POST', {
+				firstName,
+				lastName,
+				phone,
+				startDate,
+				endDate,
+			});
+			if (newBooking) {
+				dispatch(
+					updateRoomBookings(
+						roomCurrent.id,
+						newBooking.checkIn,
+						newBooking.checkOut,
+					),
+				);
+				setBooking(newBooking);
 			}
-		} catch {
-			setErrorsGeneral('Booking failed. Please try again later.');
+		} catch ({ message }) {
+			setErrorsGeneral(message);
 		} finally {
 			dispatch(loading(false));
 		}
@@ -132,8 +132,8 @@ export const BookingPage = () => {
 
 	const isDateDisabled = (date) => {
 		return roomCurrent.bookings?.some(({ checkIn, checkOut }) => {
-			const start = moment(checkIn).startOf('day');
-			const end = moment(checkOut).endOf('day');
+			const start = moment(new Date(checkIn)).startOf('day');
+			const end = moment(new Date(checkOut)).endOf('day');
 			const current = moment(date).startOf('day');
 			return current.isBetween(start, end, null, '[]');
 		});

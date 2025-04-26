@@ -1,7 +1,6 @@
 const express = require('express');
 const isAuthorizated = require('../middlewares/isAuthorizated');
 const isAdmin = require('../middlewares/isAdmin');
-const archiveBookingDelete = require('../controllers/archive/archiveBookingDelete');
 const archiveDelete = require('../controllers/archive/archiveDelete');
 const getUsers = require('../controllers/user/getUsers');
 const deleteUser = require('../controllers/user/deleteUser');
@@ -56,17 +55,6 @@ router.get('/archive', isAuthorizated, isAdmin, async (req, res) => {
 	}
 });
 
-router.delete('/archive/:id', isAuthorizated, isAdmin, async (req, res) => {
-	try {
-		const bookingId = req.params.id;
-
-		await archiveBookingDelete(bookingId);
-
-		return res.status(200).send({ error: null, data: true });
-	} catch (e) {
-		return res.status(500).send({ error: e.message, data: null });
-	}
-});
 router.delete('/archive', isAuthorizated, isAdmin, async (req, res) => {
 	try {
 		await archiveDelete();
