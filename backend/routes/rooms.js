@@ -9,9 +9,11 @@ const router = express.Router({ mergeParams: true });
 
 router.get('/', async (req, res) => {
 	try {
-		const rooms = (await getRooms()).map((r) => roomMapper(r));
+		const { totalRooms, rooms } = await getRooms(req.query.page, req.query.limit);
 
-		return res.status(200).send({ error: null, data: rooms });
+		return res
+			.status(200)
+			.send({ error: null, data: { totalRooms, rooms: rooms.map(roomMapper) } });
 	} catch (e) {
 		return res.send({ error: e.message, data: null });
 	}

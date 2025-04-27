@@ -1,0 +1,22 @@
+.pageNumbers {
+	display: flex;
+	align-items: center;
+}
+
+.pageNumber {
+	padding: 10px;
+	border: 1px solid #ddd;
+	margin: 0 5px;
+	cursor: pointer;
+	font-size: 16px;
+	transition: background-color 0.3s ease;
+}
+
+.pageNumber:hover {
+	background-color: #ddd;
+}
+
+.pageNumber.active {
+	background-color: #4caf50;
+	color: white;
+}

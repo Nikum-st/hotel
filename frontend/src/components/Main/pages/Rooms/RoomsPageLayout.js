@@ -1,8 +1,15 @@
 import { Wrapper } from '../../../components';
+import { Pagination } from './components/Pagination/Pagination';
 import { RoomCard } from './components/RoomCart/RoomCard';
 import styles from './Rooms.module.css';
 
-export const RoomsPageLayout = ({ errorFromServer, rooms }) => (
+export const RoomsPageLayout = ({
+	errorFromServer,
+	rooms,
+	totalRooms,
+	currentPage,
+	onChangePage,
+}) => (
 	<Wrapper error={errorFromServer}>
 		<div className={styles.content}>
 			<div className={styles.containerRooms}>
@@ -11,5 +18,10 @@ export const RoomsPageLayout = ({ errorFromServer, rooms }) => (
 				))}
 			</div>
 		</div>
+		<Pagination
+			totalRooms={totalRooms}
+			currentPage={currentPage}
+			onChangePage={onChangePage}
+		/>
 	</Wrapper>
 );
