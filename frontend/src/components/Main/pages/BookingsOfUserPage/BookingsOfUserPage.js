@@ -1,57 +1,37 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import {
-	selectRole,
-	loading,
-	deleteBooking as deleteBookingFromStore,
-} from '../../../../store';
+import { deleteBooking as deleteBookingFromStore } from '../../../../store';
 import { BookingsPageLayout } from './BookingsPageLayout';
-import { request } from '../../../../utils/request';
+import { useRequest } from '../../../../hooks/useRequest';
 
 export const BookingsOfUserPage = () => {
-	const [errorServer, setErrorServer] = useState(null);
 	const [bookingsOfUser, setBookingsOfUser] = useState([]);
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
-	const role = useSelector(selectRole);
+	const { sendRequest, error } = useRequest();
 
 	useEffect(() => {
 		const fetchData = async () => {
-			try {
-				window.scrollTo(0, 0);
-				dispatch(loading(true));
+			window.scrollTo(0, 0);
 
-				const bookings = await request('/bookings/user');
+			const bookings = await sendRequest('/bookings/user');
+			if (bookings) {
 				setBookingsOfUser(bookings);
-			} catch (e) {
-				setErrorServer(e.message);
-			} finally {
-				dispatch(loading(false));
 			}
 		};
 
 		fetchData();
-	}, [bookingsOfUser.length, dispatch, navigate, role]);
+	}, [sendRequest]);
 
 	const deleteBooking = async (id, roomName, checkIn) => {
-		try {
-			dispatch(loading(true));
-			const isDeleted = await request(`/bookings/${id}`, 'DELETE');
-			if (isDeleted) {
-				setBookingsOfUser(bookingsOfUser.filter((b) => b.id !== id));
-				dispatch(deleteBookingFromStore(roomName, checkIn));
-			}
-		} catch ({ message }) {
-			console.error(message);
-			setErrorServer(message);
-		} finally {
-			dispatch(loading(false));
+		const isDeleted = await sendRequest(`/bookings/${id}`, 'DELETE');
+		if (isDeleted) {
+			setBookingsOfUser(bookingsOfUser.filter((b) => b.id !== id));
+			dispatch(deleteBookingFromStore(roomName, checkIn));
 		}
 	};
 	return (
 		<BookingsPageLayout
-			errorServer={errorServer}
+			errorServer={error}
 			deleteBooking={deleteBooking}
 			bookingsOfUser={bookingsOfUser}
 		/>

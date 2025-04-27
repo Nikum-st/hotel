@@ -3,7 +3,7 @@ import styles from './BookingCard.module.css';
 
 export const BookingCard = ({ booking, deleteBooking }) => (
 	<div className={styles.booking} key={booking.id}>
-		<img src={booking.room.img} alt={booking.room.name} />
+		<img src={booking.img} alt={booking.room} />
 		<BookingInfo
 			firstName={booking.firstName}
 			lastName={booking.lastName}

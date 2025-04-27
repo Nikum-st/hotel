@@ -50,7 +50,7 @@ export const Bookings = forwardRef(
 								Icon={Icon}
 								archiveStyle={styleBody}
 								deleteBooking={deleteBooking}
-								bookings={bookings}
+								bookings={filteredBookings}
 							/>
 						</table>
 					</div>

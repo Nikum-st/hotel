@@ -8,13 +8,15 @@ export const BookingsPageLayout = ({ errorServer, deleteBooking, bookingsOfUser 
 			{bookingsOfUser.length ? (
 				<>
 					<div className={styles.containerBookings}>
-						{bookingsOfUser.map((booking) => (
-							<BookingCard
-								key={booking.id}
-								booking={booking}
-								deleteBooking={deleteBooking}
-							/>
-						))}
+						{bookingsOfUser.map((booking) => {
+							return (
+								<BookingCard
+									key={booking.id}
+									booking={booking}
+									deleteBooking={deleteBooking}
+								/>
+							);
+						})}
 					</div>
 				</>
 			) : (

@@ -1,17 +1,15 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { yupSchemaLogin } from '../../../../yup/yupSchemaLogin';
-import { loading, logUser, selectLoading } from '../../../../store';
+import { logUser, selectLoading } from '../../../../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { RegLayout } from './RegLayout';
-import { request } from '../../../../utils/request';
 import { Loader } from '../../../components';
+import { useRequest } from '../../../../hooks/useRequest';
 
 export const RegistrationPage = () => {
-	const [errorServer, setErrorServer] = useState(null);
-
+	const { sendRequest, error } = useRequest();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const isLoading = useSelector(selectLoading);
@@ -30,26 +28,15 @@ export const RegistrationPage = () => {
 	});
 
 	const submitNewUser = async ({ login, password, email }) => {
-		dispatch(loading(true));
-		try {
-			const { error, data } = await request('/register', 'POST', {
-				login,
-				password,
-				email,
-			});
+		const user = await sendRequest('/register', 'POST', {
+			login,
+			password,
+			email,
+		});
 
-			if (error) {
-				setErrorServer(error);
-				return;
-			}
-			dispatch(logUser(data));
-			sessionStorage.setItem('userData', JSON.stringify(data));
-			navigate('/');
-		} catch {
-			setErrorServer('Registration failed. Please try again later.');
-		} finally {
-			dispatch(loading(false));
-		}
+		dispatch(logUser(user));
+		sessionStorage.setItem('userData', JSON.stringify(user));
+		navigate('/');
 	};
 
 	const errorMessage =
@@ -57,7 +44,7 @@ export const RegistrationPage = () => {
 		errors.email?.message ||
 		errors.password?.message ||
 		errors.passcheck?.message ||
-		errorServer;
+		error;
 
 	return isLoading ? (
 		<Loader />
@@ -67,7 +54,7 @@ export const RegistrationPage = () => {
 			handleSubmit={handleSubmit}
 			submitNewUser={submitNewUser}
 			register={register}
-			setErrorServer={setErrorServer}
+			setErrorServer={error}
 			errorMessage={errorMessage}
 		/>
 	);

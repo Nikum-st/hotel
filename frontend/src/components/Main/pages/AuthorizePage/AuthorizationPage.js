@@ -1,19 +1,17 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { yupSchemaLogin } from '../../../../yup/yupSchemaLogin';
-import { loading, logUser, selectLoading } from '../../../../store';
+import { logUser, selectLoading } from '../../../../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthLayout } from './AuthLayout';
-import { request } from '../../../../utils/request';
+import { useRequest } from '../../../../hooks/useRequest';
 
 export const AuthorizationPage = () => {
-	const [errorServer, setErrorServer] = useState(null);
-
 	const dispatch = useDispatch();
 	const isLoading = useSelector(selectLoading);
 	const navigate = useNavigate();
+	const { sendRequest, error } = useRequest();
 
 	const {
 		register,
@@ -28,21 +26,14 @@ export const AuthorizationPage = () => {
 	});
 
 	const submitUserDates = async ({ login, password }) => {
-		dispatch(loading(true));
 		login = login.trim();
-		await request('/authorize', 'POST', { login, password })
-			.then((user) => {
-				dispatch(logUser(user));
-				sessionStorage.setItem('userData', JSON.stringify(user));
-				navigate(-1);
-			})
-			.catch((e) => setErrorServer(e.message))
-			.finally(() => {
-				dispatch(loading(false));
-			});
+		const user = await sendRequest('/authorize', 'POST', { login, password });
+		dispatch(logUser(user));
+		sessionStorage.setItem('userData', JSON.stringify(user));
+		navigate(-1);
 	};
 
-	const errorMessage = errors.login?.message || errors.password?.message || errorServer;
+	const errorMessage = errors.login?.message || errors.password?.message || error;
 
 	return (
 		<AuthLayout
@@ -51,7 +42,7 @@ export const AuthorizationPage = () => {
 			handleSubmit={handleSubmit}
 			errorMessage={errorMessage}
 			onSubmit={submitUserDates}
-			setErrorServer={setErrorServer}
+			setErrorServer={error}
 		/>
 	);
 };

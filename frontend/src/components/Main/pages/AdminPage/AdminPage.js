@@ -1,43 +1,28 @@
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { loading } from '../../../../store';
 import { Icon } from '../../../components';
-import { useNavigate } from 'react-router-dom';
-import { request } from '../../../../utils/request';
 import { AdminPageLayout } from './AdminPageLayout';
+import { useRequest } from '../../../../hooks/useRequest';
 
 export const AdminPage = () => {
-	const [errorFromServer, setErrorFromServer] = useState(null);
 	const [searchActive, setSearchActive] = useState('');
 	const [searchArchive, setSearchArchive] = useState('');
 	const [archiveListIsOpen, setArchiveListIsOpen] = useState(false);
 	const [bookings, setBookings] = useState([]);
 	const [archive, setArchive] = useState([]);
 	const [loadingArchive, setLoadingArchive] = useState(false);
-
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
 	const archiveRef = useRef(null);
+	const { sendRequest, error } = useRequest();
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
 
-		dispatch(loading(true));
-
 		const fetchBookings = async () => {
-			try {
-				const bookings = await request('/admin/bookings');
-
-				setBookings(bookings);
-			} catch (e) {
-				setErrorFromServer(e);
-			} finally {
-				dispatch(loading(false));
-			}
+			const bookings = await sendRequest('/admin/bookings');
+			setBookings(bookings);
 		};
 
 		fetchBookings();
-	}, [dispatch, navigate]);
+	}, [sendRequest]);
 
 	const handleArchiveList = async () => {
 		const isOpening = !archiveListIsOpen;
@@ -47,12 +32,15 @@ export const AdminPage = () => {
 
 		try {
 			setLoadingArchive(true);
-			const archive = await request('/admin/archive');
-
-			setArchive(archive);
+			const response = await fetch('/admin/archive');
+			const result = await response.json();
+			if (result.error) {
+				console.error(result.error);
+				return;
+			}
+			setArchive(result.data);
 		} catch ({ message }) {
-			console.error(message);
-			setErrorFromServer(message);
+			console.error(message || 'Error server');
 		} finally {
 			setLoadingArchive(false);
 			setTimeout(() => {
@@ -62,15 +50,10 @@ export const AdminPage = () => {
 	};
 
 	const deleteBooking = async (id) => {
-		try {
-			const isDeleted = await request(`/bookings/${id}`, 'DELETE');
+		const isDeleted = await sendRequest(`/bookings/${id}`, 'DELETE');
 
-			if (isDeleted) {
-				setBookings(bookings.filter((b) => b.id !== id));
-			}
-		} catch ({ message }) {
-			console.error(message);
-			setErrorFromServer(message);
+		if (isDeleted) {
+			setBookings(bookings.filter((b) => b.id !== id));
 		}
 	};
 
@@ -79,14 +62,15 @@ export const AdminPage = () => {
 			return;
 		}
 		try {
-			const isClear = await request(`/admin/archive`, 'DELETE');
+			const response = await fetch(`/admin/archive`, { method: 'DELETE' });
+			const result = await response.json();
 
-			if (isClear) {
-				setArchive([]);
+			if (result.error) {
+				console.error(result.error);
 			}
+			setArchive([]);
 		} catch ({ message }) {
 			console.error(message);
-			setErrorFromServer(message);
 		}
 	};
 
@@ -112,7 +96,7 @@ export const AdminPage = () => {
 
 	return (
 		<AdminPageLayout
-			errorFromServer={errorFromServer}
+			errorFromServer={error}
 			bookingsProps={bookingsProps}
 			archiveProps={archiveProps}
 			handleArchiveList={handleArchiveList}

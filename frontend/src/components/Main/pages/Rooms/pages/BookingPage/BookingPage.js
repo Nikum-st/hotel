@@ -5,7 +5,6 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import moment from 'moment';
 import {
-	loading,
 	selectIsAuthenticated,
 	selectLoading,
 	selectRooms,
@@ -15,40 +14,33 @@ import {
 import { yupSchemaAppoint } from '../../../../../../yup/yupSchemaAppoint';
 import { BookingLayout } from './BookingLayout';
 import { useParams } from 'react-router-dom';
-import { request } from '../../../../../../utils/request';
 import { Info } from '../../../../../components';
+import { useRequest } from '../../../../../../hooks/useRequest';
 
 export const BookingPage = () => {
 	const [errorsGeneral, setErrorsGeneral] = useState(null);
 	const [booking, setBooking] = useState(null);
-	const [errorFromServer, setErrorFromServer] = useState(null);
 	const { name } = useParams();
 	const isAuthenticated = useSelector(selectIsAuthenticated);
 	const isLoading = useSelector(selectLoading);
 	const rooms = useSelector(selectRooms);
 	const dispatch = useDispatch();
+	const { sendRequest, error } = useRequest();
 
 	useEffect(() => {
 		const fetchData = async () => {
-			try {
-				window.scrollTo(0, 0);
-				dispatch(loading(true));
+			window.scrollTo(0, 0);
 
-				if (!rooms.length) {
-					const roomsServer = await request('/rooms');
-					if (roomsServer) {
-						dispatch(setRooms(roomsServer));
-					}
+			if (!rooms.length) {
+				const result = await sendRequest('/rooms');
+				if (result.rooms) {
+					dispatch(setRooms(result.rooms));
 				}
-			} catch ({ message }) {
-				setErrorFromServer(message);
-			} finally {
-				dispatch(loading(false));
 			}
 		};
 
 		fetchData();
-	}, [dispatch, rooms.length]);
+	}, [dispatch, rooms.length, sendRequest]);
 
 	const roomCurrent = rooms?.find((r) => r.name === name);
 
@@ -104,29 +96,22 @@ export const BookingPage = () => {
 			return;
 		}
 
-		try {
-			dispatch(loading(true));
-			const newBooking = await request(`/rooms/${roomCurrent.id}/booking`, 'POST', {
-				firstName,
-				lastName,
-				phone,
-				startDate,
-				endDate,
-			});
-			if (newBooking) {
-				dispatch(
-					updateRoomBookings(
-						roomCurrent.id,
-						newBooking.checkIn,
-						newBooking.checkOut,
-					),
-				);
-				setBooking(newBooking);
-			}
-		} catch ({ message }) {
-			setErrorsGeneral(message);
-		} finally {
-			dispatch(loading(false));
+		const newBooking = await sendRequest(`/rooms/${roomCurrent.id}/booking`, 'POST', {
+			firstName,
+			lastName,
+			phone,
+			startDate,
+			endDate,
+		});
+		if (newBooking) {
+			dispatch(
+				updateRoomBookings(
+					roomCurrent.id,
+					newBooking.checkIn,
+					newBooking.checkOut,
+				),
+			);
+			setBooking(newBooking);
 		}
 	};
 
@@ -146,7 +131,7 @@ export const BookingPage = () => {
 
 	return (
 		<BookingLayout
-			errorFromServer={errorFromServer}
+			errorFromServer={error}
 			isLoading={isLoading}
 			handleSubmit={handleSubmit}
 			handleBookingSubmit={handleBookingSubmit}

@@ -9,5 +9,6 @@ module.exports = (booking) => {
 		checkOut: booking.checkOut,
 		totalPrice: booking.totalPrice,
 		numOfDays: booking.numOfDays,
+		img: `${process.env.BASE_URL}/uploads/${booking.room.img}`,
 	};
 };

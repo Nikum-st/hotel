@@ -2,39 +2,32 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Loader } from '../../../../../components/Loader/Loader';
 import { loading, selectRooms, setRooms } from '../../../../../../store';
-import { useEffect, useState } from 'react';
-import { request } from '../../../../../../utils/request';
+import { useEffect } from 'react';
 import { RoomDetailsLayout } from './RoomDetailsLayout';
 import { Info } from '../../../../../components/Info/Info';
+import { useRequest } from '../../../../../../hooks/useRequest';
 
 export const RoomDetails = () => {
 	const rooms = useSelector(selectRooms);
 	const dispatch = useDispatch();
 	const { name } = useParams();
 	const navigate = useNavigate();
-	const [errorFromServer, setErrorFromServer] = useState(null);
+	const { sendRequest, error } = useRequest();
 
 	useEffect(() => {
 		const fetchData = async () => {
-			try {
-				window.scrollTo(0, 0);
-				dispatch(loading(true));
+			window.scrollTo(0, 0);
 
-				if (!rooms.length) {
-					const rooms = await request('/rooms');
-					if (rooms) {
-						dispatch(setRooms(rooms));
-					}
+			if (!rooms.length) {
+				const result = await sendRequest('/rooms');
+				if (result.rooms) {
+					dispatch(setRooms(result.rooms));
 				}
-			} catch (e) {
-				setErrorFromServer('Unexpected error. Please try again later');
-			} finally {
-				dispatch(loading(false));
 			}
 		};
 
 		fetchData();
-	}, [rooms.length, dispatch]);
+	}, [rooms.length, dispatch, sendRequest]);
 
 	const room = rooms?.find((room) => room.name === name);
 	if (rooms.length === 0) {
@@ -47,7 +40,7 @@ export const RoomDetails = () => {
 	return (
 		<RoomDetailsLayout
 			room={room}
-			errorFromServer={errorFromServer}
+			errorFromServer={error}
 			name={name}
 			navigate={navigate}
 		/>
