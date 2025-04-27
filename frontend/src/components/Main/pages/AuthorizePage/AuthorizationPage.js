@@ -6,12 +6,14 @@ import { logUser, selectLoading } from '../../../../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthLayout } from './AuthLayout';
 import { useRequest } from '../../../../hooks/useRequest';
+import { useIsAuthorized } from '../../../../hooks/useIsAuthorized';
 
 export const AuthorizationPage = () => {
+	const isAuthorizedError = useIsAuthorized();
 	const dispatch = useDispatch();
 	const isLoading = useSelector(selectLoading);
 	const navigate = useNavigate();
-	const { sendRequest, error } = useRequest();
+	const { sendRequest, error, setError } = useRequest();
 
 	const {
 		register,
@@ -33,7 +35,8 @@ export const AuthorizationPage = () => {
 		navigate(-1);
 	};
 
-	const errorMessage = errors.login?.message || errors.password?.message || error;
+	const errorMessage =
+		errors.login?.message || errors.password?.message || error || isAuthorizedError;
 
 	return (
 		<AuthLayout
@@ -42,7 +45,7 @@ export const AuthorizationPage = () => {
 			handleSubmit={handleSubmit}
 			errorMessage={errorMessage}
 			onSubmit={submitUserDates}
-			setErrorServer={error}
+			setErrorServer={setError}
 		/>
 	);
 };

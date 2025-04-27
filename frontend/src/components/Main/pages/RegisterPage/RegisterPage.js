@@ -7,12 +7,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RegLayout } from './RegLayout';
 import { Loader } from '../../../components';
 import { useRequest } from '../../../../hooks/useRequest';
+import { useIsAuthorized } from '../../../../hooks/useIsAuthorized';
 
 export const RegistrationPage = () => {
-	const { sendRequest, error } = useRequest();
+	const { sendRequest, error, setError } = useRequest();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const isLoading = useSelector(selectLoading);
+	const isAuthorizedError = useIsAuthorized();
 
 	const {
 		register,
@@ -44,7 +46,8 @@ export const RegistrationPage = () => {
 		errors.email?.message ||
 		errors.password?.message ||
 		errors.passcheck?.message ||
-		error;
+		error ||
+		isAuthorizedError;
 
 	return isLoading ? (
 		<Loader />
@@ -54,7 +57,7 @@ export const RegistrationPage = () => {
 			handleSubmit={handleSubmit}
 			submitNewUser={submitNewUser}
 			register={register}
-			setErrorServer={error}
+			setErrorServer={setError}
 			errorMessage={errorMessage}
 		/>
 	);

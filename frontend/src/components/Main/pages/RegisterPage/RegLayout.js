@@ -48,7 +48,12 @@ export const RegLayout = ({
 					},
 				})}
 			/>
-			<Button type="submit" width="100%">
+			<Button
+				style={errorMessage && { cursor: 'auto' }}
+				disabled={errorMessage}
+				type="submit"
+				width="100%"
+			>
 				Sign Up
 			</Button>
 		</form>

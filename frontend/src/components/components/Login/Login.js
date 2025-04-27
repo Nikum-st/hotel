@@ -4,6 +4,7 @@ export const Login = ({ children, size, weight, margin }) => (
 			fontSize: size,
 			fontWeight: weight,
 			margin: margin,
+			userSelect: 'none',
 		}}
 	>
 		{children}

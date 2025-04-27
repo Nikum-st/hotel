@@ -26,7 +26,7 @@ export const BookingLayout = ({
 	booking,
 }) => {
 	return (
-		<Wrapper error={errorFromServer}>
+		<Wrapper alwaysAccess={true} error={errorFromServer}>
 			<div className={styles.content}>
 				{booking ? (
 					<div className={styles.bookInfo}>

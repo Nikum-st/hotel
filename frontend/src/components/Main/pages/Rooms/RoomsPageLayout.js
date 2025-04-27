@@ -10,7 +10,7 @@ export const RoomsPageLayout = ({
 	currentPage,
 	onChangePage,
 }) => (
-	<Wrapper error={errorFromServer}>
+	<Wrapper alwaysAccess={true} error={errorFromServer}>
 		<div className={styles.content}>
 			<div className={styles.containerRooms}>
 				{rooms.map((room) => (

@@ -37,5 +37,5 @@ export const useRequest = () => {
 		[dispatch],
 	);
 
-	return { sendRequest, error };
+	return { sendRequest, error, setError };
 };

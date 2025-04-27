@@ -4,7 +4,7 @@ import { Info } from './components/Info/Info';
 import styles from './RoomDetails.module.css';
 
 export const RoomDetailsLayout = ({ room, errorFromServer, name, navigate }) => (
-	<Wrapper error={errorFromServer}>
+	<Wrapper alwaysAccess={true} error={errorFromServer}>
 		<div className={styles.content}>
 			<div className={styles.highPanel}>
 				<div className={styles.icon}>
