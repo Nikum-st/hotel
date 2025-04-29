@@ -1,9 +1,8 @@
-import { Link } from 'react-router-dom';
-import { Button, Icon, Wrapper } from '../../../../../components';
-import { Info } from './components/Info/Info';
+import { Icon, Wrapper } from '../../../../../components';
+import { RoomInfoPanel } from './components/RoomInfoPanel/RoomInfoPanel';
 import styles from './RoomDetails.module.css';
 
-export const RoomDetailsLayout = ({ room, errorFromServer, name, navigate }) => (
+export const RoomDetailsLayout = ({ room, errorFromServer, navigate, isEditing }) => (
 	<Wrapper alwaysAccess={true} error={errorFromServer}>
 		<div className={styles.content}>
 			<div className={styles.highPanel}>
@@ -17,16 +16,16 @@ export const RoomDetailsLayout = ({ room, errorFromServer, name, navigate }) => 
 				</div>
 				<h1 className={styles.name}>{room?.name}</h1>
 			</div>
+
 			<div>
 				<div className={styles.containerDetails}>
 					<img src={room?.img} alt={room?.name} />
-					<Info room={room}>
-						<div className={styles.buttons}>
-							<Link to={`/rooms/${name}/booking`}>
-								<Button style={{ width: `40%` }}>Book</Button>
-							</Link>
-						</div>
-					</Info>
+					<div
+						className={styles.infoContainer}
+						style={isEditing && { gap: '0px' }}
+					>
+						<RoomInfoPanel room={room} />
+					</div>
 				</div>
 			</div>
 		</div>

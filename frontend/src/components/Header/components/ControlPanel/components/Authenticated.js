@@ -3,6 +3,7 @@ import styles from './Authenticated.module.css';
 import { Icon } from '../../../../components/Icon/Icon';
 import { useDispatch, useSelector } from 'react-redux';
 import { loading, logOut, selectLogin, selectRole } from '../../../../../store';
+import { ROLE } from '../../../../../constants';
 
 export const Authenticated = () => {
 	const login = useSelector(selectLogin);
@@ -22,7 +23,7 @@ export const Authenticated = () => {
 	return (
 		<div className={styles.controlPanel}>
 			<div className={styles.login}>{login}</div>
-			{role === 'admin' && (
+			{role === ROLE.ADMIN && (
 				<Link to="/admin">
 					<Icon
 						size={'30px'}

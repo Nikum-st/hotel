@@ -29,12 +29,6 @@ router.delete('/:id', isAuthorizated, async (req, res) => {
 
 		return res.status(200).send({ error: null, data: true });
 	} catch (e) {
-		if (e.code === 11000) {
-			return res.send({
-				error: 'Check In or Check Out already exists in the archive and cannot be deleted',
-				data: null,
-			});
-		}
 		return res.status(500).send({ error: e.message, data: null });
 	}
 });

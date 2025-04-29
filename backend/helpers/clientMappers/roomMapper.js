@@ -6,7 +6,7 @@ module.exports = function (room) {
 		size: room.size,
 		beds: room.beds,
 		description: room.description,
-		shortDescription: room.short_description,
+		shortDescription: room.shortDescription,
 		amenities: room.amenities,
 		price: room.price,
 		img: `${process.env.BASE_URL}/uploads/${room.img}`,

@@ -3,13 +3,14 @@ import { selectLoading, selectRole } from '../../../store';
 import { Loader } from '../Loader/Loader';
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
 import { Info } from '../Info/Info';
+import { ROLE } from '../../../constants';
 
 export const Wrapper = ({ children, error, adminPage = false, alwaysAccess }) => {
 	const role = useSelector(selectRole);
 	const isLoading = useSelector(selectLoading);
 
 	const accessError = adminPage
-		? role === 'admin'
+		? role === ROLE.ADMIN
 			? null
 			: 'Access denied!'
 		: alwaysAccess

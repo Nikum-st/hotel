@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useMatch, useNavigate, useParams } from 'react-router-dom';
 import { Loader } from '../../../../../components/Loader/Loader';
-import { loading, selectRooms, setRooms } from '../../../../../../store';
+import { selectRooms, setRooms } from '../../../../../../store';
 import { useEffect } from 'react';
 import { RoomDetailsLayout } from './RoomDetailsLayout';
 import { Info } from '../../../../../components/Info/Info';
@@ -13,6 +13,7 @@ export const RoomDetails = () => {
 	const { name } = useParams();
 	const navigate = useNavigate();
 	const { sendRequest, error } = useRequest();
+	const isEditing = useMatch('/rooms/:name/edit');
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -43,6 +44,7 @@ export const RoomDetails = () => {
 			errorFromServer={error}
 			name={name}
 			navigate={navigate}
+			isEditing={isEditing}
 		/>
 	);
 };

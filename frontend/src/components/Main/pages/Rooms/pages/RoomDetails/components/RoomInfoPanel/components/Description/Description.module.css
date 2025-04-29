@@ -1,0 +1,26 @@
+.description {
+	font-size: 1rem;
+	line-height: 1.6;
+	white-space: pre-wrap;
+}
+
+.descriptionEdit {
+	line-height: 1.6;
+	max-height: 80px;
+	font-family: Arial, sans-serif;
+	background: white;
+	padding: 10px;
+	margin: 12px 0px;
+	border-radius: 8px;
+	box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+	transition:
+		border-color 0.3s ease,
+		box-shadow 0.3s ease;
+	overflow-y: auto;
+}
+
+.descriptionEdit:focus {
+	border-color: #d0c2b4;
+	box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
+	outline: none;
+}

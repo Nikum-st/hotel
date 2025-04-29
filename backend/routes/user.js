@@ -18,9 +18,6 @@ router.post('/register', async (req, res) => {
 		res.cookie('token', token, { httpOnly: true });
 		return res.status(200).send({ error: null, data: userMapper(user) });
 	} catch (error) {
-		if (error.code === 11000) {
-			return res.send({ error: 'This user or email already exists' });
-		}
 		return res.send({ error: error.message });
 	}
 });
