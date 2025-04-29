@@ -11,7 +11,7 @@ module.exports = function (room) {
 		price: room.price,
 		img: `${process.env.BASE_URL}/uploads/${room.img}`,
 		bookings:
-			room.bookings.length > 0
+			room.bookings?.length > 0
 				? room.bookings.map((b) => ({ checkIn: b.checkIn, checkOut: b.checkOut }))
 				: [],
 	};

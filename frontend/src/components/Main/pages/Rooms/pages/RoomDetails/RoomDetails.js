@@ -1,19 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useMatch, useNavigate, useParams } from 'react-router-dom';
-import { Loader } from '../../../../../components/Loader/Loader';
-import { selectRooms, setRooms } from '../../../../../../store';
+import { useMatch, useParams } from 'react-router-dom';
+import { selectRoom, selectRooms, setRoom, setRooms } from '../../../../../../store';
 import { useEffect } from 'react';
-import { RoomDetailsLayout } from './RoomDetailsLayout';
-import { Info } from '../../../../../components/Info/Info';
 import { useRequest } from '../../../../../../hooks/useRequest';
+import { Wrapper } from '../../../../../components';
+import { HighPanel } from './components/HighPanel/HighPanel';
+import { LowPanel } from './components/LowPanel/LowPanel';
+import styles from './RoomDetails.module.css';
 
 export const RoomDetails = () => {
 	const rooms = useSelector(selectRooms);
+	const room = useSelector(selectRoom);
 	const dispatch = useDispatch();
 	const { name } = useParams();
-	const navigate = useNavigate();
 	const { sendRequest, error } = useRequest();
-	const isEditing = useMatch('/rooms/:name/edit');
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -25,26 +25,24 @@ export const RoomDetails = () => {
 					dispatch(setRooms(result.rooms));
 				}
 			}
+			if (!room || Object.keys(room).length === 0) {
+				const room = await sendRequest(`/rooms/${name}`);
+				if (room) {
+					dispatch(setRoom(room));
+				} else {
+				}
+			}
 		};
 
 		fetchData();
-	}, [rooms.length, dispatch, sendRequest]);
-
-	const room = rooms?.find((room) => room.name === name);
-	if (rooms.length === 0) {
-		return <Loader />;
-	}
-	if (!room) {
-		return <Info>The selected room does not exist</Info>;
-	}
+	}, [rooms.length, name, room, dispatch, sendRequest]);
 
 	return (
-		<RoomDetailsLayout
-			room={room}
-			errorFromServer={error}
-			name={name}
-			navigate={navigate}
-			isEditing={isEditing}
-		/>
+		<Wrapper alwaysAccess={true} error={error}>
+			<div className={styles.content}>
+				<HighPanel />
+				<LowPanel />
+			</div>
+		</Wrapper>
 	);
 };

@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { loading } from '../store';
+import { Info } from '../components/components';
 
 export const useRequest = () => {
 	const [error, setError] = useState(null);

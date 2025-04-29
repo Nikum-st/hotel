@@ -24,7 +24,9 @@ export const Wrapper = ({ children, error, adminPage = false, alwaysAccess }) =>
 	) : accessError ? (
 		<Info style={{ fontSize: '25px', margin: 'auto' }}>{accessError}</Info>
 	) : error ? (
-		<ErrorMessage>{error}</ErrorMessage>
+		<ErrorMessage style={{ margin: 'auto', fontSize: '25px', padding: '30px' }}>
+			{error}
+		</ErrorMessage>
 	) : (
 		children
 	);

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const getRooms = require('../controllers/rooms/getRooms');
+const getRoom = require('../controllers/rooms/getRoom');
 const createBooking = require('../controllers/bookings/createBooking');
 const roomMapper = require('../helpers/clientMappers/roomMapper');
 const isAuthorizated = require('../middlewares/isAuthorizated');
@@ -16,6 +17,21 @@ router.get('/', async (req, res) => {
 		return res
 			.status(200)
 			.send({ error: null, data: { totalRooms, rooms: rooms.map(roomMapper) } });
+	} catch (e) {
+		return res.send({ error: e.message, data: null });
+	}
+});
+
+router.get('/:name', async (req, res) => {
+	try {
+		const room = await getRoom(req.params.name);
+		if (!room) {
+			return res
+				.status(404)
+				.send({ error: 'The selected room does not exist', data: null });
+		}
+
+		return res.status(200).send({ error: null, data: roomMapper(room) });
 	} catch (e) {
 		return res.send({ error: e.message, data: null });
 	}

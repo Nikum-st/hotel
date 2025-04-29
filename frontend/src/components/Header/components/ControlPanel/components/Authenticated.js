@@ -33,11 +33,13 @@ export const Authenticated = () => {
 					/>
 				</Link>
 			)}
-			<Link to="/bookings">
-				<Icon size={'30px'} id={'fa-calendar-check-o'} title="My rooms" />
-			</Link>
+			{role === ROLE.USER && (
+				<Link to="/bookings">
+					<Icon size={'30px'} id={'fa-calendar-check-o'} title="My bookings" />
+				</Link>
+			)}
 			<Link to="/rooms">
-				<Icon size={'30px'} id={'fa fa-bed'} title="Book" />
+				<Icon size={'30px'} id={'fa fa-bed'} title="All rooms" />
 			</Link>
 			<div className={styles.containerIconLogOut}>
 				<Icon

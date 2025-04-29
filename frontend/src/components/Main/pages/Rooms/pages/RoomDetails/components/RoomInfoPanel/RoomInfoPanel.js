@@ -17,6 +17,7 @@ export const RoomInfoPanel = ({ room }) => {
 	const navigate = useNavigate();
 
 	const refName = useRef();
+	const refImg = useRef();
 	const refShortD = useRef();
 	const refCategory = useRef();
 	const refSize = useRef();
@@ -27,7 +28,9 @@ export const RoomInfoPanel = ({ room }) => {
 	const { sendRequest, error } = useRequest();
 
 	const handleSave = async () => {
+		setErrorInput(false);
 		const editData = {
+			img: refImg.current.files[0],
 			description: sanitizeDescription(refDescription.current.innerHTML),
 			name: refName.current.value.trim(),
 			shortDescription: refShortD.current.value.trim(),
@@ -41,29 +44,47 @@ export const RoomInfoPanel = ({ room }) => {
 			price: Number(refPrice.current.value.trim()),
 		};
 
-		if (
-			(!editData.description,
-			!editData.name,
-			!editData.short,
-			!editData.category,
-			!editData.size,
-			!editData.beds,
-			!editData.amenities,
-			!editData.price)
-		) {
-			setErrorInput('All fields must be filled in');
-			return;
-		}
-		const updatedRoom = await sendRequest(`/rooms/${room.id}`, 'PATCH', editData);
+		if (editData.img) {
+			if (editData.img.type !== 'image/jpeg') {
+				setErrorInput('The image must be of type image/jpeg');
+				return;
+			}
 
-		if (updatedRoom) {
-			dispatch(updateRoom(updatedRoom, room.id));
-			navigate(`/rooms/${updatedRoom.name}`);
+			const img = new Image();
+			img.onload = () => {
+				if (img.width !== 1024 || img.height !== 1024) {
+					setErrorInput('The image must be 1024x1024 pixels');
+				}
+			};
 		}
+
+		// if (
+		// 	(!editData.description,
+		// 	!editData.name,
+		// 	!editData.short,
+		// 	!editData.category,
+		// 	!editData.size,
+		// 	!editData.beds,
+		// 	!editData.amenities,
+		// 	!editData.price)
+		// ) {
+		// 	setErrorInput('All fields must be filled in');
+		// 	return;
+		// }
+		// const updatedRoom = await sendRequest(`/rooms/${room.id}`, 'PATCH', editData);
+
+		// if (updatedRoom) {
+		// 	dispatch(updateRoom(updatedRoom, room.id));
+		// 	navigate(`/rooms/${updatedRoom.name}`);
+		// }
 	};
 
 	return (
-		<Wrapper error={error} adminPage={isEditing && true}>
+		<Wrapper
+			error={error}
+			adminPage={isEditing && true}
+			alwaysAccess={isEditing ? false : true}
+		>
 			{errorInput && <ErrorMessage>{errorInput}</ErrorMessage>}
 			<Field
 				value={room.name}
@@ -106,7 +127,7 @@ export const RoomInfoPanel = ({ room }) => {
 				value={room.price}
 				label={'Priсe:$'}
 			/>
-			<Buttons handleSave={handleSave} room={room} />
+			<Buttons ref={refImg} handleSave={handleSave} room={room} />
 		</Wrapper>
 	);
 };
