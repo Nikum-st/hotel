@@ -1,83 +1,26 @@
 import { ErrorMessage, Input, Wrapper } from '../../../../../../../components';
 import { Amenities } from './components/Amenities/Amenities';
 import { Field } from './components/Field/Field';
-import { useRef, useState } from 'react';
 import { Buttons } from './components/Buttons/Buttons';
 import { Description } from './components/Description/Description';
-import { useMatch, useNavigate } from 'react-router-dom';
-import { useRequest } from '../../../../../../../../hooks/useRequest';
-import { useDispatch } from 'react-redux';
-import { updateRoom } from '../../../../../../../../store';
-import { sanitizeDescription } from './utils/sanitize-description';
+import { useMatch } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectRoom } from '../../../../../../../../store';
 
-export const RoomInfoPanel = ({ room }) => {
-	const [errorInput, setErrorInput] = useState(null);
+export const RoomInfoPanel = ({ error, errorInput, refs, handleSave }) => {
+	const {
+		refName,
+		refShortD,
+		refCategory,
+		refSize,
+		refBeds,
+		refDescription,
+		refAmenities,
+		refPrice,
+	} = refs;
+
 	const isEditing = useMatch('/rooms/:name/edit');
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
-
-	const refName = useRef();
-	const refImg = useRef();
-	const refShortD = useRef();
-	const refCategory = useRef();
-	const refSize = useRef();
-	const refBeds = useRef();
-	const refDescription = useRef();
-	const refAmenities = useRef();
-	const refPrice = useRef();
-	const { sendRequest, error } = useRequest();
-
-	const handleSave = async () => {
-		setErrorInput(false);
-		const editData = {
-			img: refImg.current.files[0],
-			description: sanitizeDescription(refDescription.current.innerHTML),
-			name: refName.current.value.trim(),
-			shortDescription: refShortD.current.value.trim(),
-			category: refCategory.current.value.trim(),
-			size: Number(refSize.current.value.trim()),
-			beds: refBeds.current.value.trim(),
-			amenities: refAmenities.current.value
-				.replace(/\s*,\s*/g, ',')
-				.trim()
-				.split(','),
-			price: Number(refPrice.current.value.trim()),
-		};
-
-		if (editData.img) {
-			if (editData.img.type !== 'image/jpeg') {
-				setErrorInput('The image must be of type image/jpeg');
-				return;
-			}
-
-			const img = new Image();
-			img.onload = () => {
-				if (img.width !== 1024 || img.height !== 1024) {
-					setErrorInput('The image must be 1024x1024 pixels');
-				}
-			};
-		}
-
-		// if (
-		// 	(!editData.description,
-		// 	!editData.name,
-		// 	!editData.short,
-		// 	!editData.category,
-		// 	!editData.size,
-		// 	!editData.beds,
-		// 	!editData.amenities,
-		// 	!editData.price)
-		// ) {
-		// 	setErrorInput('All fields must be filled in');
-		// 	return;
-		// }
-		// const updatedRoom = await sendRequest(`/rooms/${room.id}`, 'PATCH', editData);
-
-		// if (updatedRoom) {
-		// 	dispatch(updateRoom(updatedRoom, room.id));
-		// 	navigate(`/rooms/${updatedRoom.name}`);
-		// }
-	};
+	const room = useSelector(selectRoom);
 
 	return (
 		<Wrapper
@@ -127,7 +70,7 @@ export const RoomInfoPanel = ({ room }) => {
 				value={room.price}
 				label={'Priсe:$'}
 			/>
-			<Buttons ref={refImg} handleSave={handleSave} room={room} />
+			<Buttons handleSave={handleSave} room={room} />
 		</Wrapper>
 	);
 };

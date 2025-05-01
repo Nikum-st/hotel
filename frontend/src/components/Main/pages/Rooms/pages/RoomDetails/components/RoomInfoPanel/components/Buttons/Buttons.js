@@ -4,9 +4,8 @@ import { useSelector } from 'react-redux';
 import { selectRole } from '../../../../../../../../../../store';
 import styles from './Buttons.module.css';
 import { ROLE } from '../../../../../../../../../../constants';
-import { forwardRef } from 'react';
 
-export const Buttons = forwardRef(({ room, handleSave }, ref) => {
+export const Buttons = ({ room, handleSave }) => {
 	const role = useSelector(selectRole);
 	const isEditing = useMatch('/rooms/:name/edit');
 
@@ -20,10 +19,6 @@ export const Buttons = forwardRef(({ room, handleSave }, ref) => {
 						size="30px"
 						id="fa-floppy-o"
 					/>
-					<label>
-						<Icon type="file" color="black" size="30px" id="fa-floppy-o" />
-						<input type="file" style={{ display: 'none' }} ref={ref} />
-					</label>
 				</>
 			) : (
 				<>
@@ -39,4 +34,4 @@ export const Buttons = forwardRef(({ room, handleSave }, ref) => {
 			)}
 		</div>
 	);
-});
+};

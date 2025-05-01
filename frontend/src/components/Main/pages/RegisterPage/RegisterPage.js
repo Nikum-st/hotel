@@ -35,10 +35,11 @@ export const RegistrationPage = () => {
 			password,
 			email,
 		});
-
-		dispatch(logUser(user));
-		sessionStorage.setItem('userData', JSON.stringify(user));
-		navigate('/');
+		if (user) {
+			dispatch(logUser(user));
+			sessionStorage.setItem('userData', JSON.stringify(user));
+			navigate('/');
+		}
 	};
 
 	const errorMessage =

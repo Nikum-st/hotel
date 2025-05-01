@@ -3,13 +3,7 @@ import { Pagination } from './components/Pagination/Pagination';
 import { RoomCard } from './components/RoomCart/RoomCard';
 import styles from './Rooms.module.css';
 
-export const RoomsPageLayout = ({
-	errorFromServer,
-	rooms,
-	totalRooms,
-	currentPage,
-	onChangePage,
-}) => (
+export const RoomsPageLayout = ({ errorFromServer, rooms }) => (
 	<Wrapper alwaysAccess={true} error={errorFromServer}>
 		<div className={styles.content}>
 			<div className={styles.containerRooms}>
@@ -18,10 +12,6 @@ export const RoomsPageLayout = ({
 				))}
 			</div>
 		</div>
-		<Pagination
-			totalRooms={totalRooms}
-			currentPage={currentPage}
-			onChangePage={onChangePage}
-		/>
+		<Pagination />
 	</Wrapper>
 );

@@ -1,15 +1,18 @@
 import styles from './PageNumbers.module.css';
 
-export const PageNambers = ({ pageNumbers, handlePageClick, currentPage }) => (
-	<div className={styles.pageNumbers}>
-		{pageNumbers.map((number) => (
+export const PageNambers = ({ pageNumbers, handlePageClick, currentPage }) => {
+	const buttons = [];
+	for (let i = 1; i <= pageNumbers; i++) {
+		buttons.push(
 			<button
-				key={number}
-				className={`${styles.pageNumber} ${currentPage === number ? styles.active : ''}`}
-				onClick={() => handlePageClick(number)}
+				key={i}
+				className={`${styles.pageNumber} ${currentPage === i ? styles.active : ''}`}
+				onClick={() => handlePageClick(i)}
 			>
-				{number}
-			</button>
-		))}
-	</div>
-);
+				{i}
+			</button>,
+		);
+	}
+
+	return <div className={styles.pageNumbers}>{buttons}</div>;
+};

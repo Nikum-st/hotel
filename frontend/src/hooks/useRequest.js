@@ -1,7 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { loading } from '../store';
-import { Info } from '../components/components';
 
 export const useRequest = () => {
 	const [error, setError] = useState(null);
@@ -30,7 +29,7 @@ export const useRequest = () => {
 				return result.data;
 			} catch (e) {
 				console.error(e.message);
-				setError(e.message || 'Error from server.  Please try again later');
+				setError('Error from server.  Please try again later');
 			} finally {
 				dispatch(loading(false));
 			}

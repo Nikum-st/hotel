@@ -30,9 +30,11 @@ export const AuthorizationPage = () => {
 	const submitUserDates = async ({ login, password }) => {
 		login = login.trim();
 		const user = await sendRequest('/authorize', 'POST', { login, password });
-		dispatch(logUser(user));
-		sessionStorage.setItem('userData', JSON.stringify(user));
-		navigate(-1);
+		if (user) {
+			dispatch(logUser(user));
+			sessionStorage.setItem('userData', JSON.stringify(user));
+			navigate(-1);
+		}
 	};
 
 	const errorMessage =

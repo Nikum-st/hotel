@@ -1,26 +1,29 @@
-import { LIMIT_ROOMS_PER_PAGES } from '../../../../../../constants';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '../../../../../components';
 import { PageNambers } from './components/PageNumbers';
 import styles from './Pagination.module.css';
+import {
+	selectCurrentPage,
+	selectTotalPages,
+	setCurrentPage,
+} from '../../../../../../store';
 
-export const Pagination = ({ totalRooms, currentPage, onChangePage }) => {
-	const totalPages = Math.ceil(totalRooms / LIMIT_ROOMS_PER_PAGES);
+export const Pagination = () => {
+	const totalPages = useSelector(selectTotalPages);
+
+	const currentPage = useSelector(selectCurrentPage);
+	const dispatch = useDispatch();
 
 	const handlePrevPage = () => {
-		if (currentPage > 1) onChangePage(currentPage - 1);
+		if (currentPage > 1) dispatch(setCurrentPage(currentPage - 1));
 	};
 
 	const handleNextPage = () => {
-		if (currentPage < totalPages) onChangePage(currentPage + 1);
+		if (currentPage < totalPages) dispatch(setCurrentPage(currentPage + 1));
 	};
 	const handlePageClick = (page) => {
-		onChangePage(page);
+		dispatch(setCurrentPage(page));
 	};
-
-	const pageNumbers = [];
-	for (let i = 1; i <= totalPages; i++) {
-		pageNumbers.push(i);
-	}
 
 	return (
 		<div className={styles.pagination}>
@@ -28,7 +31,7 @@ export const Pagination = ({ totalRooms, currentPage, onChangePage }) => {
 				&lt; Prev
 			</Button>
 			<PageNambers
-				pageNumbers={pageNumbers}
+				pageNumbers={totalPages}
 				handlePageClick={handlePageClick}
 				currentPage={currentPage}
 			/>

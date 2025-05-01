@@ -6,3 +6,5 @@ export * from './rooms/update-room-bookings';
 export * from './rooms/delete-booking';
 export * from './rooms/update-room';
 export * from './room/set-room';
+export * from './app/setCurrentPage';
+export * from './app/setTotalPages';

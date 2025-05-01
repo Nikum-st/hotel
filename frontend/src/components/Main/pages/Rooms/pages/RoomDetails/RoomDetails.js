@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useMatch, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { selectRoom, selectRooms, setRoom, setRooms } from '../../../../../../store';
 import { useEffect } from 'react';
 import { useRequest } from '../../../../../../hooks/useRequest';
@@ -19,23 +19,23 @@ export const RoomDetails = () => {
 		const fetchData = async () => {
 			window.scrollTo(0, 0);
 
-			if (!rooms.length) {
-				const result = await sendRequest('/rooms');
-				if (result.rooms) {
-					dispatch(setRooms(result.rooms));
+			if (!room || room.name !== name) {
+				const result = await sendRequest(`/rooms/${name}`);
+				if (result) {
+					dispatch(setRoom(result));
 				}
 			}
-			if (!room || Object.keys(room).length === 0) {
-				const room = await sendRequest(`/rooms/${name}`);
-				if (room) {
-					dispatch(setRoom(room));
-				} else {
+
+			if (!rooms.length) {
+				const result = await sendRequest('/rooms');
+				if (result?.rooms) {
+					dispatch(setRooms(result.rooms));
 				}
 			}
 		};
 
 		fetchData();
-	}, [rooms.length, name, room, dispatch, sendRequest]);
+	}, [name, room, rooms.length, dispatch, sendRequest]);
 
 	return (
 		<Wrapper alwaysAccess={true} error={error}>
