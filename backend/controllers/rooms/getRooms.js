@@ -5,12 +5,13 @@ module.exports = async function (page, limit) {
 		const [totalRooms, rooms] = await Promise.all([
 			Rooms.countDocuments(),
 			Rooms.find()
+				.sort({ price: 1 })
 				.limit(limit)
-				.skip((page - 1) * limit)
-				.sort({ price: 1 }),
+				.skip((page - 1) * limit),
 		]);
+		const totalPages = Math.ceil(totalRooms / limit);
 
-		return { totalRooms, rooms };
+		return { totalPages, rooms };
 	} catch (e) {
 		throw e;
 	}
