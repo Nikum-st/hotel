@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-export const yupSchemaAppoint = yup.object().shape({
+export const yupSchemaBooking = yup.object().shape({
 	firstName: yup
 		.string()
 		.required(`Field "first name" is required`)

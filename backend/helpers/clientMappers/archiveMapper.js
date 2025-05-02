@@ -2,7 +2,7 @@ const moment = require('moment');
 module.exports = function (archive) {
 	return {
 		id: archive.id,
-		user: archive.user.email,
+		user: archive.user?.email || `user was deleted`,
 		firstName: archive.firstName,
 		lastName: archive.lastName,
 		phone: archive.phone,

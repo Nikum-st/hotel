@@ -23,11 +23,7 @@ export const RoomInfoPanel = ({ error, errorInput, refs, handleSave }) => {
 	const room = useSelector(selectRoom);
 
 	return (
-		<Wrapper
-			error={error}
-			adminPage={isEditing && true}
-			alwaysAccess={isEditing ? false : true}
-		>
+		<Wrapper error={error}>
 			{errorInput && <ErrorMessage>{errorInput}</ErrorMessage>}
 			<Field
 				value={room.name}

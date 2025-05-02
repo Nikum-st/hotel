@@ -12,8 +12,9 @@ module.exports = async (bookingId, roleUser) => {
 		if (!booking) {
 			throw new Error('Booking is not found');
 		}
+		const accessArchiveCreate = ['admin', 'manager'];
 
-		if (roleUser === 'admin') {
+		if (accessArchiveCreate.includes(roleUser)) {
 			await Archive.create({
 				id: booking.id,
 				user: booking.user,

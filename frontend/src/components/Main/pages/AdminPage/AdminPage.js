@@ -1,17 +1,20 @@
-import { useEffect, useRef, useState } from 'react';
-import { Icon } from '../../../components';
-import { AdminPageLayout } from './AdminPageLayout';
+import { useEffect, useState } from 'react';
+import { Icon, Info, Wrapper } from '../../../components';
 import { useRequest } from '../../../../hooks/useRequest';
+import { Bookings } from './components/Bookings/Bookings';
+import { ArchiveList } from './components/ArchiveList/ArchiveList';
+import styles from './AdminPage.module.css';
+import { UserList } from './components/UserList/UserList';
+import { useSelector } from 'react-redux';
+import { selectRole } from '../../../../store';
+import { ROLE } from '../../../../constants';
 
 export const AdminPage = () => {
 	const [searchActive, setSearchActive] = useState('');
-	const [searchArchive, setSearchArchive] = useState('');
-	const [archiveListIsOpen, setArchiveListIsOpen] = useState(false);
 	const [bookings, setBookings] = useState([]);
-	const [archive, setArchive] = useState([]);
-	const [loadingArchive, setLoadingArchive] = useState(false);
-	const archiveRef = useRef(null);
 	const { sendRequest, error } = useRequest();
+	const role = useSelector(selectRole);
+	const accessToPage = [ROLE.ADMIN, ROLE.MANAGER];
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -24,53 +27,11 @@ export const AdminPage = () => {
 		fetchBookings();
 	}, [sendRequest]);
 
-	const handleArchiveList = async () => {
-		const isOpening = !archiveListIsOpen;
-		setArchiveListIsOpen(isOpening);
-
-		if (!isOpening) return;
-
-		try {
-			setLoadingArchive(true);
-			const response = await fetch('/admin/archive');
-			const result = await response.json();
-			if (result.error) {
-				console.error(result.error);
-				return;
-			}
-			setArchive(result.data);
-		} catch ({ message }) {
-			console.error(message || 'Error server');
-		} finally {
-			setLoadingArchive(false);
-			setTimeout(() => {
-				archiveRef.current?.scrollIntoView({ behavior: 'smooth' });
-			}, 100);
-		}
-	};
-
 	const deleteBooking = async (id) => {
 		const isDeleted = await sendRequest(`/bookings/${id}`, 'DELETE');
 
 		if (isDeleted) {
 			setBookings(bookings.filter((b) => b.id !== id));
-		}
-	};
-
-	const clearArchive = async () => {
-		if (!archive) {
-			return;
-		}
-		try {
-			const response = await fetch(`/admin/archive`, { method: 'DELETE' });
-			const result = await response.json();
-
-			if (result.error) {
-				console.error(result.error);
-			}
-			setArchive([]);
-		} catch ({ message }) {
-			console.error(message);
 		}
 	};
 
@@ -83,25 +44,20 @@ export const AdminPage = () => {
 		setBookings,
 	};
 
-	const archiveProps = {
-		bookings: archive,
-		search: searchArchive,
-		setSearch: setSearchArchive,
-		clearArchive: clearArchive,
-		ref: archiveRef,
-		styleHeader: { background: '#3d3d3d', color: '#fff' },
-		styleBody: { background: '#969696' },
-		type: 'archive',
-	};
-
-	return (
-		<AdminPageLayout
-			errorFromServer={error}
-			bookingsProps={bookingsProps}
-			archiveProps={archiveProps}
-			handleArchiveList={handleArchiveList}
-			archiveListIsOpen={archiveListIsOpen}
-			loadingArchive={loadingArchive}
-		/>
+	return accessToPage.includes(role) ? (
+		<Wrapper error={error}>
+			<div className={styles.adminContent}>
+				<h1>Admin panel</h1>
+				<Bookings {...bookingsProps} />
+				{role === ROLE.ADMIN && (
+					<>
+						<ArchiveList />
+						<UserList />
+					</>
+				)}
+			</div>
+		</Wrapper>
+	) : (
+		<Info style={{ fontSize: '25px', margin: 'auto' }}>Access denied!</Info>
 	);
 };

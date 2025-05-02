@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { selectRoom, setRoom, updateRoom } from '../../../../../../../../store';
+import { selectRoom, setRoom } from '../../../../../../../../store';
 import { useMatch, useNavigate } from 'react-router-dom';
 import { RoomInfoPanel } from '../RoomInfoPanel/RoomInfoPanel';
 import styles from './LowPanel.module.css';
@@ -72,7 +72,6 @@ export const LowPanel = () => {
 				if (error) {
 					console.error(error);
 				} else {
-					console.log(room.id);
 					dispatch(setRoom(data), navigate(`/rooms/${room.name}`));
 				}
 			})
@@ -80,33 +79,28 @@ export const LowPanel = () => {
 	};
 
 	return (
-		<div>
-			<div className={styles.containerDetails}>
-				{!isEditing ? (
-					<img
-						src={img ? URL.createObjectURL(img) : room?.img}
-						alt={room?.name}
-					/>
-				) : (
-					<ImgEditing img={img} room={room} setImg={setImg} />
-				)}
-				<div className={styles.infoContainer} style={isEditing && { gap: '0px' }}>
-					<RoomInfoPanel
-						handleSave={handleSave}
-						error={error}
-						errorInput={errorInput}
-						refs={{
-							refName,
-							refShortD,
-							refCategory,
-							refSize,
-							refBeds,
-							refDescription,
-							refAmenities,
-							refPrice,
-						}}
-					/>
-				</div>
+		<div className={styles.containerDetails}>
+			{!isEditing ? (
+				<img src={img ? URL.createObjectURL(img) : room?.img} alt={room?.name} />
+			) : (
+				<ImgEditing img={img} room={room} setImg={setImg} />
+			)}
+			<div className={styles.infoContainer} style={isEditing && { gap: '0px' }}>
+				<RoomInfoPanel
+					handleSave={handleSave}
+					error={error}
+					errorInput={errorInput}
+					refs={{
+						refName,
+						refShortD,
+						refCategory,
+						refSize,
+						refBeds,
+						refDescription,
+						refAmenities,
+						refPrice,
+					}}
+				/>
 			</div>
 		</div>
 	);

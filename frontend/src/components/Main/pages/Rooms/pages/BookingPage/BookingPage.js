@@ -11,7 +11,7 @@ import {
 	setRooms,
 	updateRoomBookings,
 } from '../../../../../../store';
-import { yupSchemaAppoint } from '../../../../../../yup/yupSchemaAppoint';
+import { yupSchemaBooking } from '../../../../../../yup/yupSchemaBooking';
 import { BookingLayout } from './BookingLayout';
 import { useParams } from 'react-router-dom';
 import { Info } from '../../../../../components';
@@ -61,7 +61,7 @@ export const BookingPage = () => {
 		},
 		mode: 'onTouched',
 		shouldFocusError: false,
-		resolver: yupResolver(yupSchemaAppoint),
+		resolver: yupResolver(yupSchemaBooking),
 	});
 	const { startDate, endDate } = watch();
 

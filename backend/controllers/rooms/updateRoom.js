@@ -3,7 +3,6 @@ const sanitizeDescription = require('../../utils/sanitize-description');
 
 module.exports = async function (newValues, roomId) {
 	try {
-		console.log(newValues);
 		const data = {
 			...newValues,
 			description: sanitizeDescription(newValues.description),

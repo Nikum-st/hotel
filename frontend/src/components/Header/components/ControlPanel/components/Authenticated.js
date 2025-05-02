@@ -23,21 +23,17 @@ export const Authenticated = () => {
 	return (
 		<div className={styles.controlPanel}>
 			<div className={styles.login}>{login}</div>
-			{role === ROLE.ADMIN && (
+			{(role === ROLE.ADMIN || role === ROLE.MANAGER) && (
 				<Link to="/admin">
-					<Icon
-						size={'30px'}
-						id={'fa-user-secret'}
-						title="Admin page
-"
-					/>
+					<Icon size="30px" id="fa-user-secret" title="Admin page" />
 				</Link>
 			)}
 			{role === ROLE.USER && (
 				<Link to="/bookings">
-					<Icon size={'30px'} id={'fa-calendar-check-o'} title="My bookings" />
+					<Icon size="30px" id="fa-calendar-check-o" title="My bookings" />
 				</Link>
 			)}
+
 			<Link to="/rooms">
 				<Icon size={'30px'} id={'fa fa-bed'} title="All rooms" />
 			</Link>

@@ -1,0 +1,60 @@
+.userList {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.table {
+	width: 100%;
+	max-height: 400px;
+	border-collapse: collapse;
+	margin: 20px 0;
+	font-size: 16px;
+	background: #fff;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.table tbody {
+	display: table-row-group;
+}
+
+.table th,
+.table td {
+	padding: 12px 15px;
+	text-align: center;
+	border-bottom: 1px solid #ddd;
+	white-space: nowrap;
+}
+
+.table thead {
+	background: #f4f4f4;
+	font-weight: bold;
+}
+
+.table tbody tr:last-child td {
+	border-bottom: none;
+}
+
+@media (max-width: 768px) {
+	.tableAdmin {
+		font-size: 14px;
+	}
+
+	.tableAdmin th,
+	.tableAdmin td {
+		padding: 8px 10px;
+	}
+}
+
+@media (max-width: 480px) {
+	.tableAdmin {
+		font-size: 12px;
+	}
+
+	.tableAdmin th,
+	.tableAdmin td {
+		padding: 6px 8px;
+	}
+}

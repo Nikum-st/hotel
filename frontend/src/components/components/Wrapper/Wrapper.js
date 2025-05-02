@@ -5,19 +5,15 @@ import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
 import { Info } from '../Info/Info';
 import { ROLE } from '../../../constants';
 
-export const Wrapper = ({ children, error, adminPage = false, alwaysAccess }) => {
+export const Wrapper = ({ children, error, adminAccess = false }) => {
 	const role = useSelector(selectRole);
 	const isLoading = useSelector(selectLoading);
 
-	const accessError = adminPage
+	const accessError = adminAccess
 		? role === ROLE.ADMIN
 			? null
 			: 'Access denied!'
-		: alwaysAccess
-			? null
-			: role
-				? null
-				: 'Sign in!';
+		: null;
 
 	return isLoading ? (
 		<Loader />

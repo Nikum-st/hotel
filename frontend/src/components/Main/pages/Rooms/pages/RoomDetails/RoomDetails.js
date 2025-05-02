@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useMatch, useParams } from 'react-router-dom';
 import { selectRoom, selectRooms, setRoom, setRooms } from '../../../../../../store';
 import { useEffect } from 'react';
 import { useRequest } from '../../../../../../hooks/useRequest';
@@ -14,6 +14,7 @@ export const RoomDetails = () => {
 	const dispatch = useDispatch();
 	const { name } = useParams();
 	const { sendRequest, error } = useRequest();
+	const isEditing = useMatch('/rooms/:name/edit');
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -38,7 +39,7 @@ export const RoomDetails = () => {
 	}, [name, room, rooms.length, dispatch, sendRequest]);
 
 	return (
-		<Wrapper alwaysAccess={true} error={error}>
+		<Wrapper adminAccess={isEditing ? true : false} error={error}>
 			<div className={styles.content}>
 				<HighPanel />
 				<LowPanel />
