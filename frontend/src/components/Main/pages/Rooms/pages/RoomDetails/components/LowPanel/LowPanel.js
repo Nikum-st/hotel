@@ -1,5 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { selectRoom, setRoom } from '../../../../../../../../store';
+import {
+	CLOSE_MODAL,
+	openModal,
+	selectRoom,
+	setRoom,
+} from '../../../../../../../../store';
 import { useMatch, useNavigate } from 'react-router-dom';
 import { RoomInfoPanel } from '../RoomInfoPanel/RoomInfoPanel';
 import styles from './LowPanel.module.css';
@@ -39,14 +44,14 @@ export const LowPanel = () => {
 		}
 
 		if (
-			(!refDescription,
-			!refName,
-			!refShortD,
-			!refCategory,
-			!refSize,
-			!refBeds,
-			!refAmenities,
-			!refPrice)
+			!refDescription.current.innerHTML ||
+			!refName.current.value ||
+			!refShortD.current.value ||
+			!refCategory.current.value ||
+			!refSize.current.value ||
+			!refBeds.current.value ||
+			!refAmenities.current.value ||
+			!refPrice.current.value
 		) {
 			setErrorInput('All fields must be filled in');
 			return;
@@ -63,19 +68,30 @@ export const LowPanel = () => {
 		formData.append('amenities', refAmenities.current.value);
 		formData.append('price', refPrice.current.value);
 
-		await fetch(`/rooms/${room.id}`, {
-			method: 'PATCH',
-			body: formData,
-		})
-			.then((response) => response.json())
-			.then(({ error, data }) => {
-				if (error) {
-					console.error(error);
-				} else {
-					dispatch(setRoom(data), navigate(`/rooms/${room.name}`));
-				}
-			})
-			.catch((e) => console.error(e));
+		dispatch(
+			openModal({
+				text: 'save the new values for the room?',
+				onConfirmModal: async () => {
+					await fetch(`/rooms/${room.id}`, {
+						method: 'PATCH',
+						body: formData,
+					})
+						.then((response) => response.json())
+						.then(({ error, data }) => {
+							if (error) {
+								console.error(error);
+							} else {
+								dispatch(setRoom(data));
+								navigate(`/rooms/${data.name}`);
+							}
+						})
+						.catch((e) => console.error(e))
+						.finally(() => {
+							dispatch(CLOSE_MODAL);
+						});
+				},
+			}),
+		);
 	};
 
 	return (

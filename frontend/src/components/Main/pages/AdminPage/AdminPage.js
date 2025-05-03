@@ -5,8 +5,8 @@ import { Bookings } from './components/Bookings/Bookings';
 import { ArchiveList } from './components/ArchiveList/ArchiveList';
 import styles from './AdminPage.module.css';
 import { UserList } from './components/UserList/UserList';
-import { useSelector } from 'react-redux';
-import { selectRole } from '../../../../store';
+import { useDispatch, useSelector } from 'react-redux';
+import { CLOSE_MODAL, openModal, selectRole } from '../../../../store';
 import { ROLE } from '../../../../constants';
 
 export const AdminPage = () => {
@@ -14,6 +14,7 @@ export const AdminPage = () => {
 	const [bookings, setBookings] = useState([]);
 	const { sendRequest, error } = useRequest();
 	const role = useSelector(selectRole);
+	const dispatch = useDispatch();
 	const accessToPage = [ROLE.ADMIN, ROLE.MANAGER];
 
 	useEffect(() => {
@@ -28,11 +29,19 @@ export const AdminPage = () => {
 	}, [sendRequest]);
 
 	const deleteBooking = async (id) => {
-		const isDeleted = await sendRequest(`/bookings/${id}`, 'DELETE');
+		dispatch(
+			openModal({
+				text: 'remove the booking?',
+				onConfirmModal: async () => {
+					const isDeleted = await sendRequest(`/bookings/${id}`, 'DELETE');
 
-		if (isDeleted) {
-			setBookings(bookings.filter((b) => b.id !== id));
-		}
+					if (isDeleted) {
+						setBookings(bookings.filter((b) => b.id !== id));
+					}
+					dispatch(CLOSE_MODAL);
+				},
+			}),
+		);
 	};
 
 	const bookingsProps = {

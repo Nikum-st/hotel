@@ -3,6 +3,8 @@ import { Button, Loader } from '../../../../../components';
 import { Bookings } from '../Bookings/Bookings';
 import styles from './ArchiveList.module.css';
 import { handleOpenList } from '../services/hundleOpenList';
+import { CLOSE_MODAL, openModal } from '../../../../../../store';
+import { useDispatch } from 'react-redux';
 
 export const ArchiveList = () => {
 	const [archiveListIsOpen, setArchiveListIsOpen] = useState(false);
@@ -10,23 +12,34 @@ export const ArchiveList = () => {
 	const [archive, setArchive] = useState([]);
 	const [searchArchive, setSearchArchive] = useState('');
 	const archiveRef = useRef(null);
-	console.log(archive);
+	const dispatch = useDispatch();
 
 	const clearArchive = async () => {
-		if (!archive) {
+		if (archive.length === 0) {
 			return;
 		}
-		try {
-			const response = await fetch(`/admin/archive`, { method: 'DELETE' });
-			const result = await response.json();
+		dispatch(
+			openModal({
+				text: 'clear the archive? It will be impossible to restore it.',
+				onConfirmModal: async () => {
+					try {
+						const response = await fetch(`/admin/archive`, {
+							method: 'DELETE',
+						});
+						const result = await response.json();
 
-			if (result.error) {
-				console.error(result.error);
-			}
-			setArchive([]);
-		} catch ({ message }) {
-			console.error(message);
-		}
+						if (result.error) {
+							console.error(result.error);
+						}
+						setArchive([]);
+					} catch ({ message }) {
+						console.error(message);
+					} finally {
+						dispatch(CLOSE_MODAL);
+					}
+				},
+			}),
+		);
 	};
 
 	const archiveProps = {

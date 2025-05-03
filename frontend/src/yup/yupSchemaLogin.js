@@ -25,10 +25,10 @@ export const yupSchemaLogin = {
 		password: yup
 			.string()
 			.required('Fill in the password')
-			.min(3, 'Password must be at least 3 characters')
+			.min(8, 'Password must be at least 8 characters')
 			.matches(
-				/^\w*$/,
-				'Invalid login. Valid characters: letters, numbers and underscores',
+				/^(?=.*[A-Za-z])(?=.*\d)(?=.*[_@$!%*?&])[A-Za-z\d_@$!%*?&]{8,}$/,
+				'Password must be at least 8 characters long, include letters, numbers, and one special character (-_@$!%*?&)',
 			),
 		passcheck: yup
 			.string()

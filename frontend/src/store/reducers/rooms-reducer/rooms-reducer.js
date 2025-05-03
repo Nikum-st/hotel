@@ -23,6 +23,8 @@ export const roomsReducer = (state = initialStateRooms, action) => {
 			return state.map((r) => {
 				return r.id === payload.roomId ? payload.updatedData : r;
 			});
+		case ACTION_TYPE.ROOM.SET_ROOM:
+			return state.map((room) => (room.id === payload.id ? { ...payload } : room));
 
 		case ACTION_TYPE.ROOMS.DELETE_ROOM_BOOKING:
 			return state.map((r) =>

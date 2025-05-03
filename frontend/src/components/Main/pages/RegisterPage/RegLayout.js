@@ -1,4 +1,5 @@
 import { Button, ErrorMessage, Input } from '../../../components';
+import { PasswordInput } from '../../../components/PasswordInput/PasswordInput';
 import styles from './Register.module.css';
 
 export const RegLayout = ({
@@ -7,6 +8,8 @@ export const RegLayout = ({
 	register,
 	setErrorServer,
 	errorMessage,
+	handleShowPassword,
+	showPassword,
 }) => (
 	<div className={styles.registration}>
 		<h2>Registration</h2>
@@ -29,19 +32,10 @@ export const RegLayout = ({
 					},
 				})}
 			/>
-			<Input
-				type="password"
-				placeholder="Password..."
-				{...register(`password`, {
-					onChange: () => {
-						setErrorServer(null);
-					},
-				})}
-			/>
+			<PasswordInput register={register} setErrorServer={setErrorServer} />
 			<Input
 				type="passcheck"
-				placeholder="Repeat password
-..."
+				placeholder="Repeat password..."
 				{...register(`passcheck`, {
 					onChange: () => {
 						setErrorServer(null);

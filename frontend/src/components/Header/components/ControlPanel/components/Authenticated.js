@@ -2,7 +2,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from './Authenticated.module.css';
 import { Icon } from '../../../../components/Icon/Icon';
 import { useDispatch, useSelector } from 'react-redux';
-import { loading, logOut, selectLogin, selectRole } from '../../../../../store';
+import {
+	CLOSE_MODAL,
+	loading,
+	logOut,
+	openModal,
+	selectLogin,
+	selectRole,
+} from '../../../../../store';
 import { ROLE } from '../../../../../constants';
 
 export const Authenticated = () => {
@@ -12,12 +19,20 @@ export const Authenticated = () => {
 	const dispatch = useDispatch();
 
 	const handleLogOut = async () => {
-		dispatch(loading(true));
-		await fetch('/logout', { method: 'POST' }).finally(() => {
-			dispatch(loading(false));
-		});
-		dispatch(logOut);
-		navigate('/');
+		dispatch(
+			openModal({
+				text: 'log out?',
+				onConfirmModal: async () => {
+					dispatch(loading(true));
+					await fetch('/logout', { method: 'POST' }).finally(() => {
+						dispatch(loading(false));
+					});
+					dispatch(logOut);
+					dispatch(CLOSE_MODAL);
+					navigate('/');
+				},
+			}),
+		);
 	};
 
 	return (

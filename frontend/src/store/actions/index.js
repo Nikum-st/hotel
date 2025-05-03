@@ -8,3 +8,5 @@ export * from './rooms/update-room';
 export * from './room/set-room';
 export * from './app/setCurrentPage';
 export * from './app/setTotalPages';
+export * from './app/CLOSE_MODAL';
+export * from './app/openModal';

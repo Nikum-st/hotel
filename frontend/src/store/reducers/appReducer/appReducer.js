@@ -30,6 +30,20 @@ export const appReducer = (state = initialStateApp, action) => {
 				...state,
 				totalPages: payload,
 			};
+		case ACTION_TYPE.APP.OPEN_MODAL:
+			return {
+				...state,
+				modal: {
+					isOpen: true,
+					text: state.modal.text + payload.text,
+					onConfirmModal: payload.onConfirmModal,
+				},
+			};
+		case ACTION_TYPE.APP.CLOSE_MODAL:
+			return {
+				...state,
+				modal: initialStateApp.modal,
+			};
 		default:
 			return state;
 	}
