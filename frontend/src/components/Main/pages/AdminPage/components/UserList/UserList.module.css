@@ -36,25 +36,22 @@
 .table tbody tr:last-child td {
 	border-bottom: none;
 }
-
-@media (max-width: 768px) {
-	.tableAdmin {
-		font-size: 14px;
+@media (max-width: 1024px) {
+	.userList button {
+		width: 400px;
+		height: 70px;
+		font-size: 30px;
 	}
-
-	.tableAdmin th,
-	.tableAdmin td {
-		padding: 8px 10px;
+	.userList input {
+		font-size: 30px;
 	}
-}
-
-@media (max-width: 480px) {
-	.tableAdmin {
-		font-size: 12px;
+	.table {
+		font-size: 30px;
 	}
-
-	.tableAdmin th,
-	.tableAdmin td {
-		padding: 6px 8px;
+	.table i {
+		font-size: 50px;
+	}
+	.table select {
+		font-size: 29px;
 	}
 }

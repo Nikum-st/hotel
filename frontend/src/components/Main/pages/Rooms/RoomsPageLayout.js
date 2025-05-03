@@ -1,6 +1,6 @@
 import { Wrapper } from '../../../components';
 import { Pagination } from './components/Pagination/Pagination';
-import { RoomCard } from './components/RoomCart/RoomCard';
+import { RoomCard } from './components/RoomCard/RoomCard';
 import styles from './Rooms.module.css';
 
 export const RoomsPageLayout = ({ errorFromServer, rooms }) => (

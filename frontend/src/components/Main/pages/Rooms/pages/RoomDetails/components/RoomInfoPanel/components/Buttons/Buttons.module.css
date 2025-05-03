@@ -3,3 +3,16 @@
 	align-items: center;
 	gap: 55px;
 }
+
+@media (min-width: 601px) and (max-width: 1024px) {
+	.Buttons {
+		display: flex;
+		justify-content: center;
+	}
+	.Buttons button {
+		font-size: 35px;
+	}
+	.Buttons i {
+		font-size: 75px;
+	}
+}

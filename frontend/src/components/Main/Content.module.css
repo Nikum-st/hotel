@@ -5,3 +5,23 @@
 	align-items: center;
 	min-height: 100vh;
 }
+
+@media (max-width: 600px) {
+	.main {
+		padding-top: 60px;
+	}
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+	.main {
+		padding-top: 70px;
+	}
+}
+
+@media (min-width: 1920px) {
+	.main {
+		padding-top: 100px;
+		max-width: 1400px;
+		margin: 0 auto;
+	}
+}

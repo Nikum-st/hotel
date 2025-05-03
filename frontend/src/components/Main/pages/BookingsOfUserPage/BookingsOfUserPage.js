@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import {
+	CLOSE_MODAL,
 	deleteBooking as deleteBookingFromStore,
 	openModal,
 	selectRole,
@@ -44,6 +45,7 @@ export const BookingsOfUserPage = () => {
 						setBookingsOfUser(bookingsOfUser.filter((b) => b.id !== id));
 						dispatch(deleteBookingFromStore(roomName, checkIn));
 					}
+					dispatch(CLOSE_MODAL);
 				},
 			}),
 		);

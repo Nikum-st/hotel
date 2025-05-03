@@ -56,3 +56,19 @@
 	flex-direction: column;
 	align-items: center;
 }
+@media (max-width: 1024px) {
+	.bookingForm {
+		width: 88%;
+	}
+	.bookingForm label {
+		font-size: 40px;
+	}
+	.bookingForm input {
+		height: 95px;
+	}
+	.bookingForm button {
+		width: 195px;
+		height: 100px;
+		font-size: 40px;
+	}
+}

@@ -12,3 +12,18 @@
 	padding: 20px;
 	overflow: auto;
 }
+
+@media (max-width: 1024px) {
+	.containerRooms {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 30px;
+	}
+}
+
+@media (max-width: 400px) {
+	.containerRooms {
+		grid-template-columns: 1fr;
+		gap: 20px;
+		padding: 10px;
+	}
+}

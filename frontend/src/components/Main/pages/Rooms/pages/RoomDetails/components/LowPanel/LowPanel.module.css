@@ -21,11 +21,12 @@
 	font-size: 1rem;
 	line-height: 1.6;
 }
-@media (max-width: 768px) {
+
+@media (min-width: 601px) and (max-width: 1024px) {
 	.containerDetails {
+		display: flex;
 		flex-direction: column;
-	}
-	.infoContainer {
-		margin-top: 20px;
+		gap: 30px;
+		align-items: center;
 	}
 }

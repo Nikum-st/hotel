@@ -12,3 +12,17 @@
 	max-width: 15%;
 	border-radius: 52px;
 }
+@media (max-width: 1024px) {
+	.booking {
+		display: flex;
+		flex-direction: column;
+		gap: 80px;
+	}
+	.booking img {
+		max-width: 75%;
+	}
+	.booking button {
+		width: 75%;
+		font-size: 30px;
+	}
+}

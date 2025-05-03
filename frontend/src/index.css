@@ -5,12 +5,14 @@
 	padding: 0;
 	box-sizing: border-box;
 }
+
 html,
 body {
 	height: 100%;
 	font-family: 'Helvetica', 'Arial', sans-serif;
 	background-color: #f8f9fa;
 	color: #0b0e14;
+	font-size: 16px;
 }
 
 #root {
@@ -35,4 +37,27 @@ a {
 
 code {
 	font-family: math, monospace;
+}
+
+@media (max-width: 600px) {
+	html,
+	body {
+		font-size: 14px;
+	}
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+	html,
+	body {
+		font-size: 35px;
+	}
+}
+
+@media (min-width: 1920px) {
+	html,
+	body {
+		font-size: 18px;
+		max-width: 1600px;
+		margin: 0 auto;
+	}
 }

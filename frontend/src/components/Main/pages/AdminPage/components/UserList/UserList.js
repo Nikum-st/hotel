@@ -43,7 +43,7 @@ export const UserList = () => {
 							type="text"
 							placeholder="Search by login"
 							value={searchUsers}
-							style={{ margin: '20px', width: '300px' }}
+							style={{ margin: '20px', width: '300PX' }}
 							onChange={(e) => setSearchUsers(e.target.value)}
 						/>
 						<table ref={usersRef} className={styles.table}>

@@ -24,3 +24,8 @@
 	box-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
 	outline: none;
 }
+@media (min-width: 601px) and (max-width: 1024px) {
+	.descriptionEdit {
+		max-height: 365px;
+	}
+}
