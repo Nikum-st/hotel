@@ -23,7 +23,7 @@ body {
 h1,
 h2,
 h3 {
-	font-weight: 700;
+	font-weight: 400;
 }
 
 p {
@@ -37,27 +37,4 @@ a {
 
 code {
 	font-family: math, monospace;
-}
-
-@media (max-width: 600px) {
-	html,
-	body {
-		font-size: 14px;
-	}
-}
-
-@media (min-width: 601px) and (max-width: 1024px) {
-	html,
-	body {
-		font-size: 35px;
-	}
-}
-
-@media (min-width: 1920px) {
-	html,
-	body {
-		font-size: 18px;
-		max-width: 1600px;
-		margin: 0 auto;
-	}
 }

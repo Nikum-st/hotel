@@ -6,7 +6,6 @@ export const Logo = () => {
 		<Link to="/">
 			<div className={styles.logoContainer}>
 				<div className={styles.logo}>GL</div>
-
 				<div className={styles.textHotel}>HOTEL</div>
 			</div>
 		</Link>

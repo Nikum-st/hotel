@@ -1,5 +1,5 @@
 import { ControlPanel } from './components/ControlPanel/ControlPanel';
-import { Logo } from './components/Logo/Logo';
+import { Logo } from '../components/Logo/Logo';
 import styles from './Header.module.css';
 
 export const Header = () => {
