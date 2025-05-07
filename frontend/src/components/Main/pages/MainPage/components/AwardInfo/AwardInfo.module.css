@@ -14,3 +14,8 @@
 	text-align: center;
 	padding: 30px;
 }
+@media (max-width: 1000px) {
+	.awardInfo img {
+		height: 41%;
+	}
+}

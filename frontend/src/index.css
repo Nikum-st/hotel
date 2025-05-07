@@ -38,3 +38,8 @@ a {
 code {
 	font-family: math, monospace;
 }
+@media (max-width: 1000px) {
+	body {
+		font-size: 24px;
+	}
+}

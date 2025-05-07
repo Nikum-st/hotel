@@ -21,7 +21,7 @@ export const BookingsOfUserPage = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			if (bookingsOfUser.length && role !== ROLE.USER) {
-				navigate('/admin');
+				navigate('/admin/current-bookings');
 				return null;
 			}
 			window.scrollTo(0, 0);

@@ -1,18 +1,27 @@
-import { useRef, useState } from 'react';
-import { Button, Loader } from '../../../../../components';
+import { useEffect, useRef, useState } from 'react';
+import { Button, Wrapper } from '../../../../../components';
 import { Bookings } from '../Bookings/Bookings';
 import styles from './ArchiveList.module.css';
-import { handleOpenList } from '../services/hundleOpenList';
 import { CLOSE_MODAL, openModal } from '../../../../../../store';
 import { useDispatch } from 'react-redux';
 
-export const ArchiveList = () => {
-	const [archiveListIsOpen, setArchiveListIsOpen] = useState(false);
-	const [loadingArchive, setLoadingArchive] = useState(false);
+export const ArchiveList = ({ sendRequest, error }) => {
 	const [archive, setArchive] = useState([]);
 	const [searchArchive, setSearchArchive] = useState('');
 	const archiveRef = useRef(null);
 	const dispatch = useDispatch();
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+
+		const fetchArchive = async () => {
+			const archive = await sendRequest('/admin/archive');
+
+			setArchive(archive);
+		};
+
+		fetchArchive();
+	}, [sendRequest]);
 
 	const clearArchive = async () => {
 		if (archive.length === 0) {
@@ -54,36 +63,18 @@ export const ArchiveList = () => {
 	};
 
 	return (
-		<div className={styles.archiveList}>
-			<Button
-				style={{ margin: '40px' }}
-				onClick={() =>
-					handleOpenList(
-						archiveListIsOpen,
-						setArchiveListIsOpen,
-						setLoadingArchive,
-						setArchive,
-						archiveRef,
-						'/admin/archive',
-					)
-				}
-			>
-				Archive bookings {archiveListIsOpen ? `close` : `open`}
-			</Button>
-			{archiveListIsOpen &&
-				(loadingArchive ? (
-					<Loader />
-				) : (
-					<>
-						<Button
-							onClick={clearArchive}
-							style={{ background: 'rgb(175, 3, 3)' }}
-						>
-							Clear archive
-						</Button>
-						<Bookings {...archiveProps} />
-					</>
-				))}
-		</div>
+		<Wrapper error={error}>
+			<div className={styles.archiveList}>
+				<>
+					<Button
+						onClick={clearArchive}
+						style={{ background: 'rgb(175, 3, 3)' }}
+					>
+						Clear archive
+					</Button>
+					<Bookings {...archiveProps} />
+				</>
+			</div>
+		</Wrapper>
 	);
 };

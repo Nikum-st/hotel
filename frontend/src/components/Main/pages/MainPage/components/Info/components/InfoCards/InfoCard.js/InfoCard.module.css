@@ -14,3 +14,8 @@
 .infoCardContainer p {
 	font-size: clamp(0.6rem, 1.7vw, 1rem);
 }
+@media (max-widht: 1000px) {
+	.infoCardContainer {
+		margin: 0;
+	}
+}

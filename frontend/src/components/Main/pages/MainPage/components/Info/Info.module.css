@@ -6,3 +6,10 @@
 	padding: 227px 227px 100px 227px;
 	position: relative;
 }
+@media (max-width: 1000px) {
+	.infoContainer {
+		height: 1213px;
+		flex-direction: column;
+		padding: 10px;
+	}
+}

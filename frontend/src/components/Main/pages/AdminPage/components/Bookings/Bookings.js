@@ -34,7 +34,7 @@ export const Bookings = forwardRef(
 					style={{ margin: '20px', width: '300px' }}
 					onChange={(e) => setSearch(e.target.value)}
 				/>
-				<h2>{type === 'archive' ? undefined : 'Active bookings'}</h2>
+				<h2>{type === 'archive' ? 'Archive bookings' : 'Active bookings'}</h2>
 				{filteredBookings.length === 0 ? (
 					<Info>
 						{type === 'archive' ? 'Archive is empty' : 'No reservations'}

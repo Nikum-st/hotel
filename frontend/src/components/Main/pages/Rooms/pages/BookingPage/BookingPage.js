@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import moment from 'moment';
 import {
+	CLOSE_MODAL,
+	openModal,
 	selectIsAuthenticated,
 	selectLoading,
 	selectRooms,
@@ -96,23 +98,35 @@ export const BookingPage = () => {
 			return;
 		}
 
-		const newBooking = await sendRequest(`/rooms/${roomCurrent.id}/booking`, 'POST', {
-			firstName,
-			lastName,
-			phone,
-			startDate,
-			endDate,
-		});
-		if (newBooking) {
-			dispatch(
-				updateRoomBookings(
-					roomCurrent.id,
-					newBooking.checkIn,
-					newBooking.checkOut,
-				),
-			);
-			setBooking(newBooking);
-		}
+		dispatch(
+			openModal({
+				text: 'book this room for these dates?',
+				onConfirmModal: async () => {
+					const newBooking = await sendRequest(
+						`/rooms/${roomCurrent.id}/booking`,
+						'POST',
+						{
+							firstName,
+							lastName,
+							phone,
+							startDate,
+							endDate,
+						},
+					);
+					if (newBooking) {
+						dispatch(
+							updateRoomBookings(
+								roomCurrent.id,
+								newBooking.checkIn,
+								newBooking.checkOut,
+							),
+						);
+						setBooking(newBooking);
+					}
+					dispatch(CLOSE_MODAL);
+				},
+			}),
+		);
 	};
 
 	const isDateDisabled = (date) => {

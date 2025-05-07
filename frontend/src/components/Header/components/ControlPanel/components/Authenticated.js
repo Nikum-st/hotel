@@ -39,9 +39,19 @@ export const Authenticated = () => {
 		<div className={styles.controlPanel}>
 			<div className={styles.login}>{login}</div>
 			{(role === ROLE.ADMIN || role === ROLE.MANAGER) && (
-				<Link to="/admin">
-					<Icon size="30px" id="fa-user-secret" title="Admin page" />
+				<Link to="/admin/current-bookings">
+					<Icon size="30px" id="fa-list-alt" title="Current bookings" />
 				</Link>
+			)}
+			{role === ROLE.ADMIN && (
+				<>
+					<Link to="/admin/archive">
+						<Icon size="30px" id="fa-archive" title="Archive bookings" />
+					</Link>
+					<Link to="/admin/users">
+						<Icon size="30px" id="fa-users" title="Users" />
+					</Link>
+				</>
 			)}
 			{role === ROLE.USER && (
 				<Link to="/bookings">

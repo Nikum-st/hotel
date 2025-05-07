@@ -49,5 +49,5 @@
 	overflow-wrap: break-word;
 	hyphens: auto;
 	max-width: 100%;
-	font-size: clamp(0.6rem, 1vw, 1.2rem);
+	font-size: clamp(0.6rem, 2vw, 1.2rem);
 }
