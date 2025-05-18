@@ -1,16 +1,16 @@
 FROM node:24
 
-WORKDIR /src/nikum_st/app
+WORKDIR /app
 
 COPY . .
 
-WORKDIR /src/nikum_st/app/backend
-RUN npm i
+WORKDIR /app/backend
+RUN npm install
 
-WORKDIR /src/nikum_st/app/frontend
-RUN npm i
+WORKDIR /app/frontend
+RUN npm install
 RUN npm run build
 
 EXPOSE 2050
 
-CMD [ "node","index.js" ]
+CMD ["node", "index.js"]
