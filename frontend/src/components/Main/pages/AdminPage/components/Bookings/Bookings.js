@@ -3,6 +3,8 @@ import { Input, Info } from '../../../../../components';
 import styles from './Bookings.module.css';
 import { Thead } from './components/thead';
 import { Tbody } from './components/tbody';
+import { useDispatch } from 'react-redux';
+import { CLOSE_MODAL, openModal } from '../../../../../../store';
 
 export const Bookings = forwardRef(
 	(
@@ -14,10 +16,31 @@ export const Bookings = forwardRef(
 			search,
 			setSearch,
 			type,
-			deleteBooking,
+			sendRequest,
+			setBookings,
 		},
 		ref,
 	) => {
+		const dispatch = useDispatch();
+
+		const deleteBooking = async (id) => {
+			dispatch(
+				openModal({
+					text: 'remove the booking?',
+					onConfirmModal: async () => {
+						const isDeleted = await sendRequest(
+							`/bookings/${id}`,
+							'DELETE',
+						);
+
+						if (isDeleted) {
+							setBookings(bookings.filter((b) => b.id !== id));
+						}
+						dispatch(CLOSE_MODAL);
+					},
+				}),
+			);
+		};
 		const filteredBookings =
 			bookings?.filter(
 				(b) =>

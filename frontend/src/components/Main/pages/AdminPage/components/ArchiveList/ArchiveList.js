@@ -4,6 +4,7 @@ import { Bookings } from '../Bookings/Bookings';
 import styles from './ArchiveList.module.css';
 import { CLOSE_MODAL, openModal } from '../../../../../../store';
 import { useDispatch } from 'react-redux';
+import { useRequest } from '../../../../../../hooks/useRequest';
 
 export const ArchiveList = ({ sendRequest, error }) => {
 	const [archive, setArchive] = useState([]);
@@ -32,15 +33,10 @@ export const ArchiveList = ({ sendRequest, error }) => {
 				text: 'clear the archive? It will be impossible to restore it.',
 				onConfirmModal: async () => {
 					try {
-						const response = await fetch(`/admin/archive`, {
-							method: 'DELETE',
-						});
-						const result = await response.json();
-
-						if (result.error) {
-							console.error(result.error);
+						const data = await sendRequest(`/admin/archive`, 'DELETE')
+						if (data) {
+							setArchive([]);
 						}
-						setArchive([]);
 					} catch ({ message }) {
 						console.error(message);
 					} finally {

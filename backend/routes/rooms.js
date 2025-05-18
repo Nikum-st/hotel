@@ -15,6 +15,7 @@ const router = express.Router({ mergeParams: true });
 router.get('/', async (req, res) => {
 	try {
 		const { totalPages, rooms } = await getRooms(req.query.page, req.query.limit);
+		console.log(rooms.map(roomMapper) )
 
 		return res
 			.status(200)

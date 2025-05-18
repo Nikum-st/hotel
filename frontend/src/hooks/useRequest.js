@@ -11,8 +11,7 @@ export const useRequest = () => {
 			dispatch(loading(true));
 			setError(null);
 			try {
-				const response = await fetch(url, {
-					method,
+				const response = await fetch(`/api/${url}`, { method,
 					headers: { 'Content-Type': 'application/json;charset=utf-8' },
 					body: data ? JSON.stringify(data) : undefined,
 				});

@@ -5,8 +5,8 @@ import { Bookings } from './components/Bookings/Bookings';
 import { ArchiveList } from './components/ArchiveList/ArchiveList';
 import styles from './AdminPage.module.css';
 import { UserList } from './components/UserList/UserList';
-import { useDispatch, useSelector } from 'react-redux';
-import { CLOSE_MODAL, openModal, selectRole } from '../../../../store';
+import { useSelector } from 'react-redux';
+import { selectRole } from '../../../../store';
 import { ROLE } from '../../../../constants';
 import { useMatch } from 'react-router-dom';
 
@@ -15,7 +15,7 @@ export const AdminPage = () => {
 	const [bookings, setBookings] = useState([]);
 	const { sendRequest, error } = useRequest();
 	const role = useSelector(selectRole);
-	const dispatch = useDispatch();
+
 	const isCurrentBookingsPage = useMatch('/admin/current-bookings');
 	const isArchivePage = useMatch('/admin/archive');
 	const isUsersPage = useMatch('/admin/users');
@@ -32,29 +32,13 @@ export const AdminPage = () => {
 		fetchBookings();
 	}, [sendRequest]);
 
-	const deleteBooking = async (id) => {
-		dispatch(
-			openModal({
-				text: 'remove the booking?',
-				onConfirmModal: async () => {
-					const isDeleted = await sendRequest(`/bookings/${id}`, 'DELETE');
-
-					if (isDeleted) {
-						setBookings(bookings.filter((b) => b.id !== id));
-					}
-					dispatch(CLOSE_MODAL);
-				},
-			}),
-		);
-	};
-
 	const bookingsProps = {
 		bookings,
-		deleteBooking,
 		Icon,
 		search: searchActive,
 		setSearch: setSearchActive,
 		setBookings,
+		sendRequest
 	};
 
 	return accessToPage.includes(role) ? (
