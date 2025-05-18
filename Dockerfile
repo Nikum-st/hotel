@@ -11,6 +11,8 @@ WORKDIR /app/frontend
 RUN npm install
 RUN npm run build
 
+WORKDIR /app/backend
+
 EXPOSE 2050
 
 CMD ["node", "index.js"]
