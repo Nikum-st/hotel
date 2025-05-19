@@ -8,7 +8,7 @@ export const deleteBookingFromServer = async (id) => {
 			throw new Error(`Failed to delete booking with id ${id}`);
 		}
 
-		console.log(`Booking with id ${id} deleted successfully`);
+		og(`Booking with id ${id} deleted successfully`);
 	} catch (error) {
 		console.error(`Error deleting booking: ${error.message}`);
 	}

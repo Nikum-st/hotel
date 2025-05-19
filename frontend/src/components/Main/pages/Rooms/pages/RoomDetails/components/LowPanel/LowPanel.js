@@ -72,7 +72,7 @@ export const LowPanel = () => {
 			openModal({
 				text: 'save the new values for the room?',
 				onConfirmModal: async () => {
-					await fetch(`/rooms/${room.id}`, {
+					await fetch(`/api/rooms/${room.id}`, {
 						method: 'PATCH',
 						body: formData,
 					})

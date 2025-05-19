@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { ROLE } from '../../../../../../../constants';
 import { Icon } from '../../../../../../components';
 import { useDispatch } from 'react-redux';
@@ -28,7 +27,6 @@ export const UserRaw = ({ user, setUsers }) => {
 							setUsers((prevUsers) =>
 								prevUsers.map((u) => {
 									if (u.id === user.id) {
-										console.log('updating user:', u);
 										return { ...u, role: newRole };
 									}
 									return u;
