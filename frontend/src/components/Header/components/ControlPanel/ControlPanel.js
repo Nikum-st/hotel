@@ -16,7 +16,7 @@ export const ControlPanel = () => {
 				<Icon size={'30px'} id={'fa fa-bed'} title="All rooms" />
 			</Link>
 			<Link to="/authorize">
-				<button>Log In</button>
+				<button>Log in</button>
 			</Link>
 			<Link to="/register">
 				<button>Sign Up</button>
