@@ -1,6 +1,7 @@
 import styles from './BookingInfo.module.css';
+import { BookingInfoProps } from '../types';
 
-export const BookingInfo = ({
+export const BookingInfo: React.FC<BookingInfoProps> = ({
 	roomName,
 	id,
 	user,
