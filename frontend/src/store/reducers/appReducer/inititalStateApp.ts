@@ -9,6 +9,6 @@ export const initialStateApp = {
 	modal: {
 		isOpen: false,
 		text: 'Are you sure you want to ',
-		OnConfirmModal: function () {},
+		onConfirmModal: function () {},
 	},
 };

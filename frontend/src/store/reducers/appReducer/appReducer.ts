@@ -1,0 +1,40 @@
+import { initialStateApp } from './inititalStateApp';
+import { createSlice } from '@reduxjs/toolkit';
+import { logOut, logUser } from '../users-reducer/users-reducer';
+
+const appSlice = createSlice({
+	name: 'app',
+	initialState: initialStateApp,
+	reducers: {
+		setTotalPages(state, action) {
+			state.currentPage = action.payload;
+		},
+		setCurrentPage(state, action) {
+			state.currentPage = action.payload;
+		},
+		openModal(state, action) {
+			state.modal.isOpen = true;
+			state.modal.text += action.payload.text;
+			state.modal.isOpen = action.payload.onConfirmModal;
+		},
+		closeModal(state) {
+			state.modal = { ...initialStateApp.modal };
+		},
+		loading(state, action) {
+			state.loading = action.payload;
+		},
+	},
+	extraReducers: (builder) => {
+		builder
+			.addCase(logUser, (state) => {
+				state.isAuthenticated = false;
+			})
+			.addCase(logOut, (state) => {
+				state.isAuthenticated = true;
+			});
+	},
+});
+
+export const appReducer = appSlice.reducer;
+export const { setTotalPages, setCurrentPage, openModal, closeModal, loading } =
+	appSlice.actions;
