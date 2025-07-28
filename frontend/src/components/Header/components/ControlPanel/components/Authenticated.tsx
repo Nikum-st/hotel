@@ -2,19 +2,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from './Authenticated.module.css';
 import { Icon } from '../../../../components/Icon/Icon';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-	CLOSE_MODAL,
-	loading,
-	logOut,
-	openModal,
-	selectLogin,
-	selectRole,
-} from '../../../../../store';
 import { ROLE } from '../../../../../constants';
+import { RootState } from '../../../../../store/store';
+import { closeModal, loading, logOut, openModal } from '../../../../../store';
 
 export const Authenticated = () => {
-	const login = useSelector(selectLogin);
-	const role = useSelector(selectRole);
+	const login = useSelector((state: RootState) => state.user?.login);
+	const role = useSelector((state: RootState) => state.user?.role);
+
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
@@ -27,8 +22,8 @@ export const Authenticated = () => {
 					await fetch('/logout', { method: 'POST' }).finally(() => {
 						dispatch(loading(false));
 					});
-					dispatch(logOut);
-					dispatch(CLOSE_MODAL);
+					dispatch(logOut());
+					dispatch(closeModal());
 					navigate('/');
 				},
 			}),
@@ -63,11 +58,7 @@ export const Authenticated = () => {
 				<Icon size={'30px'} id={'fa fa-bed'} title="All rooms" />
 			</Link>
 			<div className={styles.containerIconLogOut}>
-				<Icon
-					size={'30px'}
-					id={'fa-sign-out'}
-					onClick={() => handleLogOut(logOut)}
-				/>
+				<Icon size={'30px'} id={'fa-sign-out'} onClick={() => handleLogOut()} />
 				<div className={styles.textDescription}>Log out</div>
 			</div>
 		</div>

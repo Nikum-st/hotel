@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import styles from './ControlPanel.module.css';
 import { useSelector } from 'react-redux';
-import { selectIsAuthenticated } from '../../../../store';
 import { Authenticated } from './components/Authenticated';
 import { Icon } from '../../../components/Icon/Icon';
+import { RootState } from '../../../../store/store';
 
 export const ControlPanel = () => {
-	const isAuthenticated = useSelector(selectIsAuthenticated);
+	const isAuthenticated = useSelector((state: RootState) => state.app.isAuthenticated);
 
 	return isAuthenticated ? (
 		<Authenticated />
