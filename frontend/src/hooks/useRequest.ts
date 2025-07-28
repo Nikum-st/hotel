@@ -1,17 +1,19 @@
 import { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { loading } from '../store';
+import { SendRequestFn, UseRequestReturn } from './types/UseRequesrTypes';
 
-export const useRequest = () => {
-	const [error, setError] = useState(null);
+export const useRequest = (): UseRequestReturn => {
+	const [error, setError] = useState<string | null>(null);
 	const dispatch = useDispatch();
 
-	const sendRequest = useCallback(
-		async (url, method = 'GET', data = null) => {
+	const sendRequest: SendRequestFn = useCallback(
+		async (url: string, method = 'GET', data = null) => {
 			dispatch(loading(true));
 			setError(null);
 			try {
-				const response = await fetch(`/api/${url}`, { method,
+				const response = await fetch(`/api/${url}`, {
+					method,
 					headers: { 'Content-Type': 'application/json;charset=utf-8' },
 					body: data ? JSON.stringify(data) : undefined,
 				});
@@ -27,8 +29,10 @@ export const useRequest = () => {
 				}
 				return result.data;
 			} catch (e) {
-				console.error(e.message);
-				setError('Error from server.  Please try again later');
+				if (e instanceof Error) {
+					console.error(e.message);
+					setError('Error from server.  Please try again later');
+				}
 			} finally {
 				dispatch(loading(false));
 			}
