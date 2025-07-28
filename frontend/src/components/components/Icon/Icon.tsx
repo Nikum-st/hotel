@@ -1,4 +1,4 @@
-import { IconProps } from '../typesProps';
+import { IconProps } from '../types';
 import styles from './Icon.module.css';
 
 export const Icon: React.FC<IconProps> = ({

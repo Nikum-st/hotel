@@ -1,4 +1,6 @@
-export const Thead = ({ Icon, archiveStyle }) => (
+import { THeadProps } from './types';
+
+export const Thead = ({ Icon, archiveStyle }: THeadProps) => (
 	<thead style={archiveStyle}>
 		<tr>
 			<th>Booking</th>

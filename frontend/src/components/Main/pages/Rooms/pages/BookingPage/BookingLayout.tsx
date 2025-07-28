@@ -34,6 +34,7 @@ export const BookingLayout = ({
 							<Icon size={'100px'} id={'fa-check'} title="success" />
 						</Link>
 						<BookingInfo
+							asdd={111}
 							id={booking.id}
 							user={booking.user}
 							firstName={booking.firstName}

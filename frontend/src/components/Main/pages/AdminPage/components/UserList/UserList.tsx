@@ -4,9 +4,10 @@ import styles from './UserList.module.css';
 import { Thead } from './components/Thead';
 import { UserRaw } from './components/UserRaw';
 import { useRequest } from '../../../../../../hooks/useRequest';
+import { userType } from '../../../../../../types/userType';
 
 export const UserList = () => {
-	const [users, setUsers] = useState([]);
+	const [users, setUsers] = useState<userType[]>([]);
 	const [searchUsers, setSearchUsers] = useState('');
 	const usersRef = useRef(null);
 	const { sendRequest, error } = useRequest();
@@ -24,8 +25,8 @@ export const UserList = () => {
 	}, [sendRequest]);
 
 	const filteredUsers =
-		users?.filter((users) =>
-			users.login?.toLowerCase().includes(searchUsers?.toLowerCase()),
+		users?.filter((user) =>
+			user.login?.toLowerCase().includes(searchUsers?.toLowerCase()),
 		) || [];
 
 	return (
@@ -43,12 +44,7 @@ export const UserList = () => {
 						<Thead />
 						<tbody>
 							{filteredUsers.map((user) => (
-								<UserRaw
-									users={users}
-									setUsers={setUsers}
-									key={user.id}
-									user={user}
-								/>
+								<UserRaw setUsers={setUsers} key={user.id} user={user} />
 							))}
 						</tbody>
 					</table>

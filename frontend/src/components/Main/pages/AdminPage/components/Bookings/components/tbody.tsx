@@ -1,12 +1,13 @@
 import { Info } from '../../../../../../components';
+import { TBodyProps } from './types';
 
-export const Tbody = ({ Icon, bookings, archiveStyle, deleteBooking }) => {
+export const Tbody = ({ Icon, bookings, archiveStyle, deleteBooking }: TBodyProps) => {
 	return (
 		<tbody style={archiveStyle}>
 			{bookings?.length === 0 ? (
 				<tr>
 					<td
-						colSpan="9"
+						colSpan={9}
 						style={{
 							textAlign: 'center',
 							padding: '20px',
@@ -19,7 +20,11 @@ export const Tbody = ({ Icon, bookings, archiveStyle, deleteBooking }) => {
 				bookings?.map((b) => (
 					<tr key={b.id}>
 						<td>{b.id}</td>
-						<td>{b.user.email || b.user}</td>
+						<td>
+							{typeof b.user === 'object' && b.user !== null
+								? b.user.email
+								: b.user}
+						</td>
 						<td>{b.firstName}</td>
 						<td>{b.lastName}</td>
 						<td>{b.phone}</td>

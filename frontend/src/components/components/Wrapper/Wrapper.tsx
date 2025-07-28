@@ -3,7 +3,7 @@ import { Loader } from '../Loader/Loader';
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
 import { Info } from '../Info/Info';
 import { ROLE } from '../../../constants';
-import { WrapperProps } from '../typesProps';
+import { WrapperProps } from '../types';
 import { RootState } from '../../../store/store';
 
 export const Wrapper = ({ children, error, adminAccess = false }: WrapperProps) => {

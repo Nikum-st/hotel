@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Icon } from '../Icon/Icon';
 import { Input } from '../Input/Input';
 import styles from './PasswordInput.module.css';
-import { PasswordInputProps } from '../typesProps/PasswordInputProps';
+import { PasswordInputProps } from '../types/PasswordInputProps';
 
 export const PasswordInput = ({ register, setErrorServer }: PasswordInputProps) => {
 	const [showPassword, setShowPassword] = useState(false);

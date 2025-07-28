@@ -1,4 +1,4 @@
-import { BaseProps } from '../typesProps';
+import { BaseProps } from '../types';
 import styles from './Info.module.css';
 
 export const Info = ({ children }: BaseProps<HTMLDivElement>) => (

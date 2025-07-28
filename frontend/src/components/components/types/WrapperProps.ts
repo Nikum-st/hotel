@@ -1,5 +1,5 @@
 export type WrapperProps = {
 	children: React.ReactNode;
-	error: string;
-	adminAccess: boolean;
+	error: string | null;
+	adminAccess?: boolean;
 };

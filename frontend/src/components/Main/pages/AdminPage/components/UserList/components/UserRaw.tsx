@@ -1,16 +1,21 @@
 import { ROLE } from '../../../../../../../constants';
 import { Icon } from '../../../../../../components';
 import { useDispatch } from 'react-redux';
-import { CLOSE_MODAL, openModal } from '../../../../../../../store';
+import { closeModal, openModal } from '../../../../../../../store';
 import { useRequest } from '../../../../../../../hooks/useRequest';
+import { userType } from '../../../../../../../types/userType';
 
-export const UserRaw = ({ user, setUsers }) => {
+type UserRawProps = {
+	user: userType;
+	setUsers: React.Dispatch<React.SetStateAction<userType[]>>;
+};
 
+export const UserRaw = ({ user, setUsers }: UserRawProps) => {
 	const dispatch = useDispatch();
 	const { sendRequest } = useRequest();
 
-	const saveRoleForUser = async ({ target }) => {
-		const newRole = target.value;
+	const saveRoleForUser = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+		const newRole = event.target.value;
 
 		dispatch(
 			openModal({
@@ -23,7 +28,7 @@ export const UserRaw = ({ user, setUsers }) => {
 							{ role: newRole },
 						);
 						if (data) {
-							dispatch(CLOSE_MODAL);
+							dispatch(closeModal());
 							setUsers((prevUsers) =>
 								prevUsers.map((u) => {
 									if (u.id === user.id) {
@@ -32,11 +37,9 @@ export const UserRaw = ({ user, setUsers }) => {
 									return u;
 								}),
 							);
-
-						
 						}
 					} catch (error) {
-						dispatch(CLOSE_MODAL);
+						dispatch(closeModal());
 						console.error(error);
 					}
 				},
@@ -44,13 +47,16 @@ export const UserRaw = ({ user, setUsers }) => {
 		);
 	};
 
-	const deleteUser = async (userId) => {
+	const deleteUser = async (userId: string) => {
 		dispatch(
 			openModal({
 				text: 'remove the user',
 				onConfirmModal: async () => {
 					try {
-						const data = sendRequest(`/admin/users/${userId}`, 'DELETE');
+						const data: userType = await sendRequest(
+							`/admin/users/${userId}`,
+							'DELETE',
+						);
 						if (data) {
 							setUsers((prevUsers) =>
 								prevUsers.filter((user) => userId !== user.id),
@@ -59,7 +65,7 @@ export const UserRaw = ({ user, setUsers }) => {
 					} catch (error) {
 						console.error(error);
 					}
-					dispatch(CLOSE_MODAL);
+					dispatch(closeModal());
 				},
 			}),
 		);

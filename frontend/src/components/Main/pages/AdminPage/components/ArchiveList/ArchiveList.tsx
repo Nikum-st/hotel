@@ -2,12 +2,13 @@ import { useEffect, useRef, useState } from 'react';
 import { Button, Wrapper } from '../../../../../components';
 import { Bookings } from '../Bookings/Bookings';
 import styles from './ArchiveList.module.css';
-import { CLOSE_MODAL, openModal } from '../../../../../../store';
+import { closeModal, openModal } from '../../../../../../store';
 import { useDispatch } from 'react-redux';
-import { useRequest } from '../../../../../../hooks/useRequest';
+import { UseRequestReturn } from '../../../../../../hooks/types/UseRequesrTypes';
+import { archiveType } from '../../../../../../types/archiveType';
 
-export const ArchiveList = ({ sendRequest, error }) => {
-	const [archive, setArchive] = useState([]);
+export const ArchiveList = ({ sendRequest, error }: UseRequestReturn) => {
+	const [archive, setArchive] = useState<archiveType[]>([]);
 	const [searchArchive, setSearchArchive] = useState('');
 	const archiveRef = useRef(null);
 	const dispatch = useDispatch();
@@ -33,14 +34,16 @@ export const ArchiveList = ({ sendRequest, error }) => {
 				text: 'clear the archive? It will be impossible to restore it.',
 				onConfirmModal: async () => {
 					try {
-						const data = await sendRequest(`/admin/archive`, 'DELETE')
+						const data = await sendRequest(`/admin/archive`, 'DELETE');
 						if (data) {
 							setArchive([]);
 						}
-					} catch ({ message }) {
-						console.error(message);
+					} catch (e) {
+						if (e instanceof Error) {
+							console.error(e.message);
+						}
 					} finally {
-						dispatch(CLOSE_MODAL);
+						dispatch(closeModal());
 					}
 				},
 			}),
@@ -55,7 +58,7 @@ export const ArchiveList = ({ sendRequest, error }) => {
 		ref: archiveRef,
 		styleHeader: { background: '#3d3d3d', color: '#fff' },
 		styleBody: { background: '#969696' },
-		type: 'archive',
+		archiveType: true,
 	};
 
 	return (

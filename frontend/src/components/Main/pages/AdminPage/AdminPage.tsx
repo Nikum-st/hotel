@@ -6,20 +6,21 @@ import { ArchiveList } from './components/ArchiveList/ArchiveList';
 import styles from './AdminPage.module.css';
 import { UserList } from './components/UserList/UserList';
 import { useSelector } from 'react-redux';
-import { selectRole } from '../../../../store';
 import { ROLE } from '../../../../constants';
 import { useMatch } from 'react-router-dom';
+import { bookingType } from '../../../../types/bookingsType';
+import { RootState } from '../../../../store/store';
 
 export const AdminPage = () => {
 	const [searchActive, setSearchActive] = useState('');
-	const [bookings, setBookings] = useState([]);
+	const [bookings, setBookings] = useState<bookingType[]>([]);
 	const { sendRequest, error } = useRequest();
-	const role = useSelector(selectRole);
+	const role = useSelector((state: RootState) => state.user?.role);
 
 	const isCurrentBookingsPage = useMatch('/admin/current-bookings');
 	const isArchivePage = useMatch('/admin/archive');
 	const isUsersPage = useMatch('/admin/users');
-	const accessToPage = [ROLE.ADMIN, ROLE.MANAGER];
+	const hasAccess = role === ROLE.ADMIN || role === ROLE.MANAGER;
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -38,10 +39,10 @@ export const AdminPage = () => {
 		search: searchActive,
 		setSearch: setSearchActive,
 		setBookings,
-		sendRequest
+		sendRequest,
 	};
 
-	return accessToPage.includes(role) ? (
+	return hasAccess ? (
 		<>
 			{isCurrentBookingsPage && (
 				<div className={styles.adminContent}>
