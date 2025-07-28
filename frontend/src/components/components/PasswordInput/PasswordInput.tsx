@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { Icon } from '../Icon/Icon';
 import { Input } from '../Input/Input';
 import styles from './PasswordInput.module.css';
+import { PasswordInputProps } from '../typesProps/PasswordInputProps';
 
-export const PasswordInput = ({ register, setErrorServer }) => {
+export const PasswordInput = ({ register, setErrorServer }: PasswordInputProps) => {
 	const [showPassword, setShowPassword] = useState(false);
 
 	const handleShowPassword = () => {
@@ -20,7 +21,7 @@ export const PasswordInput = ({ register, setErrorServer }) => {
 						setErrorServer(null);
 					},
 				})}
-			/>{' '}
+			/>
 			<Icon
 				id={!showPassword ? 'fa-eye' : 'fa-eye-slash'}
 				size="20px"

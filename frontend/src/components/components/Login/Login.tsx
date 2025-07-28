@@ -1,4 +1,6 @@
-export const Login = ({ children, size, weight, margin }) => (
+import { LoginProps } from '../typesProps';
+
+export const Login = ({ children, size, weight, margin }: LoginProps) => (
 	<div
 		style={{
 			fontSize: size,

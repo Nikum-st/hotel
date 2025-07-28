@@ -1,13 +1,14 @@
 import { useSelector } from 'react-redux';
-import { selectLoading, selectRole } from '../../../store';
 import { Loader } from '../Loader/Loader';
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
 import { Info } from '../Info/Info';
 import { ROLE } from '../../../constants';
+import { WrapperProps } from '../typesProps';
+import { RootState } from '../../../store/store';
 
-export const Wrapper = ({ children, error, adminAccess = false }) => {
-	const role = useSelector(selectRole);
-	const isLoading = useSelector(selectLoading);
+export const Wrapper = ({ children, error, adminAccess = false }: WrapperProps) => {
+	const role = useSelector((state: RootState) => state.user?.role);
+	const isLoading = useSelector((state: RootState) => state.app.loading);
 
 	const accessError = adminAccess
 		? role === ROLE.ADMIN

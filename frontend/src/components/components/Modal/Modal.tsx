@@ -1,18 +1,14 @@
 import styles from './Modal.module.css';
 import { Button } from '../Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-	selectIsOpenModal,
-	selectOnConfirmModal,
-	selectTextModal,
-	CLOSE_MODAL,
-} from '../../../store';
+import { RootState } from '../../../store/store';
+import { closeModal } from '../../../store';
 
 export const Modal = () => {
-	const text = useSelector(selectTextModal);
+	const { text, isOpen, onConfirmModal } = useSelector(
+		(state: RootState) => state.app.modal,
+	);
 	const dispatch = useDispatch();
-	const onConfirmModal = useSelector(selectOnConfirmModal);
-	const isOpen = useSelector(selectIsOpenModal);
 
 	if (!isOpen) {
 		return;
@@ -27,7 +23,7 @@ export const Modal = () => {
 					<Button onClick={onConfirmModal} width="120px">
 						Yes
 					</Button>
-					<Button onClick={() => dispatch(CLOSE_MODAL)} width="120px">
+					<Button onClick={() => dispatch(closeModal())} width="120px">
 						Cancel
 					</Button>
 				</div>
