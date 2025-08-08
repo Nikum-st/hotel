@@ -18,7 +18,7 @@ export const PasswordInput = ({ register, setErrorServer }: PasswordInputProps) 
 				placeholder="Password..."
 				{...register(`password`, {
 					onChange: () => {
-						setErrorServer(null);
+						setErrorServer?.(null);
 					},
 				})}
 			/>

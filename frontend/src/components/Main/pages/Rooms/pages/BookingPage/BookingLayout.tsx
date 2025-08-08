@@ -10,6 +10,7 @@ import {
 } from '../../../../../components';
 import styles from './Booking.module.css';
 import { Link } from 'react-router-dom';
+import { BookingProps } from './types/BookingProps';
 
 export const BookingLayout = ({
 	errorFromServer,
@@ -24,9 +25,9 @@ export const BookingLayout = ({
 	errorsGeneral,
 	name,
 	booking,
-}) => {
+}: BookingProps) => {
 	return (
-		<Wrapper alwaysAccess={true} error={errorFromServer}>
+		<Wrapper adminAccess={true} error={errorFromServer}>
 			<div className={styles.content}>
 				{booking ? (
 					<div className={styles.bookInfo}>
@@ -34,9 +35,7 @@ export const BookingLayout = ({
 							<Icon size={'100px'} id={'fa-check'} title="success" />
 						</Link>
 						<BookingInfo
-							asdd={111}
 							id={booking.id}
-							user={booking.user}
 							firstName={booking.firstName}
 							lastName={booking.lastName}
 							phone={booking.phone}
@@ -44,7 +43,7 @@ export const BookingLayout = ({
 							checkOut={booking.checkOut}
 							totalPrice={booking.totalPrice}
 							numOfDays={booking.numOfDays}
-							roomName={booking.roomName}
+							roomName={booking.room}
 						/>
 					</div>
 				) : (
@@ -57,7 +56,6 @@ export const BookingLayout = ({
 							<label htmlFor="firstName">Enter your first name:</label>
 							<Input
 								type="text"
-								name="firstName"
 								placeholder="First name..."
 								{...register('firstName')}
 							/>
@@ -67,7 +65,6 @@ export const BookingLayout = ({
 							<label htmlFor="lastName">Enter your last name:</label>
 							<Input
 								type="text"
-								name="lastName"
 								placeholder="Last name..."
 								{...register('lastName')}
 							/>
@@ -77,7 +74,6 @@ export const BookingLayout = ({
 							<label htmlFor="phone">Enter your phone number:</label>
 							<Input
 								type="tel"
-								name="phone"
 								placeholder="Your phone..."
 								{...register('phone')}
 							/>

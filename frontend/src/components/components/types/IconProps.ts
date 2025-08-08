@@ -6,4 +6,5 @@ export type IconProps = {
 	title?: string;
 	color?: string;
 	cursor?: string;
+	type?: string;
 };
