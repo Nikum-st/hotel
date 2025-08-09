@@ -7,10 +7,10 @@ type BodyStyle = {
 };
 
 export type TBodyProps = {
-	Icon?: React.FC<IconProps>;
+	isIcon?: boolean;
 	bookings: bookingType[] | archiveType[];
 	archiveStyle: BodyStyle;
 	deleteBooking: (id: string) => void;
 };
 
-export type THeadProps = { Icon?: React.FC<IconProps>; archiveStyle: BodyStyle };
+export type THeadProps = { isIcon?: boolean; archiveStyle: BodyStyle };

@@ -1,7 +1,7 @@
-import { Info } from '../../../../../../components';
+import { Icon, Info } from '../../../../../../components';
 import { TBodyProps } from './types';
 
-export const Tbody = ({ Icon, bookings, archiveStyle, deleteBooking }: TBodyProps) => {
+export const Tbody = ({ isIcon, bookings, archiveStyle, deleteBooking }: TBodyProps) => {
 	return (
 		<tbody style={archiveStyle}>
 			{bookings?.length === 0 ? (
@@ -31,7 +31,7 @@ export const Tbody = ({ Icon, bookings, archiveStyle, deleteBooking }: TBodyProp
 						<td>{b.room}</td>
 						<td>{b.checkIn}</td>
 						<td>{b.checkOut}</td>
-						{Icon && (
+						{isIcon && (
 							<td>
 								<Icon
 									onClick={() => deleteBooking(b.id)}

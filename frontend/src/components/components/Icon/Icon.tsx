@@ -9,9 +9,18 @@ export const Icon: React.FC<IconProps> = ({
 	title,
 	color,
 	cursor,
+	colorHover,
 }) => (
 	<div
-		style={{ margin: margin, fontSize: size, color: color, cursor: cursor }}
+		style={
+			{
+				margin,
+				fontSize: size,
+				cursor,
+				'--icon-color': color,
+				'--icon-hover-color': colorHover,
+			} as React.CSSProperties
+		}
 		className={styles.icon}
 		onClick={onClick}
 	>

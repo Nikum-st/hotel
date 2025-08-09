@@ -18,7 +18,7 @@ export const Routing = () => (
 		<Route path="/rooms/:name" element={<RoomDetails />} />
 		<Route path="/rooms/:name/edit" element={<RoomDetails />} />
 		<Route path="/rooms/:name/booking" element={<BookingPage />} />
-		<Route path="/admin/current-bookings" element={<AdminPage />} />
+		<Route path="/admin/active-bookings" element={<AdminPage />} />
 		<Route path="/admin/archive" element={<AdminPage />} />
 		<Route path="/admin/users" element={<AdminPage />} />
 		<Route path="/authorize" element={<AuthorizationPage />} />

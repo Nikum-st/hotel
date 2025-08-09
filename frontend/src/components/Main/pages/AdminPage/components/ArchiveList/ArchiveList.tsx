@@ -2,14 +2,16 @@ import { useEffect, useRef, useState } from 'react';
 import { Button, Wrapper } from '../../../../../components';
 import { Bookings } from '../Bookings/Bookings';
 import styles from './ArchiveList.module.css';
-import { UseRequestReturn } from '../../../../../../hooks/types/UseRequesrTypes';
 import { archiveType } from '../../../../../../types/archiveType';
 import { useModal } from '../../../../../components/Modal/ModalContext';
+import { useRequest } from '../../../../../../hooks';
 
-export const ArchiveList = ({ sendRequest, error }: UseRequestReturn) => {
+export const ArchiveList = () => {
 	const [archive, setArchive] = useState<archiveType[]>([]);
 	const [searchArchive, setSearchArchive] = useState('');
 	const archiveRef = useRef(null);
+
+	const { sendRequest, error } = useRequest();
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -59,7 +61,8 @@ export const ArchiveList = ({ sendRequest, error }: UseRequestReturn) => {
 				<>
 					<Button
 						onClick={clearArchive}
-						style={{ background: 'rgb(175, 3, 3)' }}
+						style={archive.length ? { background: 'rgb(175, 3, 3)' } : {}}
+						disabled={!archive.length}
 					>
 						Clear archive
 					</Button>

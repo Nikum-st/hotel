@@ -1,5 +1,5 @@
 import { ROLE } from '../../../../../../../constants';
-import { Icon } from '../../../../../../components';
+import { IconDelete } from '../../../../../../components';
 import { useRequest } from '../../../../../../../hooks/useRequest';
 import { userType } from '../../../../../../../types/userType';
 import { useModal } from '../../../../../../components/Modal/ModalContext';
@@ -68,12 +68,7 @@ export const UserRaw = ({ user, setUsers }: UserRawProps) => {
 					</select>
 				</td>
 				<td>
-					<Icon
-						onClick={() => deleteUser(user.id)}
-						id="fa-trash"
-						size="20px"
-						color="red"
-					/>
+					<IconDelete onClick={() => deleteUser(user.id)} />
 				</td>
 			</tr>
 		</>

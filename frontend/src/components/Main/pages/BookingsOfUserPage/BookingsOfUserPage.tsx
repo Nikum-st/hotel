@@ -22,7 +22,7 @@ export const BookingsOfUserPage = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			if (bookingsOfUser.length && role !== ROLE.USER) {
-				navigate('/admin/current-bookings');
+				navigate('/admin/active-bookings');
 				return null;
 			}
 			window.scrollTo(0, 0);

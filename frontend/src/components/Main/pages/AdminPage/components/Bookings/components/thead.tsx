@@ -1,6 +1,6 @@
 import { THeadProps } from './types';
 
-export const Thead = ({ Icon, archiveStyle }: THeadProps) => (
+export const Thead = ({ isIcon, archiveStyle }: THeadProps) => (
 	<thead style={archiveStyle}>
 		<tr>
 			<th>Booking</th>
@@ -11,7 +11,7 @@ export const Thead = ({ Icon, archiveStyle }: THeadProps) => (
 			<th>Room</th>
 			<th>Check in</th>
 			<th>Check out</th>
-			{Icon && <th>Action</th>}
+			{isIcon && <th>Action</th>}
 		</tr>
 	</thead>
 );

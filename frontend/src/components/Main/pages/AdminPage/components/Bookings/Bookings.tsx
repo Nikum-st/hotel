@@ -13,7 +13,7 @@ export const Bookings = forwardRef<HTMLDivElement, BookingsProps>(
 	(
 		{
 			bookings,
-			Icon,
+			isIcon,
 			styleHeader,
 			styleBody,
 			search,
@@ -70,10 +70,10 @@ export const Bookings = forwardRef<HTMLDivElement, BookingsProps>(
 								archiveStyle={
 									styleHeader as { background: string; color: string }
 								}
-								Icon={Icon as React.FC<IconProps>}
+								isIcon={isIcon}
 							/>
 							<Tbody
-								Icon={Icon as React.FC<IconProps>}
+								isIcon={isIcon}
 								archiveStyle={styleBody as { background: string }}
 								deleteBooking={deleteBooking}
 								bookings={
