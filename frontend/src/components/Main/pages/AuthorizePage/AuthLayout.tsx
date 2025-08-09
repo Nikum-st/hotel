@@ -42,8 +42,8 @@ export const AuthLayout = ({
 				<Button
 					type="submit"
 					width="100%"
-					style={errorMessage && { cursor: 'auto' }}
-					disabled={errorMessage}
+					style={errorMessage ? { cursor: 'auto' } : {}}
+					disabled={!!errorMessage}
 				>
 					Sign In
 				</Button>

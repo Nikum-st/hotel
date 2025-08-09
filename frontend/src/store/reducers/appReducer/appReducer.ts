@@ -12,14 +12,6 @@ const appSlice = createSlice({
 		setCurrentPage(state, action) {
 			state.currentPage = action.payload;
 		},
-		openModal(state, action) {
-			state.modal.isOpen = true;
-			state.modal.text += action.payload.text;
-			state.modal.isOpen = action.payload.onConfirmModal;
-		},
-		closeModal(state) {
-			state.modal = { ...initialStateApp.modal };
-		},
 		loading(state, action) {
 			state.loading = action.payload;
 		},
@@ -36,5 +28,4 @@ const appSlice = createSlice({
 });
 
 export const appReducer = appSlice.reducer;
-export const { setTotalPages, setCurrentPage, openModal, closeModal, loading } =
-	appSlice.actions;
+export const { setTotalPages, setCurrentPage, loading } = appSlice.actions;

@@ -2,16 +2,14 @@ import { useEffect, useRef, useState } from 'react';
 import { Button, Wrapper } from '../../../../../components';
 import { Bookings } from '../Bookings/Bookings';
 import styles from './ArchiveList.module.css';
-import { closeModal, openModal } from '../../../../../../store';
-import { useDispatch } from 'react-redux';
 import { UseRequestReturn } from '../../../../../../hooks/types/UseRequesrTypes';
 import { archiveType } from '../../../../../../types/archiveType';
+import { useModal } from '../../../../../components/Modal/ModalContext';
 
 export const ArchiveList = ({ sendRequest, error }: UseRequestReturn) => {
 	const [archive, setArchive] = useState<archiveType[]>([]);
 	const [searchArchive, setSearchArchive] = useState('');
 	const archiveRef = useRef(null);
-	const dispatch = useDispatch();
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -25,29 +23,23 @@ export const ArchiveList = ({ sendRequest, error }: UseRequestReturn) => {
 		fetchArchive();
 	}, [sendRequest]);
 
+	const { openModal } = useModal();
+
 	const clearArchive = async () => {
-		if (archive.length === 0) {
-			return;
-		}
-		dispatch(
-			openModal({
-				text: 'clear the archive? It will be impossible to restore it.',
-				onConfirmModal: async () => {
-					try {
-						const data = await sendRequest(`/admin/archive`, 'DELETE');
-						if (data) {
-							setArchive([]);
-						}
-					} catch (e) {
-						if (e instanceof Error) {
-							console.error(e.message);
-						}
-					} finally {
-						dispatch(closeModal());
-					}
-				},
-			}),
-		);
+		if (archive.length === 0) return;
+
+		openModal('clear the archive? It will be impossible to restore it.', async () => {
+			try {
+				const data = await sendRequest(`/admin/archive`, 'DELETE');
+				if (data) {
+					setArchive([]);
+				}
+			} catch (e) {
+				if (e instanceof Error) {
+					console.error(e.message);
+				}
+			}
+		});
 	};
 
 	const archiveProps = {

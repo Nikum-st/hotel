@@ -4,7 +4,8 @@ import { Icon } from '../../../../components/Icon/Icon';
 import { useDispatch, useSelector } from 'react-redux';
 import { ROLE } from '../../../../../constants';
 import { RootState } from '../../../../../store/store';
-import { closeModal, loading, logOut, openModal } from '../../../../../store';
+import { loading, logOut } from '../../../../../store';
+import { useModal } from '../../../../components/Modal/ModalContext';
 
 export const Authenticated = () => {
 	const login = useSelector((state: RootState) => state.user?.login);
@@ -13,21 +14,23 @@ export const Authenticated = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
+	const { openModal } = useModal();
+
 	const handleLogOut = async () => {
-		dispatch(
-			openModal({
-				text: 'log out?',
-				onConfirmModal: async () => {
-					dispatch(loading(true));
-					await fetch('/logout', { method: 'POST' }).finally(() => {
-						dispatch(loading(false));
-					});
-					dispatch(logOut());
-					dispatch(closeModal());
-					navigate('/');
-				},
-			}),
-		);
+		openModal('log out?', async () => {
+			try {
+				dispatch(loading(true));
+				await fetch('/logout', { method: 'POST' }).finally(() => {
+					dispatch(loading(false));
+				});
+				dispatch(logOut());
+				navigate('/');
+			} catch (e) {
+				if (e instanceof Error) {
+					console.error(e.message);
+				}
+			}
+		});
 	};
 
 	return (
