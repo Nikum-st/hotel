@@ -11,7 +11,9 @@ type ImgEditingProps = {
 export const ImgEditing = ({ img, room, setImg }: ImgEditingProps) => {
 	return (
 		<div className={styles.imgContainer}>
-			<img src={img ? URL.createObjectURL(img) : room?.img} alt={room?.name} />
+			{(img || room?.img) && (
+				<img src={img ? URL.createObjectURL(img) : room?.img} alt={room?.name} />
+			)}
 			<label>
 				<div className={styles.iconContainer}>
 					<Icon type="file" color="black" size="45px" id="fa-picture-o" />

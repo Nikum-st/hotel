@@ -3,12 +3,11 @@ import { Input, Info } from '../../../../../components';
 import styles from './Bookings.module.css';
 import { Thead } from './components/thead';
 import { Tbody } from './components/tbody';
-import { useDispatch } from 'react-redux';
-import { closeModal, openModal } from '../../../../../../store';
 import { BookingsProps } from '../types';
 import { bookingType } from '../../../../../../types/bookingsType';
 import { IconProps } from '../../../../../components/types';
 import { archiveType } from '../../../../../../types/archiveType';
+import { useModal } from '../../../../../components/Modal/ModalContext';
 
 export const Bookings = forwardRef<HTMLDivElement, BookingsProps>(
 	(
@@ -25,33 +24,32 @@ export const Bookings = forwardRef<HTMLDivElement, BookingsProps>(
 		},
 		ref,
 	) => {
-		const dispatch = useDispatch();
+		const { openModal } = useModal();
 
-		const deleteBooking = async (id: string) => {
-			if (!sendRequest || !setBookings || archiveType) return;
-			dispatch(
-				openModal({
-					text: 'remove the booking?',
-					onConfirmModal: async () => {
-						const isDeleted = await sendRequest(`/bookings/${id}`, 'DELETE');
-
-						if (isDeleted) {
-							setBookings(
-								(bookings as bookingType[]).filter((b) => b.id !== id),
-							);
-						}
-						dispatch(closeModal());
-					},
-				}),
-			);
+		const deleteBooking = (id: string) => {
+			if (!sendRequest || !setBookings) {
+				return;
+			}
+			openModal('remove the booking?', async () => {
+				try {
+					const isDeleted = await sendRequest(`/bookings/${id}`, 'DELETE');
+					if (isDeleted) {
+						setBookings((prev) => prev.filter((b) => b.id !== id));
+					}
+				} catch (error) {
+					console.error('Ошибка при удалении брони:', error);
+				}
+			});
 		};
 
-		const filteredBookings =
-			bookings?.filter(
-				(b) =>
-					b.firstName?.toLowerCase().includes(search?.toLowerCase()) ||
-					b.id?.toLowerCase().includes(search?.toLowerCase()),
-			) || [];
+		type CommonItems = Pick<bookingType, 'id' | 'firstName'> &
+			Pick<archiveType, 'id' | 'firstName'>;
+
+		const filteredBookings = (bookings as CommonItems[]).filter(
+			(b) =>
+				b.firstName.toLowerCase().includes(search?.toLowerCase() || '') ||
+				b.id.toLowerCase().includes(search?.toLowerCase() || ''),
+		);
 
 		return (
 			<>

@@ -10,14 +10,10 @@ import { useParams } from 'react-router-dom';
 import { Info } from '../../../../../components';
 import { useRequest } from '../../../../../../hooks/useRequest';
 import { RootState } from '../../../../../../store/store';
-import {
-	closeModal,
-	openModal,
-	setRooms,
-	updateRoomBookings,
-} from '../../../../../../store';
+import { setRooms, updateRoomBookings } from '../../../../../../store';
 import { BookingFormData } from './types/BookingsFormData';
 import { bookingsUser } from '../../../../../../types/bookingsUser';
+import { useModal } from '../../../../../components/Modal/ModalContext';
 
 export const BookingPage = () => {
 	const [errorsGeneral, setErrorsGeneral] = useState<string | null>(null);
@@ -27,6 +23,8 @@ export const BookingPage = () => {
 	const rooms = useSelector((state: RootState) => state.rooms);
 	const dispatch = useDispatch();
 	const { sendRequest, error } = useRequest();
+
+	const { openModal } = useModal();
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -97,35 +95,35 @@ export const BookingPage = () => {
 			return;
 		}
 
-		dispatch(
-			openModal({
-				text: 'book this room for these dates?',
-				onConfirmModal: async () => {
-					const newBooking = await sendRequest(
-						`/rooms/${roomCurrent?.id}/booking`,
-						'POST',
-						{
-							firstName,
-							lastName,
-							phone,
-							startDate,
-							endDate,
-						},
+		openModal('book this room for these dates?', async () => {
+			try {
+				const newBooking = await sendRequest(
+					`/rooms/${roomCurrent?.id}/booking`,
+					'POST',
+					{
+						firstName,
+						lastName,
+						phone,
+						startDate,
+						endDate,
+					},
+				);
+				if (newBooking) {
+					dispatch(
+						updateRoomBookings({
+							roomId: roomCurrent?.id,
+							checkIn: newBooking.checkIn,
+							checkOut: newBooking.checkOut,
+						}),
 					);
-					if (newBooking) {
-						dispatch(
-							updateRoomBookings({
-								roomId: roomCurrent?.id,
-								checkIn: newBooking.checkIn,
-								checkOut: newBooking.checkOut,
-							}),
-						);
-						setBooking(newBooking);
-					}
-					dispatch(closeModal());
-				},
-			}),
-		);
+					setBooking(newBooking);
+				}
+			} catch (e) {
+				if (e instanceof Error) {
+					console.error(e.message);
+				}
+			}
+		});
 	};
 
 	const isDateDisabled = (date: Date) => {

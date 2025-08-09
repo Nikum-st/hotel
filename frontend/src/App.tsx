@@ -1,13 +1,12 @@
 import { Header, Main } from './components';
-import { Modal } from './components/components/Modal/Modal';
+import { ModalProvider } from './components/components/Modal/ModalContext';
 
 function App() {
 	return (
-		<div>
+		<ModalProvider>
 			<Header />
 			<Main />
-			<Modal />
-		</div>
+		</ModalProvider>
 	);
 }
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Icon, Info } from '../../../components';
+import { Info } from '../../../components';
 import { useRequest } from '../../../../hooks/useRequest';
 import { Bookings } from './components/Bookings/Bookings';
 import { ArchiveList } from './components/ArchiveList/ArchiveList';
@@ -35,7 +35,6 @@ export const AdminPage = () => {
 
 	const bookingsProps = {
 		bookings,
-		Icon,
 		search: searchActive,
 		setSearch: setSearchActive,
 		setBookings,

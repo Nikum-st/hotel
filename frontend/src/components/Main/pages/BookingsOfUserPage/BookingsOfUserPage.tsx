@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { closeModal, deleteBooking, openModal } from '../../../../store';
+import { deleteBooking } from '../../../../store';
 import { BookingsPageLayout } from './BookingsPageLayout';
 import { useRequest } from '../../../../hooks/useRequest';
 import { ROLE } from '../../../../constants';
@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { DeleteBookingFC } from './types/BookingCardProps';
 import { RootState } from '../../../../store/store';
 import { bookingsUser } from '../../../../types/bookingsUser';
+import { useModal } from '../../../components/Modal/ModalContext';
 
 export const BookingsOfUserPage = () => {
 	const [bookingsOfUser, setBookingsOfUser] = useState<bookingsUser[]>([]);
@@ -15,6 +16,8 @@ export const BookingsOfUserPage = () => {
 	const { sendRequest, error } = useRequest();
 	const role = useSelector((state: RootState) => state.user?.role);
 	const navigate = useNavigate();
+
+	const { openModal } = useModal();
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -34,19 +37,19 @@ export const BookingsOfUserPage = () => {
 	}, [sendRequest, bookingsOfUser.length, navigate, role]);
 
 	const deleteBookingFromStore: DeleteBookingFC = async (id, roomName, checkIn) => {
-		dispatch(
-			openModal({
-				text: 'remove the booking?',
-				onConfirmModal: async () => {
-					const isDeleted = await sendRequest(`/bookings/${id}`, 'DELETE');
-					if (isDeleted) {
-						setBookingsOfUser(bookingsOfUser.filter((b) => b.id !== id));
-						dispatch(deleteBooking({ roomName, checkIn }));
-					}
-					dispatch(closeModal());
-				},
-			}),
-		);
+		openModal('remove the booking?', async () => {
+			try {
+				const isDeleted = await sendRequest(`/bookings/${id}`, 'DELETE');
+				if (isDeleted) {
+					setBookingsOfUser(bookingsOfUser.filter((b) => b.id !== id));
+					dispatch(deleteBooking({ roomName, checkIn }));
+				}
+			} catch (e) {
+				if (e instanceof Error) {
+					console.error(e.message);
+				}
+			}
+		});
 	};
 
 	return (

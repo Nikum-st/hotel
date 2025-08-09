@@ -6,9 +6,4 @@ export const initialStateApp = {
 	loading: false,
 	currentPage: 1,
 	totalPages: 0,
-	modal: {
-		isOpen: false,
-		text: 'Are you sure you want to ',
-		onConfirmModal: function () {},
-	},
 };

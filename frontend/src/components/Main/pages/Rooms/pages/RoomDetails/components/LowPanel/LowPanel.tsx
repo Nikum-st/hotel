@@ -7,7 +7,8 @@ import { useRequest } from '../../../../../../../../hooks/useRequest';
 import { ImgEditing } from './components/ImgEditing';
 import { validateImage } from './utils/validate-image';
 import { RootState } from '../../../../../../../../store/store';
-import { closeModal, openModal, setRoom } from '../../../../../../../../store';
+import { setRoom } from '../../../../../../../../store';
+import { useModal } from '../../../../../../../components/Modal/ModalContext';
 
 export const LowPanel = () => {
 	const [errorInput, setErrorInput] = useState<string | null>(null);
@@ -26,6 +27,7 @@ export const LowPanel = () => {
 	const refAmenities = useRef<HTMLInputElement>(null);
 	const refPrice = useRef<HTMLInputElement>(null);
 	const { error } = useRequest();
+	const { openModal } = useModal();
 
 	const handleSave = async () => {
 		setErrorInput(null);
@@ -73,36 +75,33 @@ export const LowPanel = () => {
 		formData.append('amenities', refAmenities.current.value);
 		formData.append('price', refPrice.current.value);
 
-		dispatch(
-			openModal({
-				text: 'save the new values for the room?',
-				onConfirmModal: async () => {
-					await fetch(`/api/rooms/${room.id}`, {
-						method: 'PATCH',
-						body: formData,
-					})
-						.then((response) => response.json())
-						.then(({ error, data }) => {
-							if (error) {
-								console.error(error);
-							} else {
-								dispatch(setRoom(data));
-								navigate(`/rooms/${data.name}`);
-							}
-						})
-						.catch((e) => console.error(e))
-						.finally(() => {
-							dispatch(closeModal());
-						});
-				},
-			}),
-		);
+		openModal('save the new values for the room?', async () => {
+			await fetch(`/api/rooms/${room.id}`, {
+				method: 'PATCH',
+				body: formData,
+			})
+				.then((response) => response.json())
+				.then(({ error, data }) => {
+					if (error) {
+						console.error(error);
+					} else {
+						dispatch(setRoom(data));
+						navigate(`/rooms/${data.name}`);
+					}
+				})
+				.catch((e) => console.error(e));
+		});
 	};
 
 	return (
 		<div className={styles.containerDetails}>
 			{!isEditing ? (
-				<img src={img ? URL.createObjectURL(img) : room?.img} alt={room?.name} />
+				(img || room?.img) && (
+					<img
+						src={img ? URL.createObjectURL(img) : room?.img}
+						alt={room?.name}
+					/>
+				)
 			) : (
 				<ImgEditing img={img} room={room} setImg={setImg} />
 			)}
