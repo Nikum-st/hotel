@@ -19,10 +19,10 @@ const appSlice = createSlice({
 	extraReducers: (builder) => {
 		builder
 			.addCase(logUser, (state) => {
-				state.isAuthenticated = false;
+				state.isAuthenticated = true;
 			})
 			.addCase(logOut, (state) => {
-				state.isAuthenticated = true;
+				state.isAuthenticated = false;
 			});
 	},
 });
