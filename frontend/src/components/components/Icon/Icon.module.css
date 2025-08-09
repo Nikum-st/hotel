@@ -1,5 +1,5 @@
 .icon {
-	color: #d4d4d4;
+	color: var(--icon-color, #d4d4d4);
 	cursor: pointer;
 	margin-left: 10px;
 	font-size: inherit;
@@ -7,5 +7,5 @@
 }
 
 .icon:hover {
-	color: #797979;
+	color: var(--icon-hover-color, #797979);
 }

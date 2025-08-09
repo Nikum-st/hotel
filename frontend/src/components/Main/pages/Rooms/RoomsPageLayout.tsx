@@ -10,7 +10,7 @@ type TRoomsPageProps = {
 };
 
 export const RoomsPageLayout = ({ errorFromServer, rooms }: TRoomsPageProps) => (
-	<Wrapper adminAccess={true} error={errorFromServer}>
+	<Wrapper error={errorFromServer}>
 		<div className={styles.content}>
 			<div className={styles.containerRooms}>
 				{rooms.map((room) => (

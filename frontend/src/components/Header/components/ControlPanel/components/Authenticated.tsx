@@ -37,7 +37,7 @@ export const Authenticated = () => {
 		<div className={styles.controlPanel}>
 			<div className={styles.login}>{login}</div>
 			{(role === ROLE.ADMIN || role === ROLE.MANAGER) && (
-				<Link to="/admin/current-bookings">
+				<Link to="/admin/active-bookings">
 					<Icon size="30px" id="fa-list-alt" title="Current bookings" />
 				</Link>
 			)}

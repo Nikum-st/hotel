@@ -11,7 +11,7 @@ export type BookingsProps = {
 	archiveType?: boolean;
 	styleHeader?: { background: string; color: string };
 	styleBody?: { background: string };
-	Icon?: React.FC<IconProps>;
+	isIcon?: boolean;
 	setBookings?: React.Dispatch<React.SetStateAction<bookingType[]>>;
 	sendRequest?: SendRequestFn;
 	clearArchive?: () => Promise<void>;

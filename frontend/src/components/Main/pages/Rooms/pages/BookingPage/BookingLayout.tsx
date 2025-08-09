@@ -27,7 +27,7 @@ export const BookingLayout = ({
 	booking,
 }: BookingProps) => {
 	return (
-		<Wrapper adminAccess={true} error={errorFromServer}>
+		<Wrapper error={errorFromServer}>
 			<div className={styles.content}>
 				{booking ? (
 					<div className={styles.bookInfo}>
