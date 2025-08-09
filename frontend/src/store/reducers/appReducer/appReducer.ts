@@ -7,7 +7,7 @@ const appSlice = createSlice({
 	initialState: initialStateApp,
 	reducers: {
 		setTotalPages(state, action) {
-			state.currentPage = action.payload;
+			state.totalPages = action.payload;
 		},
 		setCurrentPage(state, action) {
 			state.currentPage = action.payload;
