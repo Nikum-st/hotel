@@ -1,13 +1,13 @@
 (Eng)
-Grand Lotus Hotel
-Project Description
+# Grand Lotus Hotel
+## Project Description
 Grand Lotus Hotel is a responsive full-stack website for hotel room booking with personal accounts for clients and administrators, as well as an admin panel. Users can view room availability, make and manage reservations online.
 
-Technologies
+## Technologies
 Frontend: TypeScript, React (TSX), Redux Toolkit,React Context, React Router, CSS Modules, YUP, Moment, Datepicker, FontAwesome
 Backend: Node.js, Express, MongoDB, Mongoose, Multer, JWT, Bcrypt
 
-Features
+## Features
 User registration and authentication using JWT and Yup
 
 - Personal dashboards for clients, managers, and administrators
@@ -18,7 +18,7 @@ User registration and authentication using JWT and Yup
 - Room image uploads via Multer
 - Error handling and form validation on both client and server sides
 
-Project Setup
+## Project Setup
 Clone the repository:
 git clone https://github.com/Nikum-st/hotel.git
 
@@ -33,7 +33,7 @@ cd frontend
 npm install
 npm start
 
-Project Structure
+## Project Structure
 
 /backend — server-side logic and API
 models/ — MongoDB schemas and models (Rooms, Users, Bookings)
@@ -52,13 +52,13 @@ store/ — Redux Toolkit: slices, store configuration
 types/ - types of the main project entities
 yup/ — form validation schemes (registration, login, booking)
 
-Backend Environment Variables
+## Backend Environment Variables
 Create a .env file in /backend with:
 
 MONGODB_URI=<your MongoDB URI, e.g., mongodb+srv://user:password@cluster.mongodb.net/hotel>
 TOKEN_SECRET=<your secret JWT key>
 
-BFF Stub Server Support
+## BFF Stub Server Support
 This project includes the ability to run a BFF stub server using json-server for early-stage preview and testing without a full backend on Express/Node.js.
 
 Where the logic lives
@@ -90,25 +90,25 @@ Vanilla JavaScript
 React + JSX
 JSON Server
 
-Contact
+## Contact
 For questions and suggestions, feel free to reach out:
 
 📧 Email: nikita.italia2023@gmail.com, nikitaumanskiy1998@mail.ru,
 📱 Telegram / WhatsApp: +39 380 14-666-17(it), +7 914 744-30-83(rus)
 
 (Rus)
-Grand Lotus Hotel
+# Grand Lotus Hotel
 
-Описание проекта
+## Описание проекта
 Grand Lotus Hotel — адаптивный full-stack сайт для онлайн-бронирования отеля с личными кабинетами для клиентов и администраторов, а также административной панелью. 
 Позволяет просматривать доступность номеров, создавать и управлять бронированиями.
 
-Технологии:
+## Технологии:
 
 - Frontend: TypeScript, React (TSX), Redux Toolkit, React Context,React Router, CSS module, YUP, Moment,Datepicker, FontsAwesome
 - Backend: Node.js, Express, MongoDB, Mongoose, Multer, JWT, Bcrypt
 
-Функционал:
+## Функционал:
 
 - Регистрация и аутентификация пользователей с JWT и Yup
 - Личные кабинеты для клиентов, менеджеров и администратора
@@ -119,7 +119,7 @@ Grand Lotus Hotel — адаптивный full-stack сайт для онлай
 - Загрузка изображений номеров через Multer
 - Обработка ошибок и валидация данных на сервере и клиенте
 
-Запуск проекта:
+## Запуск проекта:
 
  1. Клонировать репозиторий:
     git clone https://github.com/Nikum-st/hotel.git
@@ -134,7 +134,7 @@ Grand Lotus Hotel — адаптивный full-stack сайт для онлай
     npm install
     npm start
 
-Структура проекта:
+## Структура проекта:
 
 /backend — серверная часть с API и бизнес-логикой
 /frontend — клиентская часть с React-приложением
@@ -156,12 +156,12 @@ store/ — Redux Toolkit: слайсы, конфигурация стора
 types/ - типы основных сущностей проекта
 yup/ — схемы валидации форм (регистрация, логин, бронирование)
 
-Переменные окружения backend:
+## Переменные окружения backend:
 
 MONGODB_URI=<ваш MongoDB URI, например mongodb+srv://user:password@cluster.mongodb.net/hotel>
 TOKEN_SECRET=<секретный ключ для генерации JWT-токенов>
 
-Возможность запуска с BFF-заглушкой
+## Возможность запуска с BFF-заглушкой
 В проекте предусмотрена возможность запуска BFF-заглушки на основе json-server для раннего просмотра и тестирования без полноценного бэкенда на Express/Node.js.
 
 Где находится логика
@@ -194,7 +194,7 @@ JavaScript (Vanilla)
 React + JSX
 JSON Server
 
-Контакты
+## Контакты
 По вопросам и предложениям пишите: 
 
 📧 Email: nikitaumanskiy1998@mail.ru
