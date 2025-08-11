@@ -62,6 +62,10 @@ BFF Stub Server Support
 This project includes the ability to run a BFF stub server using json-server for early-stage preview and testing without a full backend on Express/Node.js.
 
 Where the logic lives
+
+Go to the branch HOTEL-008.01
+Go to the folder frontend
+
 The /BFF folder contains:
 api — endpoints for data handling
 operations — basic operations
@@ -163,6 +167,7 @@ TOKEN_SECRET=<секретный ключ для генерации JWT-токе
 Где находится логика
 
 Перейдите в ветку HOTEL-008.01
+Перейдите в папку frontend
 
 Папка /BFF содержит:
 api — ручки для работы с данными
