@@ -58,11 +58,39 @@ Create a .env file in /backend with:
 MONGODB_URI=<your MongoDB URI, e.g., mongodb+srv://user:password@cluster.mongodb.net/hotel>
 TOKEN_SECRET=<your secret JWT key>
 
+BFF Stub Server Support
+This project includes the ability to run a BFF stub server using json-server for early-stage preview and testing without a full backend on Express/Node.js.
+
+Where the logic lives
+The /BFF folder contains:
+api — endpoints for data handling
+operations — basic operations
+sessions — session simulation
+db.json — simple JSON database
+
+How to run
+
+Install dependencies:
+npm install
+
+Start the project (frontend + json-server):
+npm start
+
+⚡ This script will automatically launch both the React app and the JSON server on port 3005.
+
+Warning
+This is an early-stage version of the project. Many features are not yet implemented. However, the stub server lets you explore the frontend architecture and BFF principles without a real backend.
+
+Technology Stack
+Vanilla JavaScript
+React + JSX
+JSON Server
+
 Contact
 For questions and suggestions, feel free to reach out:
 
-📧 Email: nikitaumanskiy1998@mail.ru, nikita.italia2023@gmail.com
-📱 Telegram / WhatsApp: +7 914 744-30-83(rus), +39 380 14-666-17(it)
+📧 Email: nikita.italia2023@gmail.com, nikitaumanskiy1998@mail.ru,
+📱 Telegram / WhatsApp: +39 380 14-666-17(it), +7 914 744-30-83(rus)
 
 (Rus)
 Grand Lotus Hotel
@@ -128,6 +156,36 @@ yup/ — схемы валидации форм (регистрация, лог�
 
 MONGODB_URI=<ваш MongoDB URI, например mongodb+srv://user:password@cluster.mongodb.net/hotel>
 TOKEN_SECRET=<секретный ключ для генерации JWT-токенов>
+
+Возможность запуска с BFF-заглушкой
+В проекте предусмотрена возможность запуска BFF-заглушки на основе json-server для раннего просмотра и тестирования без полноценного бэкенда на Express/Node.js.
+
+Где находится логика
+
+Папка /BFF содержит:
+api — ручки для работы с данными
+operations — базовые операции
+sessions — имитация работы сессии
+db.json — простая база данных в JSON-формате
+
+Как запустить
+
+Установите зависимости:
+npm install
+
+Запустите проект (фронт + json-server):
+npm start
+
+⚡ Скрипт автоматически поднимет и React-приложение, и JSON-сервер на порте 3005.
+
+Предупреждение
+Это ранняя версия проекта. Часть функционала ещё не реализована, многие возможности отсутствуют. Однако заглушка позволяет посмотреть архитектуру фронтенда и принцип работы BFF без реального бэкенда.
+
+Стек технологий
+
+JavaScript (Vanilla)
+React + JSX
+JSON Server
 
 Контакты
 По вопросам и предложениям пишите: 
