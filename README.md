@@ -93,7 +93,7 @@ JSON Server
 ## Contact
 For questions and suggestions, feel free to reach out:
 
-📧 Email: nikita.italia2023@gmail.com, nikitaumanskiy1998@mail.ru,
+📧 Email:nik.uman.developer@gmail.com, nikita.italia2023@gmail.com,
 📱 Telegram / WhatsApp: +39 380 14-666-17(it), +7 914 744-30-83(rus)
 
 (Rus)
@@ -197,5 +197,5 @@ JSON Server
 ## Контакты
 По вопросам и предложениям пишите: 
 
-📧 Email: nikitaumanskiy1998@mail.ru
+📧 Email: nik.uman.developer@gmail.com
 📱 Telegram / WhatsApp: +7 914 744-30-83
