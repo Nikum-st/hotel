@@ -1,0 +1,33 @@
+.footer {
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+	height: 170px;
+	background-color: #0b0e14;
+	padding: 20px;
+}
+.footer {
+	color: white;
+}
+.footer a {
+	color: #79a1e2;
+}
+.footer a:hover {
+	color: #3272da;
+	text-decoration: underline;
+	cursor: pointer;
+}
+.adress {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.socialMediaIcons {
+	display: flex;
+	justify-content: center;
+	margin: 20px;
+}
+.policy {
+	font-size: 10px;
+}

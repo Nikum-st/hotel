@@ -1,0 +1,10 @@
+.mainPage {
+	width: 100%;
+}
+.mainPage p {
+	font-family: 'Open Sans', sans-serif;
+	font-size: clamp(0.6rem, 2vw, 1.2rem);
+}
+.mainPage h2 {
+	font-family: Georgia, serif !important;
+}

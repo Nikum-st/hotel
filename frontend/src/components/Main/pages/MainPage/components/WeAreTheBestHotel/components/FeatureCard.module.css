@@ -1,0 +1,10 @@
+.featureCard {
+	display: block;
+	width: 100%;
+	justify-items: center;
+	max-width: 150px;
+	margin: 0px 66px;
+}
+.featureCard p {
+	font-size: clamp(0.6rem, 1.7vw, 1rem);
+}

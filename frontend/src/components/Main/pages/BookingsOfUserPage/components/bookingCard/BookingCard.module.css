@@ -1,0 +1,28 @@
+.booking {
+	display: flex;
+	align-items: center;
+	border: 1px solid;
+	padding: 43px;
+	border-radius: 57px;
+	box-shadow: 0px 8px 11px 0px;
+	margin: 14px;
+	width: 70%;
+}
+.booking img {
+	max-width: 15%;
+	border-radius: 52px;
+}
+@media (max-width: 1024px) {
+	.booking {
+		display: flex;
+		flex-direction: column;
+		gap: 80px;
+	}
+	.booking img {
+		max-width: 75%;
+	}
+	.booking button {
+		width: 75%;
+		font-size: 30px;
+	}
+}

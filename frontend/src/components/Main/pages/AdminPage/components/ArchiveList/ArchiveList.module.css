@@ -1,0 +1,13 @@
+.archiveList {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	margin-top: 71px;
+}
+@media (max-width: 1024px) {
+	.archiveList button {
+		width: 400px;
+		height: 70px;
+		font-size: 30px;
+	}
+}

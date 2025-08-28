@@ -1,0 +1,21 @@
+.infoCardContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: space-evenly;
+	width: 350px;
+	height: 350px;
+	margin: 8px;
+	line-height: 1.5;
+	background: rgb(145, 65, 65);
+	padding-left: 30px;
+}
+
+.infoCardContainer p {
+	font-size: clamp(0.6rem, 1.7vw, 1rem);
+}
+@media (max-widht: 1000px) {
+	.infoCardContainer {
+		margin: 0;
+	}
+}

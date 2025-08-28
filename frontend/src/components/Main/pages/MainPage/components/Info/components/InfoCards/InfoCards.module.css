@@ -1,0 +1,14 @@
+.infoCards {
+	display: flex;
+	justify-content: center;
+	top: -168px;
+	position: absolute;
+	height: 300px;
+	width: 100%;
+	z-index: 10;
+}
+@media (max-widht: 1000px) {
+	.infoCards {
+		position: unset;
+	}
+}

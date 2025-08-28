@@ -1,0 +1,17 @@
+.highPanel {
+	display: flex;
+	justify-content: center;
+}
+.icon {
+	display: flex;
+	align-items: center;
+}
+.name {
+	text-align: center;
+	margin: 40px;
+}
+@media (min-width: 601px) and (max-width: 1024px) {
+	.icon i {
+		font-size: 50px;
+	}
+}

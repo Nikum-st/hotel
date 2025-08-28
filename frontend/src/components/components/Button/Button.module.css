@@ -1,0 +1,24 @@
+.Button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border: 2px solid #d0c2b4;
+	background: #0b0e14;
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: bold;
+	color: #d4d4d4;
+	border-radius: 8px;
+	transition: all 0.2s ease;
+}
+
+.Button:hover:not(:disabled) {
+	background: #d8d8d8b7;
+	color: #000000;
+	transform: translateY(-2px);
+}
+
+.Button:disabled {
+	background: #999999b7;
+	cursor: not-allowed;
+}

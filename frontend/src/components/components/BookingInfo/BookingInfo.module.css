@@ -1,0 +1,14 @@
+.infoBooking {
+	display: flex;
+	margin: auto;
+	font-size: 17px;
+	flex-direction: column;
+	justify-content: center;
+	font-family: math;
+	white-space: nowrap;
+}
+@media (max-width: 1024px) {
+	.infoBooking {
+		font-size: 40px;
+	}
+}

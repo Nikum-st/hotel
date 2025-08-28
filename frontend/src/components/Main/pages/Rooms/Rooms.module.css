@@ -1,0 +1,29 @@
+.content {
+	margin-top: 20px;
+	max-width: 1300px;
+	font-family: math;
+}
+
+.containerRooms {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 40px;
+	margin: 0 auto;
+	padding: 20px;
+	overflow: auto;
+}
+
+@media (max-width: 1024px) {
+	.containerRooms {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 30px;
+	}
+}
+
+@media (max-width: 400px) {
+	.containerRooms {
+		grid-template-columns: 1fr;
+		gap: 20px;
+		padding: 10px;
+	}
+}
